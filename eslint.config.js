@@ -81,20 +81,11 @@ export default defineConfig([
 
       'react-hooks/exhaustive-deps': 'warn',
       'no-console': ['warn', { allow: ['info', 'error'] }],
-      'no-magic-numbers': [
-        'error',
-        { ignore: [0, 1, 2, -1, 10, 100, 1000, 1_000_000] },
-      ],
+      'no-magic-numbers': ['error', { ignore: [0, 1, 2, -1, 10, 100, 1000, 1_000_000] }],
       'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
-      'max-lines-per-function': [
-        'warn',
-        { max: 40, skipBlankLines: true, skipComments: true },
-      ],
+      'max-lines-per-function': ['warn', { max: 40, skipBlankLines: true, skipComments: true }],
 
-      '@typescript-eslint/consistent-type-assertions': [
-        'error',
-        { assertionStyle: 'never' },
-      ],
+      '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
       '@typescript-eslint/consistent-type-definitions': ['warn', 'type'],
       '@typescript-eslint/consistent-type-imports': [
         'error',
@@ -152,10 +143,7 @@ export default defineConfig([
     files: ['**/*.tsx'],
     rules: {
       '@typescript-eslint/explicit-function-return-type': 'off',
-      'max-lines-per-function': [
-        'warn',
-        { max: 80, skipBlankLines: true, skipComments: true },
-      ],
+      'max-lines-per-function': ['warn', { max: 80, skipBlankLines: true, skipComments: true }],
     },
   },
   {

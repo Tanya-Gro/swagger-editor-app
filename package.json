@@ -5,29 +5,59 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "tsc --noEmit && next build",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "lint:styles": "stylelint \"**/*.{css,scss}\"",
-    "lint:all": "npm run lint && npm run lint:styles"
+    "lint:all": "npm run lint && npm run lint:styles",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "format": "prettier --check \"**/*.{css,html,js,json,md,ts,tsx}\"",
+    "format:fix": "prettier --write \"**/*.{css,html,js,json,md,ts,tsx}\"",
+    "preview": "next start",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,scss}": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": "prettier --write"
   },
   "dependencies": {
     "next": "^16.2.7",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "react-hook-form": "^7.77.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^25.9.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "@vitest/coverage-v8": "^4.1.8",
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.2.7",
     "eslint-plugin-unicorn": "^64.0.0",
     "globals": "^17.6.0",
+    "husky": "^9.1.7",
+    "jsdom": "^29.1.1",
+    "lint-staged": "^17.0.7",
+    "prettier": "^3.8.3",
     "stylelint": "^17.13.0",
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.60.1"
+    "typescript-eslint": "^8.60.1",
+    "vitest": "^4.1.8"
   }
 }

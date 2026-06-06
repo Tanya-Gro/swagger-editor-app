@@ -1,13 +1,6 @@
 const stylelintConfig = {
   extends: ['stylelint-config-standard'],
-  ignoreFiles: [
-    '.next/**',
-    'build/**',
-    'coverage/**',
-    'dist/**',
-    'node_modules/**',
-    'out/**',
-  ],
+  ignoreFiles: ['.next/**', 'build/**', 'coverage/**', 'dist/**', 'node_modules/**', 'out/**'],
   rules: {
     'alpha-value-notation': 'percentage',
     'color-function-notation': 'modern',
