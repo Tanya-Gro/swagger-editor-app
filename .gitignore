@@ -2,11 +2,13 @@
 /dist
 /node_modules
 /build
+/coverage
 /tmp
 
 # Next.js
 /.next
 /out
+tsconfig.tsbuildinfo
 
 # Logs
 logs
