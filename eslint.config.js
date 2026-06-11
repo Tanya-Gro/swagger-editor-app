@@ -2,6 +2,7 @@ import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
 import nextCoreWebVitals from 'eslint-config-next/core-web-vitals';
 import nextTypescript from 'eslint-config-next/typescript';
+import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -24,14 +25,16 @@ export default defineConfig([
       '**/coverage/**',
       '**/*.d.ts',
       'eslint.config.js',
+      '*.config.js',
       'lint-staged.config.js',
     ],
   },
   js.configs.recommended,
+  ...typeCheckedTypescriptConfigs,
   ...nextCoreWebVitals,
   ...nextTypescript,
-  ...typeCheckedTypescriptConfigs,
   eslintPluginUnicorn.configs.recommended,
+  eslintPluginPrettier,
 
   {
     files: ['**/*.{ts,tsx}'],
@@ -78,8 +81,10 @@ export default defineConfig([
       '@typescript-eslint/no-unsafe-member-access': 'error',
       '@typescript-eslint/no-unsafe-return': 'error',
       '@typescript-eslint/no-unsafe-call': 'error',
+      '@typescript-eslint/no-confusing-void-expression': ['error', { ignoreArrowShorthand: true }],
 
       'react-hooks/exhaustive-deps': 'warn',
+
       'no-console': ['warn', { allow: ['info', 'error'] }],
       'no-magic-numbers': ['error', { ignore: [0, 1, 2, -1, 10, 100, 1000, 1_000_000] }],
       'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
@@ -101,20 +106,12 @@ export default defineConfig([
 
       'unicorn/prefer-node-protocol': 'error',
       'unicorn/prefer-top-level-await': 'error',
+
       quotes: ['error', 'single', { avoidEscape: true }],
       semi: ['error', 'always'],
       curly: ['error', 'all'],
       indent: ['error', 2, { SwitchCase: 1 }],
-      'comma-dangle': [
-        'error',
-        {
-          arrays: 'always-multiline',
-          objects: 'always-multiline',
-          imports: 'always-multiline',
-          exports: 'always-multiline',
-          functions: 'never',
-        },
-      ],
+      'comma-dangle': ['error', 'always-multiline'],
       'object-curly-spacing': ['error', 'always'],
       'brace-style': [
         'error',
@@ -125,6 +122,7 @@ export default defineConfig([
       ],
       'arrow-parens': ['error', 'always'],
       'max-len': ['warn', { code: 120, ignoreComments: true }],
+
       'no-undef': 'off',
       'no-restricted-exports': 'off',
       'react/prop-types': 'off',
@@ -137,6 +135,8 @@ export default defineConfig([
       'unicorn/filename-case': 'off',
       'unicorn/number-literal-case': 'off',
       'unicorn/prefer-query-selector': 'off',
+      'unicorn/prevent-abbreviations': 'off',
+      'unicorn/explicit-length-check': 'off',
     },
   },
   {
@@ -150,6 +150,7 @@ export default defineConfig([
     files: ['**/*.test.ts', '**/*.test.tsx'],
     rules: {
       'max-lines-per-function': 'off',
+      '@typescript-eslint/consistent-type-assertions': 'off',
     },
   },
 ]);

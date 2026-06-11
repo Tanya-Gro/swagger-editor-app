@@ -4,9 +4,6 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Swagger Editor App',
   description: 'Educational Swagger editor built with Next.js, React, and TypeScript.',
-  icons: {
-    icon: '/favicon.svg',
-  },
 };
 
 export default function RootLayout({
@@ -16,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

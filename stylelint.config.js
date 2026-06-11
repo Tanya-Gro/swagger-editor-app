@@ -1,23 +1,46 @@
-const stylelintConfig = {
-  extends: ['stylelint-config-standard'],
-  ignoreFiles: ['.next/**', 'build/**', 'coverage/**', 'dist/**', 'node_modules/**', 'out/**'],
+/** @type {import('stylelint').Config} */
+export default {
+  extends: ['stylelint-config-standard', 'stylelint-config-clean-order', 'stylelint-prettier/recommended'],
+  plugins: ['stylelint-order'],
   rules: {
-    'alpha-value-notation': 'percentage',
-    'color-function-notation': 'modern',
-    'color-hex-length': 'long',
-    'custom-property-empty-line-before': undefined,
-    'declaration-empty-line-before': undefined,
-    'font-family-name-quotes': 'always-where-recommended',
-    'function-url-quotes': 'always',
     'import-notation': 'string',
-    'media-feature-range-notation': 'context',
-    'selector-class-pattern': [
-      '^[a-z][a-z0-9-]*$',
+    'selector-pseudo-class-no-unknown': [
+      true,
       {
-        message: 'Expected class selector to be kebab-case',
+        ignorePseudoClasses: ['global'],
+      },
+    ],
+
+    'order/order': [
+      'custom-properties',
+      'dollar-variables',
+      {
+        type: 'at-rule',
+        name: 'extend',
+      },
+      {
+        type: 'at-rule',
+        name: 'extend',
+        hasBlock: true,
+      },
+      'declarations',
+      'rules',
+      {
+        type: 'at-rule',
+        name: 'include',
+      },
+      {
+        type: 'at-rule',
+        name: 'include',
+        hasBlock: true,
+      },
+      {
+        type: 'at-rule',
+      },
+      {
+        type: 'at-rule',
+        hasBlock: true,
       },
     ],
   },
 };
-
-export default stylelintConfig;
