@@ -32,6 +32,15 @@
   --color-success: #10b981;
   --color-success-hover: #059669;
   --color-error: #be123c;
+  --gradient-background: linear-gradient(135deg, #faf5ff 0%, #fdf2f8 50%, #eff6ff 100%);
+  --gradient-logo: linear-gradient(135deg, #c084fc, #f472b6);
+  --gradient-text-brand: linear-gradient(90deg, #9333ea, #db2777);
+  --gradient-button-primary: linear-gradient(90deg, #a855f7, #ec4899);
+  --gradient-button-primary-hover: linear-gradient(90deg, #9333ea, #db2777);
+  --gradient-button-success: linear-gradient(90deg, #10b981, #14b8a6);
+  --gradient-button-success-hover: linear-gradient(90deg, #059669, #0d9488);
+  --gradient-panel-editor: linear-gradient(90deg, #f3e8ff, #fce7f3);
+  --gradient-panel-viewer: linear-gradient(90deg, #dbeafe, #f3e8ff);
   --shadow-color: rgb(88 28 135 / 18%);
   --focus-ring-color: rgb(192 132 252 / 35%);
 }
