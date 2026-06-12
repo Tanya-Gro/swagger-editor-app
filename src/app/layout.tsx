@@ -42,17 +42,9 @@ function ToastProvider({ children }: Readonly<{ children: ReactNode }>) {
 }
 
 function Header() {
-  return (
-    <header>
-      <span>Swagger UI</span>
-    </header>
-  );
+  return <header />;
 }
 
 function Footer() {
-  return (
-    <footer id="about">
-      <span>RS School 2024</span>
-    </footer>
-  );
+  return <footer />;
 }
