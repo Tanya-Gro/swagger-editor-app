@@ -13,6 +13,9 @@
   --border-radius-surface: 8px;
   --border-radius-accent: 12px;
   --border-radius-pill: 999px;
+  --content-width: 1440px;
+  --tablet-width: 1024px;
+  --mobile-width: 767px;
   --color-text-primary: #581c87;
   --color-text-secondary: #9333ea;
   --color-text-muted: #c084fc;
