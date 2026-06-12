@@ -1,17 +1,17 @@
 :root {
   --font-family-primary: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, sans-serif;
   --font-family-mono: ui-monospace, sfmono-regular, menlo, monaco, consolas, 'Liberation Mono', monospace;
-  --font-size-caption: 12px;
-  --font-size-body: 14px;
-  --font-size-heading: 16px;
-  --font-size-logo: 20px;
+  --font-size-xs: 12px;
+  --font-size-s: 14px;
+  --font-size-m: 16px;
+  --font-size-l: 20px;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  --border-radius-button: 6px;
-  --border-radius-surface: 8px;
-  --border-radius-accent: 12px;
+  --border-radius-s: 6px;
+  --border-radius-m: 8px;
+  --border-radius-l: 12px;
   --border-radius-pill: 999px;
   --content-width: 1440px;
   --tablet-width: 1024px;
