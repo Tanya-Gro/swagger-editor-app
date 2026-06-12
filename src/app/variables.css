@@ -1,4 +1,6 @@
 :root {
+  --font-family-primary: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, sans-serif;
+  --font-family-mono: ui-monospace, sfmono-regular, menlo, monaco, consolas, 'Liberation Mono', monospace;
   --color-text-primary: #581c87;
   --color-text-secondary: #9333ea;
   --color-text-muted: #c084fc;
