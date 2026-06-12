@@ -1,0 +1,66 @@
+:root {
+  /* Font families */
+  --font-family-primary: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, sans-serif;
+  --font-family-mono: ui-monospace, sfmono-regular, menlo, monaco, consolas, 'Liberation Mono', monospace;
+
+  /* Font sizes */
+  --font-size-xs: 12px;
+  --font-size-s: 14px;
+  --font-size-m: 16px;
+  --font-size-l: 20px;
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Line heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+
+  /* Border radius */
+  --border-radius-s: 6px;
+  --border-radius-m: 8px;
+  --border-radius-l: 12px;
+  --border-radius-pill: 999px;
+
+  /* Layout */
+  --content-width: 1440px;
+  --tablet-width: 1024px;
+  --mobile-width: 767px;
+
+  /* Colors */
+  --color-text-primary: #581c87;
+  --color-text-secondary: #9333ea;
+  --color-text-muted: #c084fc;
+  --color-text-inverse: #fff;
+  --color-background: #faf5ff;
+  --color-surface: #fff;
+  --color-surface-muted: rgb(255 255 255 / 60%);
+  --color-border: #e9d5ff;
+  --color-border-subtle: #f3e8ff;
+  --color-primary: #a855f7;
+  --color-primary-hover: #9333ea;
+  --color-secondary: #ec4899;
+  --color-secondary-hover: #db2777;
+  --color-success: #10b981;
+  --color-success-hover: #059669;
+  --color-error: #be123c;
+
+  /* Gradients */
+  --gradient-background: linear-gradient(135deg, #faf5ff 0%, #fdf2f8 50%, #eff6ff 100%);
+  --gradient-logo: linear-gradient(135deg, #c084fc, #f472b6);
+  --gradient-text-brand: linear-gradient(90deg, #9333ea, #db2777);
+  --gradient-button-primary: linear-gradient(90deg, #a855f7, #ec4899);
+  --gradient-button-primary-hover: linear-gradient(90deg, #9333ea, #db2777);
+  --gradient-button-success: linear-gradient(90deg, #10b981, #14b8a6);
+  --gradient-button-success-hover: linear-gradient(90deg, #059669, #0d9488);
+  --gradient-panel-editor: linear-gradient(90deg, #f3e8ff, #fce7f3);
+  --gradient-panel-viewer: linear-gradient(90deg, #dbeafe, #f3e8ff);
+
+  /* Effects */
+  --shadow-color: rgb(88 28 135 / 18%);
+  --focus-ring-color: rgb(192 132 252 / 35%);
+}
