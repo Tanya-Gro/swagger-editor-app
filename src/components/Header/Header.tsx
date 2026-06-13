@@ -1,3 +1,5 @@
+'use client';
+
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
@@ -6,11 +8,18 @@ import DataObjectOutlinedIcon from '@mui/icons-material/DataObjectOutlined';
 import { Button, IconButton } from '@mui/material';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
+import { useState } from 'react';
 import styles from './Header.module.css';
 
 const cx = classNames.bind(styles);
 
 export function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen((currentValue) => !currentValue);
+  };
+
   return (
     <header className={cx('header')}>
       <div className={cx('container')}>
@@ -51,10 +60,37 @@ export function Header() {
               </Button>
             </div>
 
-            <IconButton aria-label="Открыть меню" className={cx('mobile-menu-button')} size="medium">
+            <IconButton
+              aria-controls="mobile-header-menu"
+              aria-expanded={isMobileMenuOpen}
+              aria-label={isMobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
+              className={cx('mobile-menu-button')}
+              onClick={toggleMobileMenu}
+              size="medium"
+            >
               <MenuOutlinedIcon />
             </IconButton>
           </div>
+        </div>
+
+        <div
+          aria-hidden={!isMobileMenuOpen}
+          className={cx('mobile-menu', { 'mobile-menu-open': isMobileMenuOpen })}
+          id="mobile-header-menu"
+        >
+          <Button className={cx('mobile-menu-item')} startIcon={<PublicOutlinedIcon />} variant="text">
+            RU
+          </Button>
+          <Button className={cx('mobile-menu-item')} startIcon={<LoginOutlinedIcon />} variant="text">
+            Вход
+          </Button>
+          <Button
+            className={cx('mobile-menu-item', 'mobile-menu-primary')}
+            startIcon={<PersonAddAltOutlinedIcon />}
+            variant="contained"
+          >
+            Регистрация
+          </Button>
         </div>
       </div>
     </header>
