@@ -28,8 +28,16 @@
 
   /* Layout */
   --content-width: 1440px;
-  --tablet-width: 1024px;
-  --mobile-width: 767px;
+  --breakpoint-mobile: 767px;
+  --breakpoint-tablet: 1024px;
+  --breakpoint-desktop: 1440px;
+
+  /* Viewports for layout verification */
+  --viewport-mobile-portrait: 360px;
+  --viewport-mobile-landscape: 640px;
+  --viewport-tablet-portrait: 768px;
+  --viewport-tablet-landscape: 1024px;
+  --viewport-desktop: 1440px;
 
   /* Colors */
   --color-text-primary: #581c87;
