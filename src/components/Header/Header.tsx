@@ -8,20 +8,38 @@ import DataObjectOutlinedIcon from '@mui/icons-material/DataObjectOutlined';
 import { Button, IconButton } from '@mui/material';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Header.module.css';
 
 const cx = classNames.bind(styles);
 
+type MobileMenuProperties = Readonly<{
+  isOpen: boolean;
+}>;
+
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const updateHeaderShadow = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    updateHeaderShadow();
+    window.addEventListener('scroll', updateHeaderShadow, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', updateHeaderShadow);
+    };
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((currentValue) => !currentValue);
   };
 
   return (
-    <header className={cx('header')}>
+    <header className={cx('header', { 'header-scrolled': isScrolled })}>
       <div className={cx('container')}>
         <div className={cx('inner')}>
           <Link aria-label="Swagger UI home" className={cx('logo')} href="/">
@@ -44,21 +62,7 @@ export function Header() {
           </nav>
 
           <div className={cx('actions')}>
-            <div className={cx('desktop-actions')}>
-              <Button className={cx('button', 'ghost-button')} startIcon={<PublicOutlinedIcon />} variant="text">
-                RU
-              </Button>
-              <Button className={cx('button', 'ghost-button')} startIcon={<LoginOutlinedIcon />} variant="text">
-                Вход
-              </Button>
-              <Button
-                className={cx('button', 'primary-button')}
-                startIcon={<PersonAddAltOutlinedIcon />}
-                variant="contained"
-              >
-                Регистрация
-              </Button>
-            </div>
+            <DesktopActions />
 
             <IconButton
               aria-controls="mobile-header-menu"
@@ -73,26 +77,44 @@ export function Header() {
           </div>
         </div>
 
-        <div
-          aria-hidden={!isMobileMenuOpen}
-          className={cx('mobile-menu', { 'mobile-menu-open': isMobileMenuOpen })}
-          id="mobile-header-menu"
-        >
-          <Button className={cx('mobile-menu-item')} startIcon={<PublicOutlinedIcon />} variant="text">
-            RU
-          </Button>
-          <Button className={cx('mobile-menu-item')} startIcon={<LoginOutlinedIcon />} variant="text">
-            Вход
-          </Button>
-          <Button
-            className={cx('mobile-menu-item', 'mobile-menu-primary')}
-            startIcon={<PersonAddAltOutlinedIcon />}
-            variant="contained"
-          >
-            Регистрация
-          </Button>
-        </div>
+        <MobileMenu isOpen={isMobileMenuOpen} />
       </div>
     </header>
+  );
+}
+
+function DesktopActions() {
+  return (
+    <div className={cx('desktop-actions')}>
+      <Button className={cx('button', 'ghost-button')} startIcon={<PublicOutlinedIcon />} variant="text">
+        RU
+      </Button>
+      <Button className={cx('button', 'ghost-button')} startIcon={<LoginOutlinedIcon />} variant="text">
+        Вход
+      </Button>
+      <Button className={cx('button', 'primary-button')} startIcon={<PersonAddAltOutlinedIcon />} variant="contained">
+        Регистрация
+      </Button>
+    </div>
+  );
+}
+
+function MobileMenu({ isOpen }: MobileMenuProperties) {
+  return (
+    <div aria-hidden={!isOpen} className={cx('mobile-menu', { 'mobile-menu-open': isOpen })} id="mobile-header-menu">
+      <Button className={cx('mobile-menu-item')} startIcon={<PublicOutlinedIcon />} variant="text">
+        RU
+      </Button>
+      <Button className={cx('mobile-menu-item')} startIcon={<LoginOutlinedIcon />} variant="text">
+        Вход
+      </Button>
+      <Button
+        className={cx('mobile-menu-item', 'mobile-menu-primary')}
+        startIcon={<PersonAddAltOutlinedIcon />}
+        variant="contained"
+      >
+        Регистрация
+      </Button>
+    </div>
   );
 }
