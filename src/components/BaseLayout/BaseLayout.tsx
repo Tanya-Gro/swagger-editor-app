@@ -1,5 +1,8 @@
+import classNames from 'classnames/bind';
 import type { ReactNode } from 'react';
 import styles from './BaseLayout.module.css';
+
+const cx = classNames.bind(styles);
 
 export function BaseLayout({
   children,
@@ -9,7 +12,7 @@ export function BaseLayout({
   return (
     <>
       <Header />
-      <main className={styles.main} id="main-content">
+      <main className={cx('main')} id="main-content">
         {children}
       </main>
       <Footer />
