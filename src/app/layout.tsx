@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { BaseLayout } from '../components/BaseLayout/BaseLayout';
+import { BaseLayout } from '@components/BaseLayout/BaseLayout';
 import './globals.css';
 
 export const metadata: Metadata = {
