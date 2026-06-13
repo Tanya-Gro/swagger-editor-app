@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import { BaseLayout } from '../components/BaseLayout/BaseLayout';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -16,9 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <Header />
-          {children}
-          <Footer />
+          <BaseLayout>{children}</BaseLayout>
         </Providers>
       </body>
     </html>
@@ -39,12 +38,4 @@ function I18nProvider({ children }: Readonly<{ children: ReactNode }>) {
 
 function ToastProvider({ children }: Readonly<{ children: ReactNode }>) {
   return children;
-}
-
-function Header() {
-  return <header />;
-}
-
-function Footer() {
-  return <footer />;
 }
