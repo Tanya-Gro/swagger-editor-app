@@ -16,7 +16,8 @@
     "format": "prettier --check \"**/*.{css,html,js,json,md,ts,tsx}\"",
     "format:fix": "prettier --write \"**/*.{css,html,js,json,md,ts,tsx}\"",
     "preview": "next start",
-    "prepare": "husky"
+    "prepare": "husky",
+    "supabase:types": "supabase gen types typescript --project-id vonhdqkwwtshtuzbnmds --schema public > src/lib/supabase/database.types.ts"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -35,7 +36,8 @@
     "@mui/icons-material": "^9.0.1",
     "@mui/material": "^9.0.1",
     "@mui/material-nextjs": "^9.0.1",
-    "classnames": "^2.5.1",
+    "@supabase/ssr": "^0.12.0",
+    "@supabase/supabase-js": "^2.108.1",
     "next": "^16.2.7",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
@@ -60,12 +62,13 @@
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
     "lint-staged": "^17.0.7",
-    "prettier": "^3.8.3",
+    "prettier": "^3.8.4",
     "stylelint": "^17.13.0",
     "stylelint-config-clean-order": "^10.0.0",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-order": "^8.1.1",
     "stylelint-prettier": "^5.0.3",
+    "supabase": "^2.106.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.60.1",
     "vitest": "^4.1.8"
