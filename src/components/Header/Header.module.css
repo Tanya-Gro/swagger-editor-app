@@ -169,16 +169,24 @@
   }
 
   .mobile-menu {
+    position: absolute;
+    z-index: 40;
+    top: 100%;
+    right: 0;
+    left: 0;
+
     overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 10px;
 
     max-height: 0;
-    padding: 0;
+    padding: 0 16px;
     border-top: 1px solid transparent;
 
     opacity: 0;
+    background: rgb(255 255 255 / 90%);
+    backdrop-filter: blur(12px);
 
     transition:
       max-height 0.25s ease,
@@ -189,7 +197,7 @@
 
   .mobile-menu-open {
     max-height: 180px;
-    padding: 16px 0;
+    padding: 16px;
     border-top-color: var(--color-border-subtle);
     opacity: 1;
   }

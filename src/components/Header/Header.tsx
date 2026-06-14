@@ -1,45 +1,15 @@
-'use client';
-
-import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
-import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
-import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
 import DataObjectOutlinedIcon from '@mui/icons-material/DataObjectOutlined';
-import { Button, IconButton } from '@mui/material';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { HeaderClient } from './HeaderClient';
 import styles from './Header.module.css';
 
 const cx = classNames.bind(styles);
-
-type MobileMenuProperties = Readonly<{
-  isOpen: boolean;
-}>;
+const headerElementId = 'app-header';
 
 export function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const updateHeaderShadow = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
-
-    updateHeaderShadow();
-    window.addEventListener('scroll', updateHeaderShadow, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', updateHeaderShadow);
-    };
-  }, []);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen((currentValue) => !currentValue);
-  };
-
   return (
-    <header className={cx('header', { 'header-scrolled': isScrolled })}>
+    <header className={cx('header')} id={headerElementId}>
       <div className={cx('container')}>
         <div className={cx('inner')}>
           <Link aria-label="Swagger UI home" className={cx('logo')} href="/">
@@ -61,60 +31,9 @@ export function Header() {
             </a>
           </nav>
 
-          <div className={cx('actions')}>
-            <DesktopActions />
-
-            <IconButton
-              aria-controls="mobile-header-menu"
-              aria-expanded={isMobileMenuOpen}
-              aria-label={isMobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
-              className={cx('mobile-menu-button')}
-              onClick={toggleMobileMenu}
-              size="medium"
-            >
-              <MenuOutlinedIcon />
-            </IconButton>
-          </div>
+          <HeaderClient headerElementId={headerElementId} />
         </div>
-
-        <MobileMenu isOpen={isMobileMenuOpen} />
       </div>
     </header>
-  );
-}
-
-function DesktopActions() {
-  return (
-    <div className={cx('desktop-actions')}>
-      <Button className={cx('button', 'ghost-button')} startIcon={<PublicOutlinedIcon />} variant="text">
-        RU
-      </Button>
-      <Button className={cx('button', 'ghost-button')} startIcon={<LoginOutlinedIcon />} variant="text">
-        Вход
-      </Button>
-      <Button className={cx('button', 'primary-button')} startIcon={<PersonAddAltOutlinedIcon />} variant="contained">
-        Регистрация
-      </Button>
-    </div>
-  );
-}
-
-function MobileMenu({ isOpen }: MobileMenuProperties) {
-  return (
-    <div aria-hidden={!isOpen} className={cx('mobile-menu', { 'mobile-menu-open': isOpen })} id="mobile-header-menu">
-      <Button className={cx('mobile-menu-item')} startIcon={<PublicOutlinedIcon />} variant="text">
-        RU
-      </Button>
-      <Button className={cx('mobile-menu-item')} startIcon={<LoginOutlinedIcon />} variant="text">
-        Вход
-      </Button>
-      <Button
-        className={cx('mobile-menu-item', 'mobile-menu-primary')}
-        startIcon={<PersonAddAltOutlinedIcon />}
-        variant="contained"
-      >
-        Регистрация
-      </Button>
-    </div>
   );
 }
