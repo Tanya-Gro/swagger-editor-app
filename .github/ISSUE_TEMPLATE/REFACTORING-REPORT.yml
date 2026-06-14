@@ -1,0 +1,38 @@
+name: Refactoring Report
+description: File a refactoring report.
+title: '[🔄 Refactor]: '
+labels: ['refactor']
+projects: ['Tanya-Gro/6']
+body:
+  - type: textarea
+    id: refactor-description
+    attributes:
+      label: 📝 Describe the refactoring task
+      description: Please describe the refactoring requirement in detail
+      placeholder: Tell us why we need refactor this code!
+    validations:
+      required: true
+  - type: textarea
+    id: refactor-location
+    attributes:
+      label: 📍Code location
+      description: Please point out the location (file/s, line/s) of the specific code that needs refactoring
+      placeholder: Path to folder/s, file/s, line/s
+    validations:
+      required: true
+  - type: textarea
+    id: refactor-context
+    attributes:
+      label: ℹ️ Additional Context
+      description: Add any other context, like the effects on the existing code or future development, here
+      placeholder: Tell us something else!
+    validations:
+      required: false
+  - type: textarea
+    id: definition-of-done
+    attributes:
+      label: ✅ Definition of Done (DoD)
+      description: Provide clear criteria that signify the successful implementation of this refactoring issue
+      placeholder: This is what we did
+    validations:
+      required: true
