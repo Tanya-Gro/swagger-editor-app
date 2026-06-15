@@ -33,13 +33,13 @@ export function Header({ actionsSlot, languageSwitcherSlot, navigationSlot }: He
           </Link>
 
           <nav aria-label="Основная навигация" className={cx('nav')}>
-            {navigationSlot ?? <NavigationPlaceholder />}
+            {navigationSlot ?? <Navigation />}
           </nav>
 
           <div className={cx('actions')}>
             <div className={cx('desktop-actions')}>
-              {languageSwitcherSlot ?? <LanguageSwitcherPlaceholder />}
-              {actionsSlot ?? <ActionsPlaceholder />}
+              {languageSwitcherSlot ?? <LanguageSwitcher />}
+              {actionsSlot ?? <Actions />}
             </div>
 
             <details className={cx('mobile-menu-details')}>
@@ -50,11 +50,11 @@ export function Header({ actionsSlot, languageSwitcherSlot, navigationSlot }: He
               </summary>
               <div className={cx('mobile-menu')} id="mobile-header-menu">
                 <nav aria-label="Мобильная навигация" className={cx('mobile-menu-section')}>
-                  {navigationSlot ?? <NavigationPlaceholder />}
+                  {navigationSlot ?? <Navigation />}
                 </nav>
                 <div className={cx('mobile-menu-section')}>
-                  {languageSwitcherSlot ?? <LanguageSwitcherPlaceholder />}
-                  {actionsSlot ?? <ActionsPlaceholder />}
+                  {languageSwitcherSlot ?? <LanguageSwitcher />}
+                  {actionsSlot ?? <Actions />}
                 </div>
               </div>
             </details>
@@ -65,20 +65,20 @@ export function Header({ actionsSlot, languageSwitcherSlot, navigationSlot }: He
   );
 }
 
-function NavigationPlaceholder() {
+function Navigation() {
   return (
     <>
       <Link className={cx('nav-link')} href="/">
         Редактор
       </Link>
-      <a className={cx('nav-link')} href="#about">
+      <Link className={cx('nav-link')} href="#about">
         О проекте
-      </a>
+      </Link>
     </>
   );
 }
 
-function LanguageSwitcherPlaceholder() {
+function LanguageSwitcher() {
   return (
     <Button className={cx('button', 'ghost-button')} startIcon={<PublicOutlinedIcon />} variant="text">
       RU
@@ -86,7 +86,7 @@ function LanguageSwitcherPlaceholder() {
   );
 }
 
-function ActionsPlaceholder() {
+function Actions() {
   return (
     <>
       <Button className={cx('button', 'ghost-button')} startIcon={<LoginOutlinedIcon />} variant="text">
