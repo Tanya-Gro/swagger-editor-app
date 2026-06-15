@@ -1,11 +1,18 @@
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v16-appRouter';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { BaseLayout } from '@components/BaseLayout/BaseLayout';
-import './globals.css';
+import '../styles/index.css';
 
 export const metadata: Metadata = {
   title: 'Swagger Editor App',
   description: 'Educational Swagger editor built with Next.js, React, and TypeScript.',
+  icons: {
+    icon: [
+      { url: '/assets/app-logo.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -26,9 +33,11 @@ export default function RootLayout({
 
 function Providers({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <I18nProvider>
-      <ToastProvider>{children}</ToastProvider>
-    </I18nProvider>
+    <AppRouterCacheProvider>
+      <I18nProvider>
+        <ToastProvider>{children}</ToastProvider>
+      </I18nProvider>
+    </AppRouterCacheProvider>
   );
 }
 
