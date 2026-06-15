@@ -1,7 +1,6 @@
 import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
 import nextCoreWebVitals from 'eslint-config-next/core-web-vitals';
-import reactPlugin from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import nextTypescript from 'eslint-config-next/typescript';
 import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
@@ -35,7 +34,6 @@ export default defineConfig([
   ...typeCheckedTypescriptConfigs,
   ...nextCoreWebVitals,
   ...nextTypescript,
-  reactPlugin.configs.flat.recommended,
   reactHooks.configs.flat.recommended,
   eslintPluginUnicorn.configs.recommended,
   eslintPluginPrettier,
