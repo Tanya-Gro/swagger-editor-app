@@ -17,7 +17,7 @@
     "format:fix": "prettier --write \"**/*.{css,html,js,json,md,ts,tsx}\"",
     "preview": "next start",
     "prepare": "husky",
-    "supabase:types": "dotenv -e .env -- supabase gen types typescript --project-id $SUPABASE_PROJECT_ID --schema public > src/database/database.types.ts"
+    "supabase:types": "dotenv -e .env cross-env supabase gen types typescript --project-id %SUPABASE_PROJECT_ID% --schema public > src/database/database.types.ts"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -38,6 +38,7 @@
     "@mui/material-nextjs": "^9.0.1",
     "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.108.1",
+    "cross-env": "^10.1.0",
     "next": "^16.2.7",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
