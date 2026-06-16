@@ -28,8 +28,3 @@ lerna-debug.log*
 # temp directory
 .temp
 .tmp
-
-# Supabase
-.branches
-
-.DS_Store
