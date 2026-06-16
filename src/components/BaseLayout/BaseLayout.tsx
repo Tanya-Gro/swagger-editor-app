@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import type { ReactNode } from 'react';
+import { Header } from '@components/Header/Header';
 import styles from './BaseLayout.module.css';
 
 const cx = classNames.bind(styles);
@@ -18,10 +19,6 @@ export function BaseLayout({
       <Footer />
     </>
   );
-}
-
-function Header() {
-  return <header />;
 }
 
 function Footer() {

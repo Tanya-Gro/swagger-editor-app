@@ -12,7 +12,6 @@ describe('RootLayout', () => {
 
     expect(markup).toContain('<html lang="en">');
     expect(markup).toContain('<body>');
-    expect(markup).toContain('<header></header>');
     expect(markup).toMatch(/<main[^>]*id="main-content"[^>]*>/);
     expect(markup).toContain('data-testid="page-content"');
     expect(markup).toContain('<footer></footer>');

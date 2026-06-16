@@ -4,6 +4,12 @@ export default {
   plugins: ['stylelint-order'],
   rules: {
     'import-notation': 'string',
+    'property-no-unknown': [
+      true,
+      {
+        ignoreProperties: ['composes'],
+      },
+    ],
     'selector-pseudo-class-no-unknown': [
       true,
       {

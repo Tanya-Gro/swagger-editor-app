@@ -1,0 +1,240 @@
+.header {
+  position: sticky;
+  z-index: 50;
+  top: 0;
+
+  border-bottom: 1px solid var(--color-border-subtle);
+
+  background: color-mix(in srgb, var(--color-surface) var(--opacity-80), transparent);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-text-primary) var(--opacity-8), transparent);
+
+  transition:
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+@supports (animation-timeline: scroll()) {
+  .header {
+    animation: header-shadow linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 80px;
+  }
+}
+
+@keyframes header-shadow {
+  from {
+    box-shadow: 0 1px 2px color-mix(in srgb, var(--color-text-primary) var(--opacity-8), transparent);
+  }
+
+  to {
+    box-shadow: 0 4px 6px -1px color-mix(in srgb, var(--color-shadow) var(--opacity-10), transparent);
+  }
+}
+
+.inner {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+
+  width: min(100%, 1200px);
+  margin: 0 auto;
+  padding: 12px 16px;
+}
+
+.logo {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 12px;
+  align-items: center;
+
+  min-width: 0;
+}
+
+.logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  filter: drop-shadow(0 4px 6px var(--shadow-color));
+}
+
+.logo-image {
+  display: block;
+
+  width: 40px;
+  height: 40px;
+
+  background-image: url('/assets/app-logo.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.logo-title {
+  font-size: var(--font-size-l);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: transparent;
+
+  background: var(--gradient-text-brand);
+  background-clip: text;
+}
+
+.logo-subtitle {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-muted);
+}
+
+.nav,
+.actions,
+.desktop-actions {
+  display: flex;
+  align-items: center;
+}
+
+.nav {
+  gap: 24px;
+}
+
+.nav-link {
+  padding: 6px 8px;
+  border-radius: var(--border-radius-s);
+
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-border);
+  }
+}
+
+.actions,
+.desktop-actions {
+  gap: 8px;
+}
+
+.mobile-menu-button {
+  display: none;
+  color: var(--color-text-secondary);
+}
+
+.mobile-menu-details {
+  display: none;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+@media (width <= 1024px) {
+  .nav,
+  .desktop-actions {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    cursor: pointer;
+    display: inline-flex;
+    color: var(--color-text-secondary);
+    list-style: none;
+  }
+
+  .mobile-menu-button::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-menu-details {
+    display: block;
+  }
+
+  .mobile-menu {
+    position: absolute;
+    z-index: 40;
+    top: 100%;
+    right: 0;
+    left: 0;
+
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    max-height: 0;
+    padding: 0 16px;
+    border-top: 1px solid transparent;
+
+    opacity: 0;
+    background: color-mix(in srgb, var(--color-surface) var(--opacity-90), transparent);
+    backdrop-filter: blur(12px);
+
+    transition:
+      max-height 0.25s ease,
+      padding 0.25s ease,
+      border-color 0.25s ease,
+      opacity 0.2s ease;
+  }
+
+  .mobile-menu-details[open] .mobile-menu {
+    max-height: 180px;
+    padding: 16px;
+    border-top-color: var(--color-border-subtle);
+    opacity: 1;
+  }
+
+  .mobile-menu-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mobile-menu .nav-link {
+    display: flex;
+    width: 100%;
+  }
+
+  .mobile-menu-action {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .mobile-menu-item {
+    justify-content: flex-start;
+
+    min-height: 34px;
+    padding: 6px 12px;
+    border-radius: var(--border-radius-s);
+
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-tight);
+    color: var(--color-text-secondary);
+    text-transform: none;
+
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .mobile-menu-item:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-border);
+  }
+}
