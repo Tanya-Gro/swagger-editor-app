@@ -5,9 +5,9 @@
 
   border-bottom: 1px solid var(--color-border-subtle);
 
-  background: color-mix(in srgb, var(--color-surface) var(--opacity-surface-header), transparent);
+  background: color-mix(in srgb, var(--color-surface) var(--opacity-80), transparent);
   backdrop-filter: blur(12px);
-  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-text-primary) var(--opacity-shadow-header), transparent);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-text-primary) var(--opacity-8), transparent);
 
   transition:
     box-shadow 0.3s ease,
@@ -24,12 +24,11 @@
 
 @keyframes header-shadow {
   from {
-    box-shadow: 0 1px 2px color-mix(in srgb, var(--color-text-primary) var(--opacity-shadow-header), transparent);
+    box-shadow: 0 1px 2px color-mix(in srgb, var(--color-text-primary) var(--opacity-8), transparent);
   }
 
   to {
-    box-shadow: 0 4px 6px -1px
-      color-mix(in srgb, var(--color-shadow) var(--opacity-shadow-header-scrolled), transparent);
+    box-shadow: 0 4px 6px -1px color-mix(in srgb, var(--color-shadow) var(--opacity-10), transparent);
   }
 }
 
@@ -103,6 +102,18 @@
 .desktop-actions {
   display: flex;
   align-items: center;
+}
+
+.button {
+  composes: button from '@/styles/button.module.css';
+}
+
+.ghost-button {
+  composes: ghost from '@/styles/button.module.css';
+}
+
+.primary-button {
+  composes: primary from '@/styles/button.module.css';
 }
 
 .nav {
@@ -195,7 +206,7 @@
     border-top: 1px solid transparent;
 
     opacity: 0;
-    background: color-mix(in srgb, var(--color-surface) var(--opacity-surface-header-mobile), transparent);
+    background: color-mix(in srgb, var(--color-surface) var(--opacity-90), transparent);
     backdrop-filter: blur(12px);
 
     transition:

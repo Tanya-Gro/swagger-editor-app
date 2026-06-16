@@ -2,7 +2,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v16-appRouter';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { BaseLayout } from '@components/BaseLayout/BaseLayout';
-import '../styles/index.css';
+import '@/styles/index.css';
 
 export const metadata: Metadata = {
   title: 'Swagger Editor App',

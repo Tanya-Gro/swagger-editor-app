@@ -4,12 +4,22 @@ import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
 import { Button, IconButton } from '@mui/material';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
-import buttonStyles from '../../styles/button.module.css';
 import { headerMessages } from './Header.i18n';
 import styles from './Header.module.css';
 
 const cx = classNames.bind(styles);
-const buttonCx = classNames.bind(buttonStyles);
+
+const headerLogo = {
+  name: 'Swagger UI',
+  subtitle: 'API Documentation',
+} as const;
+
+const navigationAriaLabel = 'Основная навигация';
+
+const navigationLinks = [
+  { href: '/', label: 'О проекте' },
+  { href: '/', label: 'Редактор' },
+] as const;
 
 export function Header() {
   return (
@@ -20,19 +30,25 @@ export function Header() {
             <span aria-hidden="true" className={cx('logo-image')} />
           </span>
           <span className={cx('logo-text')}>
-            <span className={cx('logo-title')}>{headerMessages.appName}</span>
-            <span className={cx('logo-subtitle')}>{headerMessages.appSubtitle}</span>
+            <span className={cx('logo-title')}>{headerLogo.name}</span>
+            <span className={cx('logo-subtitle')}>{headerLogo.subtitle}</span>
           </span>
         </Link>
 
-        <div className={cx('nav')} />
+        <nav aria-label={navigationAriaLabel} className={cx('nav')}>
+          {navigationLinks.map(({ href, label }) => (
+            <Link className={cx('nav-link')} href={href} key={href}>
+              {label}
+            </Link>
+          ))}
+        </nav>
 
         <div className={cx('actions')}>
           <div className={cx('desktop-actions')}>
-            <Button className={buttonCx('button', 'ghost')} startIcon={<PublicOutlinedIcon />} variant="text">
+            <Button className={cx('button', 'ghost-button')} startIcon={<PublicOutlinedIcon />} variant="text">
               {headerMessages.language}
             </Button>
-            <Button className={buttonCx('button', 'primary')} startIcon={<LoginOutlinedIcon />} variant="contained">
+            <Button className={cx('button', 'primary-button')} startIcon={<LoginOutlinedIcon />} variant="contained">
               {headerMessages.authAction}
             </Button>
           </div>
@@ -47,14 +63,14 @@ export function Header() {
               <div className={cx('mobile-menu-section')} />
               <div className={cx('mobile-menu-section')}>
                 <Button
-                  className={cx('mobile-menu-action', buttonCx('button', 'ghost'))}
+                  className={cx('mobile-menu-action', 'button', 'ghost-button')}
                   startIcon={<PublicOutlinedIcon />}
                   variant="text"
                 >
                   {headerMessages.language}
                 </Button>
                 <Button
-                  className={cx('mobile-menu-action', buttonCx('button', 'primary'))}
+                  className={cx('mobile-menu-action', 'button', 'primary-button')}
                   startIcon={<LoginOutlinedIcon />}
                   variant="contained"
                 >

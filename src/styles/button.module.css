@@ -16,20 +16,20 @@
 
 .ghost[class*='MuiButton-root'] {
   color: var(--color-text-secondary);
-}
 
-.ghost[class*='MuiButton-root']:hover {
-  color: var(--color-text-primary);
-  background-color: var(--color-border);
+  &:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-border);
+  }
 }
 
 .primary[class*='MuiButton-root'] {
   color: var(--color-text-inverse);
   background: var(--gradient-button-primary);
   box-shadow: 0 4px 6px var(--shadow-color);
-}
 
-.primary[class*='MuiButton-root']:hover {
-  background: var(--gradient-button-primary-hover);
-  box-shadow: 0 4px 6px var(--shadow-color);
+  &:hover {
+    background: var(--gradient-button-primary-hover);
+    box-shadow: 0 4px 6px var(--shadow-color);
+  }
 }
