@@ -104,18 +104,6 @@
   align-items: center;
 }
 
-.button {
-  composes: button from '@/styles/button.module.css';
-}
-
-.ghost-button {
-  composes: ghost from '@/styles/button.module.css';
-}
-
-.primary-button {
-  composes: primary from '@/styles/button.module.css';
-}
-
 .nav {
   gap: 24px;
 }
@@ -146,18 +134,6 @@
 .mobile-menu-button {
   display: none;
   color: var(--color-text-secondary);
-}
-
-.mobile-menu-icon[class*='MuiIconButton-root'] {
-  color: var(--color-text-secondary);
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
-}
-
-.mobile-menu-icon[class*='MuiIconButton-root']:hover {
-  color: var(--color-text-primary);
-  background-color: var(--color-border);
 }
 
 .mobile-menu-details {

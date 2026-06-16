@@ -1,7 +1,7 @@
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v16-appRouter';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { BaseLayout } from '@components/BaseLayout/BaseLayout';
+import { ThemeRegistry } from '@/theme/ThemeRegistry';
 import '@/styles/index.css';
 
 export const metadata: Metadata = {
@@ -23,28 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>
+        <ThemeRegistry>
           <BaseLayout>{children}</BaseLayout>
-        </Providers>
+        </ThemeRegistry>
       </body>
     </html>
   );
-}
-
-function Providers({ children }: Readonly<{ children: ReactNode }>) {
-  return (
-    <AppRouterCacheProvider>
-      <I18nProvider>
-        <ToastProvider>{children}</ToastProvider>
-      </I18nProvider>
-    </AppRouterCacheProvider>
-  );
-}
-
-function I18nProvider({ children }: Readonly<{ children: ReactNode }>) {
-  return children;
-}
-
-function ToastProvider({ children }: Readonly<{ children: ReactNode }>) {
-  return children;
 }

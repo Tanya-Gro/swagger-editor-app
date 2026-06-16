@@ -18,4 +18,14 @@ describe('Header', () => {
     expect(within(header).getByText('Swagger UI')).toBeInTheDocument();
     expect(within(header).getByText('API Documentation')).toBeInTheDocument();
   });
+
+  it('renders unique navigation links', () => {
+    render(<Header />);
+
+    const navigation = screen.getByRole('navigation', { name: 'Основная навигация' });
+
+    expect(within(navigation).getAllByRole('link')).toHaveLength(2);
+    expect(within(navigation).getByRole('link', { name: 'О проекте' })).toHaveAttribute('href', '/about');
+    expect(within(navigation).getByRole('link', { name: 'Редактор' })).toHaveAttribute('href', '/editor');
+  });
 });

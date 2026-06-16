@@ -17,8 +17,8 @@ const headerLogo = {
 const navigationAriaLabel = 'Основная навигация';
 
 const navigationLinks = [
-  { href: '/', label: 'О проекте' },
-  { href: '/', label: 'Редактор' },
+  { href: '/about', label: 'О проекте' },
+  { href: '/editor', label: 'Редактор' },
 ] as const;
 
 export function Header() {
@@ -37,7 +37,7 @@ export function Header() {
 
         <nav aria-label={navigationAriaLabel} className={cx('nav')}>
           {navigationLinks.map(({ href, label }) => (
-            <Link className={cx('nav-link')} href={href} key={href}>
+            <Link className={cx('nav-link')} href={href} key={`${href}-${label}`}>
               {label}
             </Link>
           ))}
@@ -45,10 +45,10 @@ export function Header() {
 
         <div className={cx('actions')}>
           <div className={cx('desktop-actions')}>
-            <Button className={cx('button', 'ghost-button')} startIcon={<PublicOutlinedIcon />} variant="text">
+            <Button startIcon={<PublicOutlinedIcon />} variant="text">
               {headerMessages.language}
             </Button>
-            <Button className={cx('button', 'primary-button')} startIcon={<LoginOutlinedIcon />} variant="contained">
+            <Button startIcon={<LoginOutlinedIcon />} variant="contained">
               {headerMessages.authAction}
             </Button>
           </div>
@@ -62,18 +62,10 @@ export function Header() {
             <div className={cx('mobile-menu')} id="mobile-header-menu">
               <div className={cx('mobile-menu-section')} />
               <div className={cx('mobile-menu-section')}>
-                <Button
-                  className={cx('mobile-menu-action', 'button', 'ghost-button')}
-                  startIcon={<PublicOutlinedIcon />}
-                  variant="text"
-                >
+                <Button className={cx('mobile-menu-action')} startIcon={<PublicOutlinedIcon />} variant="text">
                   {headerMessages.language}
                 </Button>
-                <Button
-                  className={cx('mobile-menu-action', 'button', 'primary-button')}
-                  startIcon={<LoginOutlinedIcon />}
-                  variant="contained"
-                >
+                <Button className={cx('mobile-menu-action')} startIcon={<LoginOutlinedIcon />} variant="contained">
                   {headerMessages.authAction}
                 </Button>
               </div>
