@@ -1,0 +1,30 @@
+name: Documentation Report
+description: File a documentation report.
+title: '[📘 Docs]: '
+labels: ['documentation']
+projects: ['Tanya-Gro/6']
+body:
+  - type: textarea
+    id: documentation-description
+    attributes:
+      label: 📝 Describe what needs to be added
+      description: Please describe the documentation in details
+      placeholder: Tell us about this documentation!
+    validations:
+      required: true
+  - type: textarea
+    id: documentation-context
+    attributes:
+      label: ℹ️ Additional Context
+      description: Add any other context about the documentation here
+      placeholder: Tell us something else!
+    validations:
+      required: false
+  - type: textarea
+    id: definition-of-done
+    attributes:
+      label: ✅ Definition of Done (DoD)
+      description: Provide clear criteria that signify the task's successful implementation
+      placeholder: This is what we did
+    validations:
+      required: true

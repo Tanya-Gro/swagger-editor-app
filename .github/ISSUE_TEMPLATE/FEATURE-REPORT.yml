@@ -1,0 +1,30 @@
+name: Feature Report
+description: File a feature report.
+title: '[🚀 Feat]: '
+labels: ['feature']
+projects: ['Tanya-Gro/6']
+body:
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: 📝 Describe the Feature
+      description: Please describe the feature in details
+      placeholder: Tell us why we need this feature!
+    validations:
+      required: true
+  - type: textarea
+    id: feature-context
+    attributes:
+      label: ℹ️ Additional Context
+      description: Add any other context about the feature here
+      placeholder: Tell us something else!
+    validations:
+      required: false
+  - type: textarea
+    id: definition-of-done
+    attributes:
+      label: ✅ Definition of Done (DoD)
+      description: Provide clear criteria that signify the feature's successful implementation
+      placeholder: This is what we did
+    validations:
+      required: true

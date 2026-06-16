@@ -1,6 +1,7 @@
 import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
 import nextCoreWebVitals from 'eslint-config-next/core-web-vitals';
+import reactHooks from 'eslint-plugin-react-hooks';
 import nextTypescript from 'eslint-config-next/typescript';
 import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
@@ -33,6 +34,7 @@ export default defineConfig([
   ...typeCheckedTypescriptConfigs,
   ...nextCoreWebVitals,
   ...nextTypescript,
+  reactHooks.configs.flat.recommended,
   eslintPluginUnicorn.configs.recommended,
   eslintPluginPrettier,
 
@@ -58,7 +60,7 @@ export default defineConfig([
     settings: {
       react: { version: 'detect' },
     },
-    plugins: {},
+    plugins: { 'react-hooks': reactHooks },
     linterOptions: {
       noInlineConfig: true,
     },
