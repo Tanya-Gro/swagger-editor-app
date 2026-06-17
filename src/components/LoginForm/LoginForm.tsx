@@ -1,8 +1,14 @@
 'use client';
-import { type SubmitEvent } from 'react';
-import { TextField, Button } from '@mui/material';
+import { type SubmitEvent, useState } from 'react';
 import styles from './LoginForm.module.css';
 import classNames from 'classnames/bind';
+
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const cx = classNames.bind(styles);
 
@@ -11,29 +17,47 @@ function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
 }
 
 export function LoginForm() {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   return (
     <div className={cx('container')}>
       <h1 className={cx('title')}>Вход</h1>
-      <form className={cx('form')} onSubmit={handleSubmit}>
-        <div className={cx('field')}>
-          <label htmlFor="email" className={cx('label')}>
-            Имейл
-          </label>
-          <TextField id="email" name="email" variant="outlined" fullWidth placeholder="name@example.com"></TextField>
-        </div>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          label="Имейл"
+          id="email"
+          name="email"
+          variant="outlined"
+          fullWidth
+          helperText="Имейл в формате name@example.com"
+          margin="normal"
+        ></TextField>
 
-        <div>
-          <label htmlFor="password" className={cx('label')}>
-            Пароль
-          </label>
-          <TextField
-            id="password"
-            name="password"
-            variant="outlined"
-            fullWidth
-            placeholder="Введите ваш пароль"
-          ></TextField>
-        </div>
+        <TextField
+          label="Пароль"
+          id="password"
+          name="password"
+          type={showPassword ? 'text' : 'password'}
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          helperText={'Ваш пароль'}
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    onMouseDown={(event) => event.preventDefault()}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
+          }}
+        ></TextField>
 
         <Button variant="contained" fullWidth type="submit" className={cx('button')}>
           Войти
