@@ -28,6 +28,7 @@ export default defineConfig([
       'eslint.config.js',
       '*.config.js',
       'lint-staged.config.js',
+      'src/database/database.types.ts',
     ],
   },
   js.configs.recommended,
