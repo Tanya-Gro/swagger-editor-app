@@ -28,8 +28,16 @@
 
   /* Layout */
   --content-width: 1440px;
-  --tablet-width: 1024px;
-  --mobile-width: 767px;
+  --breakpoint-mobile: 767px;
+  --breakpoint-tablet: 1024px;
+  --breakpoint-desktop: 1440px;
+
+  /* Viewports for layout verification */
+  --viewport-mobile-portrait: 360px;
+  --viewport-mobile-landscape: 640px;
+  --viewport-tablet-portrait: 768px;
+  --viewport-tablet-landscape: 1024px;
+  --viewport-desktop: 1440px;
 
   /* Colors */
   --color-text-primary: #581c87;
@@ -38,7 +46,8 @@
   --color-text-inverse: #fff;
   --color-background: #faf5ff;
   --color-surface: #fff;
-  --color-surface-muted: rgb(255 255 255 / 60%);
+  --color-shadow: #000;
+  --color-surface-muted: color-mix(in srgb, var(--color-surface) var(--opacity-60), transparent);
   --color-border: #e9d5ff;
   --color-border-subtle: #f3e8ff;
   --color-primary: #a855f7;
@@ -61,6 +70,13 @@
   --gradient-panel-viewer: linear-gradient(90deg, #dbeafe, #f3e8ff);
 
   /* Effects */
-  --shadow-color: rgb(88 28 135 / 18%);
-  --focus-ring-color: rgb(192 132 252 / 35%);
+  --opacity-8: 8%;
+  --opacity-10: 10%;
+  --opacity-18: 18%;
+  --opacity-35: 35%;
+  --opacity-60: 60%;
+  --opacity-80: 80%;
+  --opacity-90: 90%;
+  --shadow-color: color-mix(in srgb, var(--color-text-primary) var(--opacity-18), transparent);
+  --focus-ring-color: color-mix(in srgb, var(--color-text-muted) var(--opacity-35), transparent);
 }
