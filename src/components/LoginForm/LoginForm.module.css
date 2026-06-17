@@ -1,0 +1,36 @@
+.title {
+  padding-bottom: 40px;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  place-self: center center;
+
+  width: 500px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.button {
+  height: 42px;
+}
+
+.footer {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+
+  padding-top: 30px;
+}
