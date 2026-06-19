@@ -7,7 +7,9 @@
   display: flex;
   flex-direction: column;
   place-self: center center;
-  width: 500px;
+
+  width: min(100%, 1200px);
+  padding-inline: 16px;
 }
 
 .button {
@@ -21,4 +23,10 @@
   justify-content: center;
 
   padding-top: 30px;
+}
+
+@media (width <= 360px) {
+  .footer {
+    flex-direction: column;
+  }
 }
