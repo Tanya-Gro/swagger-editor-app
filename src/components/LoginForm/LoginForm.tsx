@@ -53,12 +53,12 @@ export function LoginForm() {
       <h1 className={cx('title')}>Вход</h1>
       <form onSubmit={(event) => void handleLogin(event)}>
         <TextField
-          label="Имейл"
+          label="Почта"
           id="email"
           name="email"
           variant="outlined"
           fullWidth
-          helperText="Имейл в формате name@example.com"
+          helperText="Почта в формате name@example.com"
           margin="normal"
           autoComplete="email"
         ></TextField>
