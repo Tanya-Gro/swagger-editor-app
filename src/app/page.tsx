@@ -1,3 +1,5 @@
+import { EditorViewer } from '@components/EditorViewer/EditorViewer';
+
 export default function MainRoute() {
-  return <div>Main page</div>;
+  return <EditorViewer />;
 }
