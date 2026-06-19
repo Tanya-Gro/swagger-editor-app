@@ -2,6 +2,8 @@
 import { type SubmitEvent, useState } from 'react';
 import styles from './LoginForm.module.css';
 import classNames from 'classnames/bind';
+import { browserClient } from '@/database/browser-client';
+import { useRouter } from 'next/navigation';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -12,17 +14,44 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const cx = classNames.bind(styles);
 
-function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
-  event.preventDefault();
-}
+const supabase = browserClient();
 
 export function LoginForm() {
+  const router = useRouter();
+
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  async function handleLogin(event: SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    try {
+      const formData = new FormData(event.currentTarget);
+
+      const email = formData.get('email');
+      const password = formData.get('password');
+
+      if (typeof email !== 'string' || typeof password !== 'string') {
+        return;
+      }
+
+      const { data } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      console.log(data);
+
+      router.push('/');
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className={cx('container')}>
       <h1 className={cx('title')}>Вход</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(event) => void handleLogin(event)}>
         <TextField
           label="Имейл"
           id="email"
@@ -31,6 +60,7 @@ export function LoginForm() {
           fullWidth
           helperText="Имейл в формате name@example.com"
           margin="normal"
+          autoComplete="email"
         ></TextField>
 
         <TextField
@@ -57,6 +87,7 @@ export function LoginForm() {
               ),
             },
           }}
+          autoComplete="current-password"
         ></TextField>
 
         <Button variant="contained" fullWidth type="submit" className={cx('button')}>
