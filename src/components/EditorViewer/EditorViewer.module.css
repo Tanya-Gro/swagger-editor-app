@@ -73,102 +73,12 @@
   padding: 16px;
 }
 
-.code-preview {
-  width: max-content;
-  min-width: 100%;
-  margin: 0;
-  padding: 16px;
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--border-radius-l);
-
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-s);
-  line-height: 1.55;
-  color: var(--color-text-primary);
-
-  background: color-mix(in srgb, var(--color-surface) var(--opacity-60), transparent);
-  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-text-primary) var(--opacity-8), transparent);
-}
-
-.endpoint-list {
+.editor-placeholder,
+.viewer-placeholder {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.endpoint-card {
-  flex: 0 0 auto;
-  backdrop-filter: blur(6px);
-}
-
-.endpoint-heading {
-  flex: 1;
-  min-width: 0;
-}
-
-.endpoint-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
   align-items: center;
-}
-
-.endpoint-path {
-  flex: 1;
-
-  min-width: 0;
-
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-s);
-  color: var(--color-text-primary);
-  overflow-wrap: anywhere;
-}
-
-.endpoint-description {
-  margin-top: 8px;
-  font-size: var(--font-size-s);
+  justify-content: center;
   color: var(--color-text-secondary);
-}
-
-.stack {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.response-box {
-  padding: 12px;
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--border-radius-m);
-  background: color-mix(in srgb, var(--color-background) 50%, transparent);
-}
-
-.response-title,
-.response-status {
-  display: block;
-  font-size: var(--font-size-xs);
-}
-
-.response-title {
-  margin-bottom: 8px;
-  font-weight: var(--font-weight-medium);
-  color: #7e22ce;
-}
-
-.response-status {
-  margin-bottom: 4px;
-  color: var(--color-success-hover);
-}
-
-.response-code {
-  overflow-x: auto;
-
-  margin: 0;
-
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-xs);
-  line-height: 1.45;
-  color: var(--color-text-primary);
 }
 
 @media (orientation: portrait), (width < 1024px) {
