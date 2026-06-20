@@ -7,7 +7,7 @@ import { theme } from './theme';
 
 export function ThemeRegistry({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <AppRouterCacheProvider>
+    <AppRouterCacheProvider options={{ enableCssLayer: true }}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </AppRouterCacheProvider>
   );
