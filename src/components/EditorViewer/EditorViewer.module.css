@@ -1,7 +1,10 @@
 .split-view {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  height: 100%;
+
+  width: min(100%, 1200px);
+  height: calc(100dvh - 65px);
+  margin: 0 auto;
 }
 
 .panel {
