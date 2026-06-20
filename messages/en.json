@@ -1,0 +1,21 @@
+{
+  "Metadata": {
+    "title": "Swagger Editor App",
+    "description": "Educational Swagger editor built with Next.js, React, and TypeScript."
+  },
+  "Header": {
+    "brandName": "Swagger UI",
+    "brandSubtitle": "API Documentation",
+    "homeAriaLabel": "Swagger UI home",
+    "navigationAriaLabel": "Main navigation",
+    "about": "About",
+    "editor": "Editor",
+    "authAction": "Sign in",
+    "menuAriaLabel": "Open menu",
+    "switchToEnglish": "Switch to English",
+    "switchToRussian": "Switch to Russian"
+  },
+  "MainPage": {
+    "title": "Main page"
+  }
+}

@@ -1,60 +1,55 @@
+'use client';
+
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
 import { Button, IconButton } from '@mui/material';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
-import { headerMessages } from './Header.i18n';
+import { useTranslations } from 'next-intl';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import styles from './Header.module.css';
 
 const cx = classNames.bind(styles);
 
-const headerLogo = {
-  name: 'Swagger UI',
-  subtitle: 'API Documentation',
-} as const;
-
-const navigationAriaLabel = 'Основная навигация';
-
 const navigationLinks = [
-  { href: '/about', label: 'О проекте' },
-  { href: '/editor', label: 'Редактор' },
+  { href: '/about', messageKey: 'about' },
+  { href: '/editor', messageKey: 'editor' },
 ] as const;
 
 export function Header() {
+  const t = useTranslations('Header');
+
   return (
     <header className={cx('header')}>
       <div className={cx('inner')}>
-        <Link aria-label={headerMessages.homeAriaLabel} className={cx('logo')} data-testid="header-logo" href="/">
+        <Link aria-label={t('homeAriaLabel')} className={cx('logo')} data-testid="header-logo" href="/">
           <span className={cx('logo-mark')}>
             <span aria-hidden="true" className={cx('logo-image')} />
           </span>
           <span className={cx('logo-text')}>
-            <span className={cx('logo-title')}>{headerLogo.name}</span>
-            <span className={cx('logo-subtitle')}>{headerLogo.subtitle}</span>
+            <span className={cx('logo-title')}>{t('brandName')}</span>
+            <span className={cx('logo-subtitle')}>{t('brandSubtitle')}</span>
           </span>
         </Link>
 
-        <nav aria-label={navigationAriaLabel} className={cx('nav')}>
-          {navigationLinks.map(({ href, label }) => (
-            <Link className={cx('nav-link')} href={href} key={`${href}-${label}`}>
-              {label}
+        <nav aria-label={t('navigationAriaLabel')} className={cx('nav')}>
+          {navigationLinks.map(({ href, messageKey }) => (
+            <Link className={cx('nav-link')} href={href} key={href}>
+              {t(messageKey)}
             </Link>
           ))}
         </nav>
 
         <div className={cx('actions')}>
           <div className={cx('desktop-actions')}>
-            <Button startIcon={<PublicOutlinedIcon />} variant="text">
-              {headerMessages.language}
-            </Button>
+            <LanguageSwitcher />
             <Button startIcon={<LoginOutlinedIcon />} variant="contained">
-              {headerMessages.authAction}
+              {t('authAction')}
             </Button>
           </div>
 
           <details className={cx('mobile-menu-details')}>
-            <summary aria-label={headerMessages.menuAriaLabel} className={cx('mobile-menu-button')}>
+            <summary aria-label={t('menuAriaLabel')} className={cx('mobile-menu-button')}>
               <IconButton aria-hidden="true" className={cx('mobile-menu-icon')} component="span" size="medium">
                 <MenuOutlinedIcon />
               </IconButton>
@@ -62,11 +57,9 @@ export function Header() {
             <div className={cx('mobile-menu')} id="mobile-header-menu">
               <div className={cx('mobile-menu-section')} />
               <div className={cx('mobile-menu-section')}>
-                <Button className={cx('mobile-menu-action')} startIcon={<PublicOutlinedIcon />} variant="text">
-                  {headerMessages.language}
-                </Button>
+                <LanguageSwitcher className={cx('mobile-menu-action')} />
                 <Button className={cx('mobile-menu-action')} startIcon={<LoginOutlinedIcon />} variant="contained">
-                  {headerMessages.authAction}
+                  {t('authAction')}
                 </Button>
               </div>
             </div>

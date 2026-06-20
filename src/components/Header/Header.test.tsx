@@ -1,16 +1,25 @@
 import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import { AppIntlProvider } from '@/i18n/AppIntlProvider';
 import { Header } from './Header';
+
+function renderHeader(): void {
+  render(
+    <AppIntlProvider>
+      <Header />
+    </AppIntlProvider>,
+  );
+}
 
 describe('Header', () => {
   it('renders the header', () => {
-    render(<Header />);
+    renderHeader();
 
     expect(screen.getByRole('banner')).toBeInTheDocument();
   });
 
   it('contains the logo', () => {
-    render(<Header />);
+    renderHeader();
 
     const header = screen.getByRole('banner');
 
@@ -20,12 +29,12 @@ describe('Header', () => {
   });
 
   it('renders unique navigation links', () => {
-    render(<Header />);
+    renderHeader();
 
-    const navigation = screen.getByRole('navigation', { name: 'Основная навигация' });
+    const navigation = screen.getByRole('navigation', { name: 'Main navigation' });
 
     expect(within(navigation).getAllByRole('link')).toHaveLength(2);
-    expect(within(navigation).getByRole('link', { name: 'О проекте' })).toHaveAttribute('href', '/about');
-    expect(within(navigation).getByRole('link', { name: 'Редактор' })).toHaveAttribute('href', '/editor');
+    expect(within(navigation).getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about');
+    expect(within(navigation).getByRole('link', { name: 'Editor' })).toHaveAttribute('href', '/editor');
   });
 });
