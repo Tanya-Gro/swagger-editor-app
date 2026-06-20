@@ -10,6 +10,6 @@ describe('Footer', () => {
 
     expect(within(footer).getByRole('link', { name: 'О проекте' })).toHaveAttribute('href', '/about');
     expect(within(footer).getByText('RS School 2024')).toBeInTheDocument();
-    expect(within(footer).getByText('Made with ♥ by Team')).toBeInTheDocument();
+    expect(within(footer).getByText('Made with ♥ by ATOM Team')).toBeInTheDocument();
   });
 });
