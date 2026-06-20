@@ -8,7 +8,7 @@ describe('Footer', () => {
 
     const footer = screen.getByRole('contentinfo');
 
-    expect(within(footer).getByRole('link', { name: 'О проекте' })).toHaveAttribute('href', '#about');
+    expect(within(footer).getByRole('link', { name: 'О проекте' })).toHaveAttribute('href', '/about');
     expect(within(footer).getByText('RS School 2024')).toBeInTheDocument();
     expect(within(footer).getByText('Made with ♥ by Team')).toBeInTheDocument();
   });

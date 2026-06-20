@@ -10,7 +10,7 @@ export function Footer() {
     <footer className={cx('footer')}>
       <div className={cx('inner')}>
         <div className={cx('links')}>
-          <Link className={cx('about-link')} href="#about" underline="none">
+          <Link className={cx('about-link')} href="/about" underline="none">
             <InfoOutlinedIcon aria-hidden="true" className={cx('icon')} fontSize="inherit" />О проекте
           </Link>
           <span aria-hidden="true" className={cx('separator')}>
@@ -18,7 +18,7 @@ export function Footer() {
           </span>
           <span>RS School 2024</span>
         </div>
-        <div className={cx('note')}>Made with ♥ by Team</div>
+        <div className={cx('note')}>Made with ♥ by ATOM Team</div>
       </div>
     </footer>
   );
