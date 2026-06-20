@@ -4,7 +4,7 @@ import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
-import { Accordion, AccordionDetails, AccordionSummary, Button, Chip, Paper, TextField } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Chip, TextField } from '@mui/material';
 import classNames from 'classnames/bind';
 import styles from './EditorViewer.module.css';
 
@@ -78,6 +78,13 @@ const endpoints: Endpoint[] = [
   { description: 'Удалить пользователя', method: 'DELETE', path: '/users/{id}' },
 ];
 
+const methodColors = {
+  GET: 'success',
+  POST: 'info',
+  PUT: 'warning',
+  DELETE: 'error',
+} as const;
+
 export function EditorViewer() {
   return (
     <div className={cx('split-view')}>
@@ -98,9 +105,9 @@ export function EditorViewer() {
         </header>
 
         <div className={cx('panel-body')}>
-          <Paper className={cx('code-preview')} component="pre" elevation={0}>
+          <Box className={cx('code-preview')} component="pre">
             {swaggerExample}
-          </Paper>
+          </Box>
         </div>
       </section>
 
@@ -134,17 +141,12 @@ function EndpointCard({ endpoint }: Readonly<{ endpoint: Endpoint }>) {
     >
       <AccordionSummary
         aria-controls={`${endpoint.method}-${endpoint.path}-content`}
-        className={cx('endpoint-summary')}
         expandIcon={hasDetails ? <ExpandMoreOutlinedIcon fontSize="small" /> : null}
         id={`${endpoint.method}-${endpoint.path}-header`}
       >
         <div className={cx('endpoint-heading')}>
           <div className={cx('endpoint-row')}>
-            <Chip
-              className={cx('method', `method-${endpoint.method.toLowerCase()}`)}
-              label={endpoint.method}
-              size="small"
-            />
+            <Chip color={methodColors[endpoint.method]} label={endpoint.method} size="small" />
             <code className={cx('endpoint-path')}>{endpoint.path}</code>
           </div>
           <p className={cx('endpoint-description')}>{endpoint.description}</p>
@@ -152,7 +154,7 @@ function EndpointCard({ endpoint }: Readonly<{ endpoint: Endpoint }>) {
       </AccordionSummary>
 
       {hasDetails && (
-        <AccordionDetails className={cx('endpoint-details')} id={`${endpoint.method}-${endpoint.path}-content`}>
+        <AccordionDetails id={`${endpoint.method}-${endpoint.path}-content`}>
           <div className={cx('stack')}>
             {endpoint.request === 'id' && <TextField fullWidth label="Параметры" placeholder="id" size="small" />}
             {endpoint.request === 'body' && (
@@ -172,11 +174,11 @@ function EndpointCard({ endpoint }: Readonly<{ endpoint: Endpoint }>) {
                 cURL
               </Button>
             </div>
-            <Paper className={cx('response-box')} elevation={0}>
+            <Box className={cx('response-box')}>
               <span className={cx('response-title')}>Response</span>
               <span className={cx('response-status')}>{endpoint.status}</span>
               <pre className={cx('response-code')}>{endpoint.response}</pre>
-            </Paper>
+            </Box>
           </div>
         </AccordionDetails>
       )}

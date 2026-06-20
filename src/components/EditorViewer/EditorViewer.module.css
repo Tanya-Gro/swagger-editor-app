@@ -98,31 +98,7 @@
 
 .endpoint-card {
   flex: 0 0 auto;
-
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--border-radius-m) !important;
-
-  background: color-mix(in srgb, var(--color-surface) var(--opacity-80), transparent) !important;
   backdrop-filter: blur(6px);
-
-  transition: box-shadow 0.3s ease !important;
-}
-
-.endpoint-card::before {
-  display: none;
-}
-
-.endpoint-card:hover {
-  box-shadow: 0 10px 15px -3px color-mix(in srgb, var(--color-shadow) var(--opacity-10), transparent) !important;
-}
-
-.endpoint-summary {
-  min-height: 0 !important;
-  padding: 16px !important;
-}
-
-.endpoint-summary > div:first-of-type {
-  margin: 0 !important;
 }
 
 .endpoint-heading {
@@ -135,39 +111,6 @@
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
-}
-
-.method {
-  height: 23px !important;
-  border: 1px solid transparent !important;
-  border-radius: var(--border-radius-pill) !important;
-
-  font-size: var(--font-size-xs) !important;
-  font-weight: var(--font-weight-bold) !important;
-}
-
-.method-get {
-  border-color: #a7f3d0 !important;
-  color: #047857 !important;
-  background: #d1fae5 !important;
-}
-
-.method-post {
-  border-color: #bfdbfe !important;
-  color: #1d4ed8 !important;
-  background: #dbeafe !important;
-}
-
-.method-put {
-  border-color: #fde68a !important;
-  color: #b45309 !important;
-  background: #fef3c7 !important;
-}
-
-.method-delete {
-  border-color: #fecdd3 !important;
-  color: var(--color-error) !important;
-  background: #ffe4e6 !important;
 }
 
 .endpoint-path {
@@ -187,12 +130,6 @@
   color: var(--color-text-secondary);
 }
 
-.endpoint-details {
-  margin: 0 16px;
-  padding: 16px 0 !important;
-  border-top: 1px solid var(--color-border);
-}
-
 .stack {
   display: flex;
   flex-direction: column;
@@ -202,8 +139,8 @@
 .response-box {
   padding: 12px;
   border: 1px solid var(--color-border-subtle);
-  border-radius: var(--border-radius-m) !important;
-  background: color-mix(in srgb, var(--color-background) 50%, transparent) !important;
+  border-radius: var(--border-radius-m);
+  background: color-mix(in srgb, var(--color-background) 50%, transparent);
 }
 
 .response-title,
@@ -251,9 +188,5 @@
   .panel-body {
     padding-right: 12px;
     padding-left: 12px;
-  }
-
-  .endpoint-summary {
-    padding: 12px !important;
   }
 }
