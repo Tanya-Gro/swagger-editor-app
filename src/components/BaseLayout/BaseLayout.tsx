@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import type { ReactNode } from 'react';
+import { Footer } from '@components/Footer/Footer';
 import { Header } from '@components/Header/Header';
 import styles from './BaseLayout.module.css';
 
@@ -19,8 +20,4 @@ export function BaseLayout({
       <Footer />
     </>
   );
-}
-
-function Footer() {
-  return <footer />;
 }

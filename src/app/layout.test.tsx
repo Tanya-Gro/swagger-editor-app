@@ -14,6 +14,7 @@ describe('RootLayout', () => {
     expect(markup).toContain('<body>');
     expect(markup).toMatch(/<main[^>]*id="main-content"[^>]*>/);
     expect(markup).toContain('data-testid="page-content"');
-    expect(markup).toContain('<footer></footer>');
+    expect(markup).toMatch(/<footer[^>]*>/);
+    expect(markup).toContain('RS School 2024');
   });
 });
