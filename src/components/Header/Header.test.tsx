@@ -1,13 +1,18 @@
 import { render, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { AppIntlProvider } from '@/i18n/AppIntlProvider';
+import { NextIntlClientProvider } from 'next-intl';
+import { describe, expect, it, vi } from 'vitest';
+import messages from '../../../messages/ru.json';
 import { Header } from './Header';
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ refresh: vi.fn() }),
+}));
 
 function renderHeader(): void {
   render(
-    <AppIntlProvider>
+    <NextIntlClientProvider locale="ru" messages={messages} timeZone="UTC">
       <Header />
-    </AppIntlProvider>,
+    </NextIntlClientProvider>,
   );
 }
 
@@ -25,16 +30,16 @@ describe('Header', () => {
 
     expect(within(header).getByTestId('header-logo')).toBeInTheDocument();
     expect(within(header).getByText('Swagger UI')).toBeInTheDocument();
-    expect(within(header).getByText('API Documentation')).toBeInTheDocument();
+    expect(within(header).getByText('Документация API')).toBeInTheDocument();
   });
 
   it('renders unique navigation links', () => {
     renderHeader();
 
-    const navigation = screen.getByRole('navigation', { name: 'Main navigation' });
+    const navigation = screen.getByRole('navigation', { name: 'Основная навигация' });
 
     expect(within(navigation).getAllByRole('link')).toHaveLength(2);
-    expect(within(navigation).getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about');
-    expect(within(navigation).getByRole('link', { name: 'Editor' })).toHaveAttribute('href', '/editor');
+    expect(within(navigation).getByRole('link', { name: 'О проекте' })).toHaveAttribute('href', '/about');
+    expect(within(navigation).getByRole('link', { name: 'Редактор' })).toHaveAttribute('href', '/editor');
   });
 });

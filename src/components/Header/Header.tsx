@@ -1,5 +1,3 @@
-'use client';
-
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { Button, IconButton } from '@mui/material';

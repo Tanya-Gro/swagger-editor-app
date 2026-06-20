@@ -1,14 +1,24 @@
 import { renderToStaticMarkup } from 'react-dom/server';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+import messages from '../../messages/en.json';
 import RootLayout from './layout';
 
+vi.mock('next-intl/server', () => ({
+  getLocale: () => Promise.resolve('en'),
+  getMessages: () => Promise.resolve(messages),
+  getTranslations: () => Promise.resolve((key: 'description' | 'title') => messages.Metadata[key]),
+}));
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ refresh: vi.fn() }),
+}));
+
 describe('RootLayout', () => {
-  it('renders main content', () => {
-    const markup = renderToStaticMarkup(
-      <RootLayout>
-        <section data-testid="page-content" />
-      </RootLayout>,
-    );
+  it('renders main content', async () => {
+    const layout = await RootLayout({
+      children: <section data-testid="page-content" />,
+    });
+    const markup = renderToStaticMarkup(layout);
 
     expect(markup).toContain('<html lang="en">');
     expect(markup).toContain('<body>');
