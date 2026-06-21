@@ -31,17 +31,18 @@ describe('LanguageSwitcher', () => {
     vi.clearAllMocks();
   });
 
-  it('renders the target language', () => {
+  it('renders the language list', () => {
     renderSwitcher();
 
-    expect(screen.getByRole('button', { name: 'Switch to Russian' })).toHaveTextContent('RU');
+    expect(screen.getByRole('combobox', { name: 'Language' })).toHaveTextContent('English');
   });
 
   it('changes the locale and refreshes server components', async () => {
     const user = userEvent.setup();
     renderSwitcher();
 
-    await user.click(screen.getByRole('button', { name: 'Switch to Russian' }));
+    await user.click(screen.getByRole('combobox', { name: 'Language' }));
+    await user.click(await screen.findByRole('option', { name: 'Russian' }));
 
     await waitFor(() => {
       expect(mocks.setLocale).toHaveBeenCalledWith('ru');

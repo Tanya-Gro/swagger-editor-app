@@ -12,8 +12,9 @@
     "editor": "Редактор",
     "authAction": "Войти",
     "menuAriaLabel": "Открыть меню",
-    "switchToEnglish": "Переключить на английский",
-    "switchToRussian": "Переключить на русский"
+    "languageLabel": "Язык",
+    "english": "Английский",
+    "russian": "Русский"
   },
   "MainPage": {
     "title": "Главная страница"

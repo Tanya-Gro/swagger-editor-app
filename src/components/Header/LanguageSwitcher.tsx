@@ -1,11 +1,11 @@
 'use client';
 
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
-import { Button } from '@mui/material';
+import { FormControl, InputAdornment, MenuItem, Select, type SelectChangeEvent } from '@mui/material';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { setLocale } from '@/i18n/actions';
-import type { Locale } from '@/i18n/config';
+import { isLocale } from '@/i18n/config';
 
 type LanguageSwitcherProperties = Readonly<{
   className?: string;
@@ -15,11 +15,15 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProperties) {
   const locale = useLocale();
   const t = useTranslations('Header');
   const router = useRouter();
-  const nextLocale: Locale = locale === 'ru' ? 'en' : 'ru';
-  const label = nextLocale === 'ru' ? t('switchToRussian') : t('switchToEnglish');
 
-  const changeLanguage = (): void => {
-    setLocale(nextLocale)
+  const changeLanguage = (event: SelectChangeEvent): void => {
+    const selectedLocale = event.target.value;
+
+    if (!isLocale(selectedLocale) || selectedLocale === locale) {
+      return;
+    }
+
+    setLocale(selectedLocale)
       .then(() => {
         router.refresh();
       })
@@ -29,14 +33,20 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProperties) {
   };
 
   return (
-    <Button
-      aria-label={label}
-      className={className}
-      onClick={changeLanguage}
-      startIcon={<PublicOutlinedIcon />}
-      variant="text"
-    >
-      {nextLocale.toUpperCase()}
-    </Button>
+    <FormControl className={className} size="small">
+      <Select
+        inputProps={{ 'aria-label': t('languageLabel') }}
+        onChange={changeLanguage}
+        startAdornment={
+          <InputAdornment position="start">
+            <PublicOutlinedIcon fontSize="small" />
+          </InputAdornment>
+        }
+        value={locale}
+      >
+        <MenuItem value="en">{t('english')}</MenuItem>
+        <MenuItem value="ru">{t('russian')}</MenuItem>
+      </Select>
+    </FormControl>
   );
 }
