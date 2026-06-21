@@ -1,0 +1,30 @@
+.layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  width: min(100%, 1200px);
+  height: calc(100dvh - 65px);
+  margin: 0 auto;
+}
+
+.panel {
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+}
+
+.editor-panel {
+  border-right: 1px solid var(--color-border-subtle);
+}
+
+@media (orientation: portrait), (width < 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+
+  .editor-panel {
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+}
