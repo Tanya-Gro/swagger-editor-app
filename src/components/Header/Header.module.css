@@ -131,6 +131,10 @@
   gap: 8px;
 }
 
+.auth-action {
+  width: 112px;
+}
+
 .mobile-menu-button {
   display: none;
   color: var(--color-text-secondary);

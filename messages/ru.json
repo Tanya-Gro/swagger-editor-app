@@ -1,5 +1,5 @@
 {
-  "Metadata": {
+  "METADATA": {
     "title": "Приложение Swagger Editor",
     "description": "Учебный редактор Swagger на Next.js, React и TypeScript."
   },
@@ -13,8 +13,8 @@
     "authAction": "Войти",
     "menuAriaLabel": "Открыть меню",
     "languageLabel": "Язык",
-    "english": "Английский",
-    "russian": "Русский"
+    "english": "EN",
+    "russian": "RU"
   },
   "MainPage": {
     "title": "Главная страница"

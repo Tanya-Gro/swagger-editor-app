@@ -34,7 +34,7 @@ describe('LanguageSwitcher', () => {
   it('renders the language list', () => {
     renderSwitcher();
 
-    expect(screen.getByRole('combobox', { name: 'Language' })).toHaveTextContent('English');
+    expect(screen.getByRole('combobox', { name: 'Language' })).toHaveTextContent('EN');
   });
 
   it('changes the locale and refreshes server components', async () => {
@@ -42,7 +42,7 @@ describe('LanguageSwitcher', () => {
     renderSwitcher();
 
     await user.click(screen.getByRole('combobox', { name: 'Language' }));
-    await user.click(await screen.findByRole('option', { name: 'Russian' }));
+    await user.click(await screen.findByRole('option', { name: 'RU' }));
 
     await waitFor(() => {
       expect(mocks.setLocale).toHaveBeenCalledWith('ru');

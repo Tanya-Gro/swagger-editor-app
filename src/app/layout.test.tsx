@@ -6,7 +6,7 @@ import RootLayout from './layout';
 vi.mock('next-intl/server', () => ({
   getLocale: () => Promise.resolve('en'),
   getMessages: () => Promise.resolve(messages),
-  getTranslations: () => Promise.resolve((key: 'description' | 'title') => messages.Metadata[key]),
+  getTranslations: () => Promise.resolve((key: 'description' | 'title') => messages.METADATA[key]),
 }));
 
 vi.mock('next/navigation', () => ({

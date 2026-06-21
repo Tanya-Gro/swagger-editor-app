@@ -1,5 +1,5 @@
 {
-  "Metadata": {
+  "METADATA": {
     "title": "Swagger Editor App",
     "description": "Educational Swagger editor built with Next.js, React, and TypeScript."
   },
@@ -13,8 +13,8 @@
     "authAction": "Sign in",
     "menuAriaLabel": "Open menu",
     "languageLabel": "Language",
-    "english": "English",
-    "russian": "Russian"
+    "english": "EN",
+    "russian": "RU"
   },
   "MainPage": {
     "title": "Main page"

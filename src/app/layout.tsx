@@ -7,7 +7,7 @@ import { ThemeRegistry } from '@/theme/ThemeRegistry';
 import '@/styles/index.css';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations('Metadata');
+  const t = await getTranslations('METADATA');
 
   return {
     title: t('title'),

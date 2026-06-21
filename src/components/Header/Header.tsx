@@ -41,7 +41,7 @@ export function Header() {
         <div className={cx('actions')}>
           <div className={cx('desktop-actions')}>
             <LanguageSwitcher />
-            <Button startIcon={<LoginOutlinedIcon />} variant="contained">
+            <Button className={cx('auth-action')} startIcon={<LoginOutlinedIcon />} variant="contained">
               {t('authAction')}
             </Button>
           </div>
@@ -56,7 +56,11 @@ export function Header() {
               <div className={cx('mobile-menu-section')} />
               <div className={cx('mobile-menu-section')}>
                 <LanguageSwitcher className={cx('mobile-menu-action')} />
-                <Button className={cx('mobile-menu-action')} startIcon={<LoginOutlinedIcon />} variant="contained">
+                <Button
+                  className={cx('auth-action', 'mobile-menu-action')}
+                  startIcon={<LoginOutlinedIcon />}
+                  variant="contained"
+                >
                   {t('authAction')}
                 </Button>
               </div>
