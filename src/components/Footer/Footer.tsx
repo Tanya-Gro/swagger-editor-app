@@ -16,7 +16,7 @@ export function Footer() {
           <span aria-hidden="true" className={cx('separator')}>
             |
           </span>
-          <span>RS School 2024</span>
+          <span>RS School 2026</span>
         </div>
         <div className={cx('note')}>Made with ♥ by ATOM Team</div>
       </div>
