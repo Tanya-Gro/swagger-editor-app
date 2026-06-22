@@ -3,7 +3,7 @@
     "title": "Swagger Editor App",
     "description": "Educational Swagger editor built with Next.js, React, and TypeScript."
   },
-  "Header": {
+  "HEADER": {
     "brandName": "Swagger UI",
     "brandSubtitle": "API Documentation",
     "homeAriaLabel": "Swagger UI home",
@@ -16,7 +16,7 @@
     "english": "EN",
     "russian": "RU"
   },
-  "MainPage": {
+  "MAIN_PAGE": {
     "title": "Main page"
   }
 }

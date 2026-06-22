@@ -3,7 +3,7 @@
     "title": "Приложение Swagger Editor",
     "description": "Учебный редактор Swagger на Next.js, React и TypeScript."
   },
-  "Header": {
+  "HEADER": {
     "brandName": "Swagger UI",
     "brandSubtitle": "Документация API",
     "homeAriaLabel": "Главная Swagger UI",
@@ -16,7 +16,7 @@
     "english": "EN",
     "russian": "RU"
   },
-  "MainPage": {
+  "MAIN_PAGE": {
     "title": "Главная страница"
   }
 }

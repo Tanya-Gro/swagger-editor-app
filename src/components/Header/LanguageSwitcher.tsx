@@ -13,7 +13,7 @@ type LanguageSwitcherProperties = Readonly<{
 
 export function LanguageSwitcher({ className }: LanguageSwitcherProperties) {
   const locale = useLocale();
-  const t = useTranslations('Header');
+  const t = useTranslations('HEADER');
   const router = useRouter();
 
   const changeLanguage = (event: SelectChangeEvent): void => {

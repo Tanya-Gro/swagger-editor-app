@@ -15,7 +15,7 @@ const navigationLinks = [
 ] as const;
 
 export function Header() {
-  const t = useTranslations('Header');
+  const t = useTranslations('HEADER');
 
   return (
     <header className={cx('header')}>
