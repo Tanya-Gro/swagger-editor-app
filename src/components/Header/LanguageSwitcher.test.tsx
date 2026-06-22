@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { NextIntlClientProvider } from 'next-intl';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import messages from '../../../messages/en.json';
+import messages from '@messages/en.json';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
 const mocks = vi.hoisted(() => ({

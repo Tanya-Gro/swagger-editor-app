@@ -1,6 +1,6 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import messages from '../../messages/en.json';
+import messages from '@messages/en.json';
 import RootLayout from './layout';
 
 vi.mock('next-intl/server', () => ({

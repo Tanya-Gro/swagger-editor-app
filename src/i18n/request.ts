@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { getRequestConfig } from 'next-intl/server';
-import englishMessages from '../../messages/en.json';
-import russianMessages from '../../messages/ru.json';
+import englishMessages from '@messages/en.json';
+import russianMessages from '@messages/ru.json';
 import { defaultLocale, isLocale, localeCookieName } from './config';
 
 export default getRequestConfig(async () => {

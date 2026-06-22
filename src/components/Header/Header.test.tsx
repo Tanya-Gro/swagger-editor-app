@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it, vi } from 'vitest';
-import messages from '../../../messages/ru.json';
+import messages from '@messages/ru.json';
 import { Header } from './Header';
 
 vi.mock('next/navigation', () => ({
