@@ -34,10 +34,15 @@ export function LoginForm() {
         return;
       }
 
-      const { data } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
+
+      if (error) {
+        console.error(error);
+        return;
+      }
 
       console.log(data);
 
