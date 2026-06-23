@@ -8,10 +8,29 @@ type Credentials = {
   password: string;
 };
 
+type SignInSuccess = {
+  data: {
+    user: {
+      id: string;
+    };
+  };
+  error: null;
+};
+
+type SignInFailure = {
+  data: {
+    user: null;
+    session: null;
+  };
+  error: Error;
+};
+
+type SignInResult = SignInSuccess | SignInFailure;
+
 const mocks = vi.hoisted(() => ({
   push: vi.fn(),
   refresh: vi.fn(),
-  signInWithPassword: vi.fn<(credentials: Credentials) => Promise<unknown>>(),
+  signInWithPassword: vi.fn<(credentials: Credentials) => Promise<SignInResult>>(),
 }));
 
 vi.mock('next/navigation', () => ({
@@ -39,6 +58,7 @@ describe('LoginForm', () => {
           id: 'user-id',
         },
       },
+      error: null,
     });
   });
 
@@ -50,7 +70,7 @@ describe('LoginForm', () => {
     expect(screen.getByLabelText('Пароль')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Войти' })).toBeInTheDocument();
     expect(screen.getByText('Нет аккаунта?')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Регистрация' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Регистрация' })).toBeInTheDocument();
   });
 
   it('toggles password visibility', async () => {
@@ -89,5 +109,20 @@ describe('LoginForm', () => {
 
     expect(mocks.push).toHaveBeenCalledWith('/');
     expect(mocks.refresh).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not redirect when Supabase returns error', () => {
+    mocks.signInWithPassword.mockResolvedValue({
+      data: {
+        user: null,
+        session: null,
+      },
+      error: new Error('Invalid login credentials'),
+    });
+
+    render(<LoginForm />);
+
+    expect(mocks.push).not.toHaveBeenCalled();
+    expect(mocks.refresh).not.toHaveBeenCalled();
   });
 });
