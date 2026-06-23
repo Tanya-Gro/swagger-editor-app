@@ -8,7 +8,7 @@
   flex-direction: column;
   place-self: center center;
 
-  width: min(100%, 1200px);
+  width: min(100%, 500px);
   padding-inline: 16px;
 }
 
