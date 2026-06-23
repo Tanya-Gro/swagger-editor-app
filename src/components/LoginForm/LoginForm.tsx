@@ -61,7 +61,7 @@ export function LoginForm() {
           helperText="Почта в формате name@example.com"
           margin="normal"
           autoComplete="email"
-        ></TextField>
+        />
 
         <TextField
           label="Пароль"
@@ -88,7 +88,7 @@ export function LoginForm() {
             },
           }}
           autoComplete="current-password"
-        ></TextField>
+        />
 
         <Button variant="contained" fullWidth type="submit" className={cx('button')}>
           Войти

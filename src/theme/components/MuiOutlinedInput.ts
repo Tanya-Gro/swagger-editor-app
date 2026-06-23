@@ -17,5 +17,8 @@ export const MuiOutlinedInput = {
         borderColor: 'var(--color-error)',
       },
     },
+    input: {
+      height: '56px',
+    },
   },
 };
