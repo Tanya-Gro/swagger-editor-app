@@ -4,6 +4,7 @@ import styles from './LoginForm.module.css';
 import classNames from 'classnames/bind';
 import { browserClient } from '@/database/browser-client';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -101,7 +102,9 @@ export function LoginForm() {
       </form>
       <div className={cx('footer')}>
         <p>Нет аккаунта?</p>
-        <Button variant="text">Регистрация</Button>
+        <Link href="/registration" className={cx('link')}>
+          Регистрация
+        </Link>
       </div>
     </div>
   );

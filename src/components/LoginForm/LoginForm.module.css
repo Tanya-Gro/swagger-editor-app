@@ -23,6 +23,16 @@
   justify-content: center;
 
   padding-top: 30px;
+
+  color: var(--color-text-secondary);
+}
+
+.link {
+  font-weight: var(--font-weight-bold);
+
+  &:hover {
+    color: var(--color-text-primary);
+  }
 }
 
 @media (width <= 360px) {
