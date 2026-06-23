@@ -1,4 +1,5 @@
 'use client';
+
 import { type SubmitEvent, useState } from 'react';
 import styles from './LoginForm.module.css';
 import classNames from 'classnames/bind';
@@ -45,7 +46,7 @@ export function LoginForm() {
         return;
       }
 
-      console.log(data);
+      console.info(data);
 
       router.push('/');
       router.refresh();
