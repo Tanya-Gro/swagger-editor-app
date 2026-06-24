@@ -6,56 +6,15 @@ import classNames from 'classnames/bind';
 import { browserClient } from '@/database/browser-client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { z } from 'zod';
+import { type ValidationErrors, validateLoginForm } from '@/utils/validation/validate-login-form';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { LoginSchema } from '@/utils/validation-schemas/login-schema';
-import { PasswordField } from './PasswordField';
+import { PasswordField } from '@/components/PasswordField/PasswordField';
 
 const cx = classNames.bind(styles);
 
 const supabase = browserClient();
-
-type ValidationErrors = {
-  email?: string;
-  password?: string;
-};
-
-type LoginValidationResult =
-  | {
-      success: true;
-      data: {
-        email: string;
-        password: string;
-      };
-    }
-  | {
-      success: false;
-      errors: ValidationErrors;
-    };
-
-const validateLoginForm = (formData: FormData): LoginValidationResult => {
-  const formValues = Object.fromEntries(formData);
-  const result = LoginSchema.safeParse(formValues);
-
-  if (!result.success) {
-    const fieldErrors = z.treeifyError(result.error).properties;
-
-    return {
-      success: false,
-      errors: {
-        email: fieldErrors?.email?.errors[0],
-        password: fieldErrors?.password?.errors[0],
-      },
-    };
-  }
-
-  return {
-    success: true,
-    data: result.data,
-  };
-};
 
 export function LoginForm() {
   const router = useRouter();
@@ -112,7 +71,7 @@ export function LoginForm() {
           autoComplete="email"
         />
 
-        <PasswordField error={validationErrors.password} />
+        <PasswordField label="Пароль" id="password" name="password" error={validationErrors.password} />
 
         <Button variant="contained" fullWidth type="submit" className={cx('button')}>
           Войти
