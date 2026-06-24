@@ -1,12 +1,12 @@
-Review React TypeScript code for students:
+Review Next.js TypeScript code for students:
 
-- SOLID principles, clean components (<100 lines)
+- SOLID principles, clean components
 - Hooks (useEffect deps, no side-effects)
-- TypeScript strict (no any, infer types)
+- TypeScript strict (no any, no type assertion)
 - ESLint compliance, performance
 - Security (no direct API keys)
 - Accessibility and semantic HTML - modern best practices
-  Give actionable fixes with code examples.
+  Provide actionable solutions without direct code examples.
 
-Check architecture: state management (Zustand/Query), routing, error handling.
+Check architecture: state management, error handling.
 Suggest improvements for scalability.
