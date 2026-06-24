@@ -56,3 +56,19 @@ jobs:
           VCS__PIPELINE__PULL_NUMBER: ${{ inputs.pull-request-number || github.event.pull_request.number }}
           VCS__HTTP_CLIENT__API_URL: https://api.github.com
           VCS__HTTP_CLIENT__API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run AI Context Review
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        continue-on-error: true
+        uses: Nikita-Filonov/ai-review@v0.68.0
+        with:
+          review-command: run-context
+        env:
+          LLM__HTTP_CLIENT__API_TOKEN: ${{ secrets.GROQ_API_KEY }}
+
+          VCS__PROVIDER: GITHUB
+          VCS__PIPELINE__OWNER: ${{ github.repository_owner }}
+          VCS__PIPELINE__REPO: ${{ github.event.repository.name }}
+          VCS__PIPELINE__PULL_NUMBER: ${{ github.event.pull_request.number }}
+          VCS__HTTP_CLIENT__API_URL: https://api.github.com
+          VCS__HTTP_CLIENT__API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
