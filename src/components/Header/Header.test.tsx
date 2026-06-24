@@ -28,4 +28,18 @@ describe('Header', () => {
     expect(within(navigation).getByRole('link', { name: 'О проекте' })).toHaveAttribute('href', '/about');
     expect(within(navigation).getByRole('link', { name: 'Редактор' })).toHaveAttribute('href', '/editor');
   });
+
+  it('login button has link to login page', () => {
+    render(<Header />);
+
+    const loginLinks = screen.getAllByRole('link', {
+      name: /войти/i,
+    });
+
+    expect(loginLinks).toHaveLength(2);
+
+    loginLinks.forEach((link) => {
+      expect(link).toHaveAttribute('href', '/login');
+    });
+  });
 });

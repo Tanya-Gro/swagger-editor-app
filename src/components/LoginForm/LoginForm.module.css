@@ -1,0 +1,42 @@
+.title {
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  place-self: center center;
+
+  width: min(100%, 500px);
+  padding-inline: 16px;
+}
+
+.button {
+  height: 42px;
+}
+
+.footer {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+
+  padding-top: 30px;
+
+  color: var(--color-text-secondary);
+}
+
+.link {
+  font-weight: var(--font-weight-bold);
+
+  &:hover {
+    color: var(--color-text-primary);
+  }
+}
+
+@media (width <= 360px) {
+  .footer {
+    flex-direction: column;
+  }
+}

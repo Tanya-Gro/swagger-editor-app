@@ -48,9 +48,11 @@ export function Header() {
             <Button startIcon={<PublicOutlinedIcon />} variant="text">
               {headerMessages.language}
             </Button>
-            <Button startIcon={<LoginOutlinedIcon />} variant="contained">
-              {headerMessages.authAction}
-            </Button>
+            <Link href="/login">
+              <Button component="span" startIcon={<LoginOutlinedIcon />} variant="contained">
+                {headerMessages.authAction}
+              </Button>
+            </Link>
           </div>
 
           <details className={cx('mobile-menu-details')}>
@@ -65,9 +67,16 @@ export function Header() {
                 <Button className={cx('mobile-menu-action')} startIcon={<PublicOutlinedIcon />} variant="text">
                   {headerMessages.language}
                 </Button>
-                <Button className={cx('mobile-menu-action')} startIcon={<LoginOutlinedIcon />} variant="contained">
-                  {headerMessages.authAction}
-                </Button>
+                <Link href="/login">
+                  <Button
+                    component="span"
+                    className={cx('mobile-menu-action')}
+                    startIcon={<LoginOutlinedIcon />}
+                    variant="contained"
+                  >
+                    {headerMessages.authAction}
+                  </Button>
+                </Link>
               </div>
             </div>
           </details>
