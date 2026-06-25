@@ -6,7 +6,8 @@ import classNames from 'classnames/bind';
 import { browserClient } from '@/database/browser-client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { type ValidationErrors, validateLoginForm } from '@/utils/validation/validate-login-form';
+import { type ValidationErrors } from '@/utils/validation/login/types';
+import { validateLoginForm } from '@/utils/validation/login/validate-form';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
