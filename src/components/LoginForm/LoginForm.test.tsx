@@ -68,7 +68,7 @@ describe('LoginForm', () => {
     expect(screen.getByRole('heading', { name: 'Вход' })).toBeInTheDocument();
     expect(screen.getByLabelText('Почта')).toBeInTheDocument();
     expect(screen.getByLabelText('Пароль')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Войти' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /войти/i })).toBeInTheDocument();
     expect(screen.getByText('Нет аккаунта?')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Регистрация' })).toBeInTheDocument();
   });
@@ -98,7 +98,7 @@ describe('LoginForm', () => {
 
     await user.type(screen.getByLabelText('Почта'), 'test@example.com');
     await user.type(screen.getByLabelText('Пароль'), 'password123');
-    await user.click(screen.getByRole('button', { name: 'Войти' }));
+    await user.click(screen.getByRole('button', { name: /войти/i }));
 
     await waitFor(() => {
       expect(mocks.signInWithPassword).toHaveBeenCalledWith({
@@ -111,7 +111,9 @@ describe('LoginForm', () => {
     expect(mocks.refresh).toHaveBeenCalledTimes(1);
   });
 
-  it('does not redirect when Supabase returns error', () => {
+  it('does not redirect when Supabase returns error', async () => {
+    const user = userEvent.setup();
+
     mocks.signInWithPassword.mockResolvedValue({
       data: {
         user: null,
@@ -122,7 +124,72 @@ describe('LoginForm', () => {
 
     render(<LoginForm />);
 
+    await user.type(screen.getByLabelText('Почта'), 'test@example.com');
+    await user.type(screen.getByLabelText('Пароль'), 'password123');
+    await user.click(screen.getByRole('button', { name: /войти/i }));
+
+    await waitFor(() => {
+      expect(mocks.signInWithPassword).toHaveBeenCalledWith({
+        email: 'test@example.com',
+        password: 'password123',
+      });
+    });
+
     expect(mocks.push).not.toHaveBeenCalled();
     expect(mocks.refresh).not.toHaveBeenCalled();
+  });
+
+  it('shows validation errors when submitting empty form', async () => {
+    const user = userEvent.setup();
+
+    render(<LoginForm />);
+
+    await user.click(screen.getByRole('button', { name: /войти/i }));
+
+    expect(await screen.findByText('Неверный формат почты')).toBeInTheDocument();
+    expect(await screen.findByText('Необходимо ввести пароль')).toBeInTheDocument();
+    expect(mocks.signInWithPassword).not.toHaveBeenCalled();
+    expect(mocks.push).not.toHaveBeenCalled();
+    expect(mocks.refresh).not.toHaveBeenCalled();
+  });
+
+  it('shows validation error for invalid email', async () => {
+    const user = userEvent.setup();
+
+    render(<LoginForm />);
+
+    await user.type(screen.getByLabelText('Почта'), 'invalid-email');
+    await user.type(screen.getByLabelText('Пароль'), 'password123');
+    await user.click(screen.getByRole('button', { name: /войти/i }));
+
+    expect(await screen.findByText('Неверный формат почты')).toBeInTheDocument();
+    expect(mocks.signInWithPassword).not.toHaveBeenCalled();
+    expect(mocks.push).not.toHaveBeenCalled();
+    expect(mocks.refresh).not.toHaveBeenCalled();
+  });
+
+  it('clears validation errors after successful validation', async () => {
+    const user = userEvent.setup();
+
+    render(<LoginForm />);
+
+    await user.click(screen.getByRole('button', { name: /войти/i }));
+
+    expect(await screen.findByText('Неверный формат почты')).toBeInTheDocument();
+    expect(await screen.findByText('Необходимо ввести пароль')).toBeInTheDocument();
+
+    await user.type(screen.getByLabelText('Почта'), 'test@example.com');
+    await user.type(screen.getByLabelText('Пароль'), 'password123');
+    await user.click(screen.getByRole('button', { name: /войти/i }));
+
+    await waitFor(() => {
+      expect(mocks.signInWithPassword).toHaveBeenCalledWith({
+        email: 'test@example.com',
+        password: 'password123',
+      });
+    });
+
+    expect(screen.queryByText('Неверный формат почты')).not.toBeInTheDocument();
+    expect(screen.queryByText('Необходимо ввести пароль')).not.toBeInTheDocument();
   });
 });
