@@ -10,7 +10,7 @@ import { type ValidationErrors, validateLoginForm } from '@/utils/validation/val
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { PasswordField } from '@/components/PasswordField/PasswordField';
+import { PasswordField } from '@/components/LoginForm/PasswordField/PasswordField';
 
 const cx = classNames.bind(styles);
 
