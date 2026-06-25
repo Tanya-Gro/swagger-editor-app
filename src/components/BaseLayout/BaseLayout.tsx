@@ -1,7 +1,9 @@
-import classNames from 'classnames/bind';
 import type { ReactNode } from 'react';
-import { Footer } from '@components/Footer/Footer';
-import { Header } from '@components/Header/Header';
+
+import { Header } from '@/components/Header/Header';
+import { Footer } from '@/components/Footer/Footer';
+
+import classNames from 'classnames/bind';
 import styles from './BaseLayout.module.css';
 
 const cx = classNames.bind(styles);
