@@ -31,6 +31,8 @@
   --breakpoint-mobile: 767px;
   --breakpoint-tablet: 1024px;
   --breakpoint-desktop: 1440px;
+  --panel-header-height: 54px;
+  --panel-header-height-mobile: 84px;
 
   /* Viewports for layout verification */
   --viewport-mobile-portrait: 360px;
