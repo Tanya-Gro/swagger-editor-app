@@ -1,26 +1,40 @@
 import { render, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { NextIntlClientProvider } from 'next-intl';
+import { describe, expect, it, vi } from 'vitest';
+import messages from '@messages/ru.json';
 import { Header } from './Header';
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ refresh: vi.fn() }),
+}));
+
+function renderHeader(): void {
+  render(
+    <NextIntlClientProvider locale="ru" messages={messages} timeZone="UTC">
+      <Header />
+    </NextIntlClientProvider>,
+  );
+}
 
 describe('Header', () => {
   it('renders the header', () => {
-    render(<Header />);
+    renderHeader();
 
     expect(screen.getByRole('banner')).toBeInTheDocument();
   });
 
   it('contains the logo', () => {
-    render(<Header />);
+    renderHeader();
 
     const header = screen.getByRole('banner');
 
     expect(within(header).getByTestId('header-logo')).toBeInTheDocument();
     expect(within(header).getByText('Swagger UI')).toBeInTheDocument();
-    expect(within(header).getByText('API Documentation')).toBeInTheDocument();
+    expect(within(header).getByText('Документация API')).toBeInTheDocument();
   });
 
   it('renders unique navigation links', () => {
-    render(<Header />);
+    renderHeader();
 
     const navigation = screen.getByRole('navigation', { name: 'Основная навигация' });
 
