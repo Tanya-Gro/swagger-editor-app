@@ -2,9 +2,9 @@ import { createServerClient } from '@supabase/ssr';
 import { type SupabaseClient } from '@supabase/supabase-js';
 import { type Database } from './database.types';
 import { cookies } from 'next/headers';
-import { supabaseUrl, supabaseKey } from './environment-variables';
+import { supabaseUrl, supabaseKey } from './enviroment-variables';
 
-export async function serverClient(): Promise<SupabaseClient<Database, 'public' | 'graphql_public'>> {
+export async function serverClient(): Promise<SupabaseClient<Database>> {
   const cookieStore = await cookies();
 
   return createServerClient(supabaseUrl, supabaseKey, {
