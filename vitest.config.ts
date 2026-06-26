@@ -8,6 +8,7 @@ export default defineConfig({
     alias: {
       '@': path.resolve(import.meta.dirname, './src'),
       '@components': path.resolve(import.meta.dirname, './src/components'),
+      '@messages': path.resolve(import.meta.dirname, './messages'),
     },
   },
   test: {
