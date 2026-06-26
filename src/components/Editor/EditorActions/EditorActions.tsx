@@ -1,11 +1,13 @@
 'use client';
 
+import { type MouseEvent } from 'react';
+import { type EditorFormat } from '../Editor.types';
+
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
+
 import { Button, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { type MouseEvent } from 'react';
-import type { EditorFormat } from '../Editor.types';
 
 import classNames from 'classnames/bind';
 import styles from './EditorActions.module.css';

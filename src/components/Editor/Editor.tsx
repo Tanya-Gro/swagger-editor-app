@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type JSX } from 'react';
+import { useState } from 'react';
 import { json } from '@codemirror/lang-json';
 import { yaml } from '@codemirror/lang-yaml';
 import { EditorActions } from './EditorActions/EditorActions';
@@ -13,7 +13,7 @@ import type { EditorFormat } from './Editor.types';
 
 const cx = classNames.bind(styles);
 
-export function Editor(): JSX.Element {
+export function Editor() {
   const [format, setFormat] = useState<EditorFormat>('JSON');
   const [schema, setSchema] = useState<string>('');
   const extension = format === 'JSON' ? [json()] : [yaml()];
