@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 
 const navigationLinks = [
   { href: '/about', messageKey: 'about' },
-  { href: '/editor', messageKey: 'editor' },
+  { href: '/', messageKey: 'editor' },
 ] as const;
 
 export function Header() {

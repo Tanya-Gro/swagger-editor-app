@@ -6,11 +6,11 @@ import { type EditorFormat } from '../Editor.types';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
-
 import { Button, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 import classNames from 'classnames/bind';
 import styles from './EditorActions.module.css';
+import { useTranslations } from 'next-intl';
 
 const cx = classNames.bind(styles);
 
@@ -21,6 +21,8 @@ type EditorActionsProps = {
 };
 
 export function EditorActions({ format, onChangeFormat, onClear }: EditorActionsProps) {
+  const t = useTranslations('EDITOR');
+
   const changeFormat = (_event: MouseEvent<HTMLElement>, nextFormat: EditorFormat | null) => {
     if (nextFormat) {
       onChangeFormat(nextFormat);
@@ -31,7 +33,7 @@ export function EditorActions({ format, onChangeFormat, onClear }: EditorActions
     <header className={cx('header')}>
       <CodeOutlinedIcon fontSize="small" />
       <h2 className={cx('title')} id="editor-heading">
-        Swagger Editor
+        {t('title')}
       </h2>
       <div className={cx('toolbar')}>
         <ToggleButtonGroup aria-label="Format" exclusive onChange={changeFormat} size="small" value={format}>
@@ -41,10 +43,10 @@ export function EditorActions({ format, onChangeFormat, onClear }: EditorActions
 
         <div className={cx('action-group')}>
           <Button size="small" startIcon={<ClearOutlinedIcon />} variant="outlined" onClick={onClear}>
-            Clear
+            {t('clearButton')}
           </Button>
           <Button size="small" startIcon={<FolderOpenOutlinedIcon />} variant="outlined">
-            Load
+            {t('loadButton')}
           </Button>
         </div>
       </div>
