@@ -18,5 +18,11 @@
   },
   "MAIN_PAGE": {
     "title": "Главная страница"
+  },
+  "LOGIN_PAGE": {
+    "validation": {
+      "invalidEmailFormat": "Неверный формат почты",
+      "invalidPassword": "Необходимо ввести пароль"
+    }
   }
 }

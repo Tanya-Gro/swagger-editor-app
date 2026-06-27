@@ -12,6 +12,7 @@ import { validateLoginForm } from '@/utils/validation/login/validate-form';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { PasswordField } from '@/components/LoginForm/PasswordField/PasswordField';
+import { useTranslations } from 'next-intl';
 
 const cx = classNames.bind(styles);
 
@@ -19,13 +20,14 @@ const supabase = browserClient();
 
 export function LoginForm() {
   const router = useRouter();
+  const tValidation = useTranslations('LOGIN_PAGE.validation');
 
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
 
   async function handleLogin(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const validationResult = validateLoginForm(new FormData(event.currentTarget));
+    const validationResult = validateLoginForm(new FormData(event.currentTarget), tValidation);
 
     if (!validationResult.success) {
       setValidationErrors(validationResult.errors);

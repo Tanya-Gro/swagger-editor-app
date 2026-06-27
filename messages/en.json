@@ -18,5 +18,11 @@
   },
   "MAIN_PAGE": {
     "title": "Main page"
+  },
+  "LOGIN_PAGE": {
+    "validation": {
+      "invalidEmailFormat": "Incorrect email format",
+      "invalidPassword": "Please enter your password"
+    }
   }
 }

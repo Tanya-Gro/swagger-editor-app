@@ -15,3 +15,10 @@ export type LoginValidationResult =
       success: false;
       errors: ValidationErrors;
     };
+
+export type TranslationFn = (key: string, values?: Record<string, string | number | Date>) => string;
+
+export type LoginFormData = {
+  email: string;
+  password: string;
+};

@@ -1,6 +1,12 @@
 import { z } from 'zod';
+import { type TranslationFn, type LoginFormData } from './types';
 
-export const LoginSchema = z.object({
-  email: z.email('Неверный формат почты'),
-  password: z.string().trim().nonempty('Необходимо ввести пароль'),
-});
+export const createLoginSchema = (t: TranslationFn): z.ZodType<LoginFormData> => {
+  return z.object({
+    email: z.email({ error: t('invalidEmailFormat') }),
+    password: z
+      .string()
+      .trim()
+      .nonempty({ error: t('invalidPassword') }),
+  });
+};

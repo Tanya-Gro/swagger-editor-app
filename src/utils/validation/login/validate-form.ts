@@ -1,10 +1,10 @@
-import { LoginSchema } from './schema';
-import { type LoginValidationResult } from './types';
+import { createLoginSchema } from './schema';
+import { type LoginValidationResult, type TranslationFn } from './types';
 import { z } from 'zod';
 
-export const validateLoginForm = (formData: FormData): LoginValidationResult => {
+export const validateLoginForm = (formData: FormData, t: TranslationFn): LoginValidationResult => {
   const formValues = Object.fromEntries(formData);
-  const result = LoginSchema.safeParse(formValues);
+  const result = createLoginSchema(t).safeParse(formValues);
 
   if (!result.success) {
     const fieldErrors = z.treeifyError(result.error).properties;
