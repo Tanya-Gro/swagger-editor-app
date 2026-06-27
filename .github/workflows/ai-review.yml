@@ -29,7 +29,7 @@ jobs:
     # Repository secrets and a write-capable token are unavailable to forked PRs.
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      (github.event.pull_request.draft == false &&
+      (!github.event.pull_request.draft &&
       github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     permissions:
@@ -42,12 +42,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run AI Review
+      - name: Run selected AI Review
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        # Keep AI Review non-blocking so LLM/provider errors do not block merges.
         continue-on-error: true
         uses: Nikita-Filonov/ai-review@v0.68.0
         with:
-          review-command: ${{ inputs.review-command || 'run' }}
+          review-command: ${{ inputs.review-command }}
         env:
+          LLM__HTTP_CLIENT__API_URL: ${{ vars.GROQ_API_URL }}
           LLM__HTTP_CLIENT__API_TOKEN: ${{ secrets.GROQ_API_KEY }}
 
           VCS__PROVIDER: GITHUB
@@ -59,11 +62,13 @@ jobs:
 
       - name: Run AI Context Review
         if: ${{ github.event_name != 'workflow_dispatch' }}
+        # Keep AI Context Review non-blocking so LLM/provider errors do not block merges.
         continue-on-error: true
         uses: Nikita-Filonov/ai-review@v0.68.0
         with:
           review-command: run-context
         env:
+          LLM__HTTP_CLIENT__API_URL: ${{ vars.GROQ_API_URL }}
           LLM__HTTP_CLIENT__API_TOKEN: ${{ secrets.GROQ_API_KEY }}
 
           VCS__PROVIDER: GITHUB
