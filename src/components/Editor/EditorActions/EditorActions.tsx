@@ -1,16 +1,16 @@
 'use client';
 
 import { type MouseEvent } from 'react';
-import { type EditorFormat } from '../Editor.types';
+import { type EditorFormat } from '@/types';
 
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
 import { Button, ToggleButton, ToggleButtonGroup } from '@mui/material';
-
-import classNames from 'classnames/bind';
-import styles from './EditorActions.module.css';
 import { useTranslations } from 'next-intl';
+
+import styles from './EditorActions.module.css';
+import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 

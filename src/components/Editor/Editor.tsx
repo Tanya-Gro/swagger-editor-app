@@ -9,7 +9,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import classNames from 'classnames/bind';
 import styles from './Editor.module.css';
 
-import type { EditorFormat } from './Editor.types';
+import { type EditorFormat } from '@/types';
 
 const cx = classNames.bind(styles);
 
