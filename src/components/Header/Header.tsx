@@ -41,7 +41,6 @@ export function Header() {
         <div className={cx('actions')}>
           <div className={cx('desktop-actions')}>
             <LanguageSwitcher />
-            <Button className={cx('auth-action')} startIcon={<LoginOutlinedIcon />} variant="contained"></Button>
             <Link href="/login">
               <Button component="span" startIcon={<LoginOutlinedIcon />} variant="contained">
                 {t('authAction')}
