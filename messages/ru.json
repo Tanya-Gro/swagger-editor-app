@@ -1,0 +1,24 @@
+{
+  "METADATA": {
+    "title": "Приложение Swagger Editor",
+    "description": "Учебный редактор Swagger на Next.js, React и TypeScript."
+  },
+  "HEADER": {
+    "brandName": "Swagger UI",
+    "brandSubtitle": "Документация API",
+    "homeAriaLabel": "Главная Swagger UI",
+    "navigationAriaLabel": "Основная навигация",
+    "about": "О проекте",
+    "editor": "Редактор",
+    "authAction": "Войти",
+    "menuAriaLabel": "Открыть меню",
+    "languageLabel": "Язык",
+    "english": "EN",
+    "russian": "RU"
+  },
+  "EDITOR": {
+    "title": "Сваггер Редактор",
+    "clearButton": "Очистить",
+    "loadButton": "Загрузить"
+  }
+}

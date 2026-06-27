@@ -1,12 +1,27 @@
 import { render, screen } from '@testing-library/react';
+import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it } from 'vitest';
+import messages from '@messages/en.json';
 import { Home } from './Home';
 
-describe('Home', () => {
-  it('renders editor and viewer placeholders', () => {
-    render(<Home />);
+function renderHome(): void {
+  render(
+    <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
+      <Home />
+    </NextIntlClientProvider>,
+  );
+}
 
-    expect(screen.getByText('Editor placeholder')).toBeInTheDocument();
-    expect(screen.getByText('Viewer placeholder')).toBeInTheDocument();
+describe('Home', () => {
+  it('renders editor and viewer panel', () => {
+    renderHome();
+
+    expect(
+      screen.getByRole('heading', {
+        name: /swagger editor/i,
+      }),
+    ).toBeInTheDocument();
+
+    expect(screen.getByText(/viewer placeholder/i)).toBeInTheDocument();
   });
 });
