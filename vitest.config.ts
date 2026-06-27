@@ -7,7 +7,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(import.meta.dirname, './src'),
-      '@components': path.resolve(import.meta.dirname, './src/components'),
       '@messages': path.resolve(import.meta.dirname, './messages'),
     },
   },
@@ -20,5 +19,9 @@ export default defineConfig({
     },
     globals: true,
     setupFiles: ['./vitest.setup.ts'],
+    coverage: {
+      provider: 'v8',
+      exclude: ['**/*.css'],
+    },
   },
 });

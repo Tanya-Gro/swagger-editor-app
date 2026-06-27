@@ -1,8 +1,6 @@
 .main {
-  overflow: hidden;
   display: flex;
   flex: 1;
   justify-content: center;
-
   min-height: 0;
 }

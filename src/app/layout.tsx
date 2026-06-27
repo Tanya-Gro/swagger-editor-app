@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages, getTranslations } from 'next-intl/server';
-import { BaseLayout } from '@components/BaseLayout/BaseLayout';
+import { BaseLayout } from '@/components/BaseLayout/BaseLayout';
 import { ThemeRegistry } from '@/theme/ThemeRegistry';
 import '@/styles/index.css';
 

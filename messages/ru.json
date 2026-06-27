@@ -16,7 +16,9 @@
     "english": "EN",
     "russian": "RU"
   },
-  "MAIN_PAGE": {
-    "title": "Главная страница"
+  "EDITOR": {
+    "title": "Сваггер Редактор",
+    "clearButton": "Очистить",
+    "loadButton": "Загрузить"
   }
 }

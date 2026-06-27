@@ -16,7 +16,9 @@
     "english": "EN",
     "russian": "RU"
   },
-  "MAIN_PAGE": {
-    "title": "Main page"
+  "EDITOR": {
+    "title": "Swagger Editor",
+    "clearButton": "Clear",
+    "loadButton": "Load"
   }
 }
