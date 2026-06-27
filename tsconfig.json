@@ -31,7 +31,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@messages/*": ["./messages/*"]
     },
     "allowJs": false
   },
