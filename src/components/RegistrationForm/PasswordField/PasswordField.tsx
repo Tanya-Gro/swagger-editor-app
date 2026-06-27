@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useTranslations } from 'next-intl';
 
 type PasswordFieldProps = {
   label: string;
@@ -14,6 +15,7 @@ type PasswordFieldProps = {
 
 export function PasswordField({ label, id, name, error }: PasswordFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
+  const t = useTranslations('REGISTRATION_PAGE');
 
   return (
     <TextField
@@ -25,7 +27,7 @@ export function PasswordField({ label, id, name, error }: PasswordFieldProps) {
       fullWidth
       margin="normal"
       error={Boolean(error)}
-      helperText={error ?? 'Пароль должен быть длинее 8 символов'}
+      helperText={error ?? t('passwordHelperText')}
       slotProps={{
         input: {
           endAdornment: (

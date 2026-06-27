@@ -18,5 +18,18 @@
   },
   "MAIN_PAGE": {
     "title": "Main page"
+  },
+  "REGISTRATION_PAGE": {
+    "title": "Register",
+    "emailLabel": "Email",
+    "emailHelperText": "The email must be in the format name@example.com",
+    "usernameLabel": "Username",
+    "usernameHelperText": "Create your username",
+    "passwordLabel": "Create a password",
+    "passwordHelperText": "The password must be longer than 8 characters",
+    "repeatPasswordLabel": "Repeat your password",
+    "actionButtonText": "Register",
+    "infoText": "Already have an account?",
+    "actionLinkText": "Log in"
   }
 }

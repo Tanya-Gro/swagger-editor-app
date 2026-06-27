@@ -4,6 +4,7 @@ import { PasswordField } from './PasswordField/PasswordField';
 import Link from 'next/link';
 import styles from './Registration.module.css';
 import classNames from 'classnames/bind';
+import { useTranslations } from 'next-intl';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -11,39 +12,41 @@ import TextField from '@mui/material/TextField';
 const cx = classNames.bind(styles);
 
 export function RegistrationForm() {
+  const t = useTranslations('REGISTRATION_PAGE');
+
   return (
     <div className={cx('container')}>
-      <h1 className={cx('title')}>Регистрация</h1>
+      <h1 className={cx('title')}>{t('title')}</h1>
       <form>
         <TextField
-          label="Почта"
+          label={t('emailLabel')}
           id="email"
           name="email"
           variant="outlined"
           fullWidth
-          helperText="Почта в формате name@example.com"
+          helperText={t('emailHelperText')}
           margin="normal"
           autoComplete="email"
         />
         <TextField
-          label="Имя пользователя"
+          label={t('usernameLabel')}
           id="username"
           name="username"
           variant="outlined"
           fullWidth
-          helperText="Придумайте своё имя пользователя"
+          helperText={t('usernameHelperText')}
           margin="normal"
         />
-        <PasswordField label="Придумайте пароль" id="password" name="password" />
-        <PasswordField label="Повторите пароль" id="repeat-password" name="repeat-password" />
+        <PasswordField label={t('passwordLabel')} id="password" name="password" />
+        <PasswordField label={t('repeatPasswordLabel')} id="repeat-password" name="repeat-password" />
         <Button variant="contained" fullWidth type="submit" className={cx('button')}>
-          Зарегестрироваться
+          {t('actionButtonText')}
         </Button>
       </form>
       <div className={cx('footer')}>
-        <p>Уже есть аккаунт?</p>
+        <p>{t('infoText')}</p>
         <Link href="/login" className={cx('link')}>
-          Войти
+          {t('actionLinkText')}
         </Link>
       </div>
     </div>

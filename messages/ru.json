@@ -18,5 +18,18 @@
   },
   "MAIN_PAGE": {
     "title": "Главная страница"
+  },
+  "REGISTRATION_PAGE": {
+    "title": "Регистрация",
+    "emailLabel": "Почта",
+    "emailHelperText": "Почта в формате name@example.com",
+    "usernameLabel": "Имя пользователя",
+    "usernameHelperText": "Придумайте своё имя пользователя",
+    "passwordLabel": "Придумайте пароль",
+    "passwordHelperText": "Пароль должен быть длинее 8 символов",
+    "repeatPasswordLabel": "Повторите пароль",
+    "actionButtonText": "Зарегестрироваться",
+    "infoText": "Уже есть аккаунт?",
+    "actionLinkText": "Войти"
   }
 }
