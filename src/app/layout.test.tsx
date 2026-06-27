@@ -16,7 +16,7 @@ vi.mock('next/navigation', () => ({
 describe('RootLayout', () => {
   it('renders main content', async () => {
     const layout = await RootLayout({
-      children: <section data-testid="page-content" />,
+      children: <section data-testid="page-content">Page content</section>,
     });
     const markup = renderToStaticMarkup(layout);
 

@@ -1,14 +1,23 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-
+import { NextIntlClientProvider } from 'next-intl';
+import messages from '@messages/en.json';
 import { EditorActions } from './EditorActions';
 
 describe('EditorActions', () => {
   const onChangeFormat = vi.fn();
   const onClear = vi.fn();
 
+  function renderEditorActions(): void {
+    render(
+      <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
+        <EditorActions format="JSON" onChangeFormat={onChangeFormat} onClear={onClear} />
+      </NextIntlClientProvider>,
+    );
+  }
+
   it('calls onChangeFormat when YAML selected', () => {
-    render(<EditorActions format="JSON" onChangeFormat={onChangeFormat} onClear={onClear} />);
+    renderEditorActions();
 
     fireEvent.click(
       screen.getByRole('button', {
@@ -20,7 +29,7 @@ describe('EditorActions', () => {
   });
 
   it('calls onClear', () => {
-    render(<EditorActions format="JSON" onChangeFormat={onChangeFormat} onClear={onClear} />);
+    renderEditorActions();
 
     fireEvent.click(
       screen.getByRole('button', {
@@ -32,7 +41,7 @@ describe('EditorActions', () => {
   });
 
   it('renders action buttons', () => {
-    render(<EditorActions format="JSON" onChangeFormat={vi.fn()} onClear={onClear} />);
+    renderEditorActions();
 
     expect(
       screen.getByRole('button', {

@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it, vi } from 'vitest';
-
+import messages from '@messages/en.json';
 import { Editor } from './Editor';
 
 vi.mock('@uiw/react-codemirror', () => ({
@@ -10,8 +11,16 @@ vi.mock('@uiw/react-codemirror', () => ({
 }));
 
 describe('Editor', () => {
+  function renderEditor(): void {
+    render(
+      <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
+        <Editor />
+      </NextIntlClientProvider>,
+    );
+  }
+
   it('renders editor header', () => {
-    render(<Editor />);
+    renderEditor();
 
     expect(
       screen.getByRole('heading', {
@@ -21,7 +30,7 @@ describe('Editor', () => {
   });
 
   it('renders editor actions', () => {
-    render(<Editor />);
+    renderEditor();
 
     expect(
       screen.getByRole('button', {
@@ -43,7 +52,7 @@ describe('Editor', () => {
   });
 
   it('uses JSON format by default', () => {
-    render(<Editor />);
+    renderEditor();
 
     expect(
       screen.getByRole('button', {
@@ -53,7 +62,7 @@ describe('Editor', () => {
   });
 
   it('updates schema on input', () => {
-    render(<Editor />);
+    renderEditor();
 
     const editor = screen.getByTestId('editor');
 
@@ -67,7 +76,7 @@ describe('Editor', () => {
   });
 
   it('clears schema after clicking Clear', () => {
-    render(<Editor />);
+    renderEditor();
 
     const editor = screen.getByTestId('editor');
 
@@ -87,7 +96,7 @@ describe('Editor', () => {
   });
 
   it('shows current format as selected and toggle buttons', () => {
-    render(<Editor />);
+    renderEditor();
 
     const yamlButton = screen.getByRole('button', { name: 'YAML' });
     const jsonButton = screen.getByRole('button', { name: 'JSON' });
