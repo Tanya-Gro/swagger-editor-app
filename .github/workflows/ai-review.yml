@@ -42,13 +42,21 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install AI Review
+        run: pip install --no-cache-dir xai-review==0.67.0
+
       - name: Run selected AI Review
         if: ${{ github.event_name == 'workflow_dispatch' }}
-        # Keep AI Review non-blocking so LLM/provider errors do not block merges.
-        continue-on-error: true
-        uses: Nikita-Filonov/ai-review@v0.68.0
-        with:
-          review-command: ${{ inputs.review-command }}
+        # Keep AI Review blocking so review failures fail the workflow.
+        continue-on-error: false
+        run: |
+          ai-review show-config
+          ai-review ${{ inputs.review-command }}
         env:
           LLM__HTTP_CLIENT__API_URL: ${{ vars.GROQ_API_URL }}
           LLM__HTTP_CLIENT__API_TOKEN: ${{ secrets.GROQ_API_KEY }}
@@ -62,11 +70,11 @@ jobs:
 
       - name: Run AI Context Review
         if: ${{ github.event_name != 'workflow_dispatch' }}
-        # Keep AI Context Review non-blocking so LLM/provider errors do not block merges.
-        continue-on-error: true
-        uses: Nikita-Filonov/ai-review@v0.68.0
-        with:
-          review-command: run-context
+        # Keep AI Context Review blocking so review failures fail the workflow.
+        continue-on-error: false
+        run: |
+          ai-review show-config
+          ai-review run-context
         env:
           LLM__HTTP_CLIENT__API_URL: ${{ vars.GROQ_API_URL }}
           LLM__HTTP_CLIENT__API_TOKEN: ${{ secrets.GROQ_API_KEY }}
