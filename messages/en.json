@@ -20,6 +20,14 @@
     "title": "Main page"
   },
   "LOGIN_PAGE": {
+    "title": "Login",
+    "emailLabel": "Email",
+    "emailHelperText": "The email must be in the format name@example.com",
+    "passwordLabel": "Password",
+    "passwordHelperText": "Please enter your password",
+    "actionButtonText": "Log in",
+    "hintText": "Don't have an account yet?",
+    "linkText": "Register",
     "validation": {
       "invalidEmailFormat": "Incorrect email format",
       "invalidPassword": "Please enter your password"

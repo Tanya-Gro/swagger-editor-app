@@ -20,6 +20,8 @@ const supabase = browserClient();
 
 export function LoginForm() {
   const router = useRouter();
+
+  const t = useTranslations('LOGIN_PAGE');
   const tValidation = useTranslations('LOGIN_PAGE.validation');
 
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
@@ -60,30 +62,36 @@ export function LoginForm() {
 
   return (
     <div className={cx('container')}>
-      <h1 className={cx('title')}>Вход</h1>
+      <h1 className={cx('title')}>{t('title')}</h1>
       <form onSubmit={(event) => void handleLogin(event)}>
         <TextField
-          label="Почта"
+          label={t('emailLabel')}
           id="email"
           name="email"
           variant="outlined"
           fullWidth
           error={Boolean(validationErrors.email)}
-          helperText={validationErrors.email ?? 'Почта в формате name@example.com'}
+          helperText={validationErrors.email ?? t('emailHelperText')}
           margin="normal"
           autoComplete="email"
         />
 
-        <PasswordField label="Пароль" id="password" name="password" error={validationErrors.password} />
+        <PasswordField
+          label={t('passwordLabel')}
+          id="password"
+          name="password"
+          helperText={t('passwordHelperText')}
+          error={validationErrors.password}
+        />
 
         <Button variant="contained" fullWidth type="submit" className={cx('button')}>
-          Войти
+          {t('actionButtonText')}
         </Button>
       </form>
       <div className={cx('footer')}>
-        <p>Нет аккаунта?</p>
+        <p>{t('hintText')}</p>
         <Link href="/registration" className={cx('link')}>
-          Регистрация
+          {t('linkText')}
         </Link>
       </div>
     </div>

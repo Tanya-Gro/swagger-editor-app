@@ -20,6 +20,14 @@
     "title": "Главная страница"
   },
   "LOGIN_PAGE": {
+    "title": "Вход",
+    "emailLabel": "Почта",
+    "emailHelperText": "Почта в формате name@example.com",
+    "passwordLabel": "Пароль",
+    "passwordHelperText": "Ваш пароль",
+    "actionButtonText": "Войти",
+    "hintText": "Нет аккаунта?",
+    "linkText": "Регистрация",
     "validation": {
       "invalidEmailFormat": "Неверный формат почты",
       "invalidPassword": "Необходимо ввести пароль"

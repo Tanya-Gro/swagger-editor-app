@@ -9,10 +9,11 @@ type PasswordFieldProps = {
   label: string;
   id: string;
   name: string;
+  helperText: string;
   error?: string;
 };
 
-export function PasswordField({ label, id, name, error }: PasswordFieldProps) {
+export function PasswordField({ label, id, name, helperText, error }: PasswordFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -25,7 +26,7 @@ export function PasswordField({ label, id, name, error }: PasswordFieldProps) {
       fullWidth
       margin="normal"
       error={Boolean(error)}
-      helperText={error ?? 'Ваш пароль'}
+      helperText={error ?? helperText}
       slotProps={{
         input: {
           endAdornment: (
