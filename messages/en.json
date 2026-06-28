@@ -30,7 +30,10 @@
     "linkText": "Register",
     "validation": {
       "invalidEmailFormat": "Incorrect email format",
-      "invalidPassword": "Please enter your password"
+      "passwordMinLenght": "Password must be at least 8 characters long",
+      "passwordLetter": "Password must contain at least one letter",
+      "passwordDigit": "Password must contain at least one digit",
+      "passwordSpecialChar": "Password must contain at least one special character"
     }
   },
   "EDITOR": {
