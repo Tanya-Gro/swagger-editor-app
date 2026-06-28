@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useState, useId } from 'react';
 import { TextField, IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 type PasswordFieldProps = {
   label: string;
-  id: string;
   name: string;
   helperText: string;
   error?: string;
 };
 
-export function PasswordField({ label, id, name, helperText, error }: PasswordFieldProps) {
+export function PasswordField({ label, name, helperText, error }: PasswordFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
+  const id = useId();
 
   return (
     <TextField

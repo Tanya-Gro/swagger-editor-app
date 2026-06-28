@@ -10,7 +10,7 @@ import { type ValidationErrors } from '@/utils/validation/login/types';
 import { validateLoginForm } from '@/utils/validation/login/validate-form';
 
 import { Button, TextField } from '@mui/material';
-import { PasswordField } from '@/components/LoginForm/PasswordField/PasswordField';
+import { PasswordField } from '@/components/PasswordField/PasswordField';
 import { useTranslations } from 'next-intl';
 
 const cx = classNames.bind(styles);
@@ -80,7 +80,6 @@ export function LoginForm() {
 
         <PasswordField
           label={t('passwordLabel')}
-          id="password"
           name="password"
           helperText={t('passwordHelperText')}
           error={validationErrors.password}
