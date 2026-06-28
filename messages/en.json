@@ -32,5 +32,10 @@
       "invalidEmailFormat": "Incorrect email format",
       "invalidPassword": "Please enter your password"
     }
+  },
+  "EDITOR": {
+    "title": "Swagger Editor",
+    "clearButton": "Clear",
+    "loadButton": "Load"
   }
 }

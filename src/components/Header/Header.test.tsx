@@ -40,11 +40,11 @@ describe('Header', () => {
 
     expect(within(navigation).getAllByRole('link')).toHaveLength(2);
     expect(within(navigation).getByRole('link', { name: 'О проекте' })).toHaveAttribute('href', '/about');
-    expect(within(navigation).getByRole('link', { name: 'Редактор' })).toHaveAttribute('href', '/editor');
+    expect(within(navigation).getByRole('link', { name: 'Редактор' })).toHaveAttribute('href', '/');
   });
 
   it('login button has link to login page', () => {
-    render(<Header />);
+    renderHeader();
 
     const loginLinks = screen.getAllByRole('link', {
       name: /войти/i,

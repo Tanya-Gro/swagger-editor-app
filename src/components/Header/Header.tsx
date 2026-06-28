@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 
 const navigationLinks = [
   { href: '/about', messageKey: 'about' },
-  { href: '/editor', messageKey: 'editor' },
+  { href: '/', messageKey: 'editor' },
 ] as const;
 
 export function Header() {
@@ -41,9 +41,11 @@ export function Header() {
         <div className={cx('actions')}>
           <div className={cx('desktop-actions')}>
             <LanguageSwitcher />
-            <Button className={cx('auth-action')} startIcon={<LoginOutlinedIcon />} variant="contained">
-              {t('authAction')}
-            </Button>
+            <Link href="/login">
+              <Button component="span" startIcon={<LoginOutlinedIcon />} variant="contained">
+                {t('authAction')}
+              </Button>
+            </Link>
           </div>
 
           <details className={cx('mobile-menu-details')}>
@@ -56,13 +58,16 @@ export function Header() {
               <div className={cx('mobile-menu-section')} />
               <div className={cx('mobile-menu-section')}>
                 <LanguageSwitcher className={cx('mobile-menu-action')} />
-                <Button
-                  className={cx('auth-action', 'mobile-menu-action')}
-                  startIcon={<LoginOutlinedIcon />}
-                  variant="contained"
-                >
-                  {t('authAction')}
-                </Button>
+                <Link href="/login">
+                  <Button
+                    component="span"
+                    className={cx('mobile-menu-action')}
+                    startIcon={<LoginOutlinedIcon />}
+                    variant="contained"
+                  >
+                    {t('authAction')}
+                  </Button>
+                </Link>
               </div>
             </div>
           </details>

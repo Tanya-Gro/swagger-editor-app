@@ -26,5 +26,20 @@ export const MuiButton = {
         boxShadow: '0 4px 6px var(--shadow-color)',
       },
     },
+    outlined: {
+      borderColor: 'var(--color-border)',
+      color: 'var(--color-text-secondary)',
+      background: 'color-mix(in srgb, var(--color-surface) 50%, transparent)',
+      '&:hover': {
+        borderColor: 'var(--color-border)',
+        color: 'var(--color-text-primary)',
+        background: 'var(--color-background)',
+      },
+    },
+    sizeSmall: {
+      minHeight: 28,
+      padding: '4px 12px',
+      fontSize: 'var(--font-size-xs)',
+    },
   },
 };

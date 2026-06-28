@@ -32,5 +32,10 @@
       "invalidEmailFormat": "Неверный формат почты",
       "invalidPassword": "Необходимо ввести пароль"
     }
+  },
+  "EDITOR": {
+    "title": "Сваггер Редактор",
+    "clearButton": "Очистить",
+    "loadButton": "Загрузить"
   }
 }
