@@ -9,6 +9,9 @@ llm:
     timeout: 120
     # api_url and api_token are supplied by the GitHub Actions workflow.
 
+review:
+  inline_tag: '#ai-review-inline'
+
 prompt:
   context_prompt_files:
     - ./prompts/rs-school-review.md
