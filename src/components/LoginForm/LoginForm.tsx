@@ -9,8 +9,7 @@ import Link from 'next/link';
 import { type ValidationErrors } from '@/utils/validation/login/types';
 import { validateLoginForm } from '@/utils/validation/login/validate-form';
 
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { Button, TextField } from '@mui/material';
 import { PasswordField } from '@/components/LoginForm/PasswordField/PasswordField';
 import { useTranslations } from 'next-intl';
 
