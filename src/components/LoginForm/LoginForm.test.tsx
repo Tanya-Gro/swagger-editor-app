@@ -2,6 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { LoginForm } from './LoginForm';
+import { NextIntlClientProvider } from 'next-intl';
 
 type Credentials = {
   email: string;
@@ -33,6 +34,23 @@ const mocks = vi.hoisted(() => ({
   signInWithPassword: vi.fn<(credentials: Credentials) => Promise<SignInResult>>(),
 }));
 
+const messages = {
+  LOGIN_PAGE: {
+    title: 'Вход',
+    emailLabel: 'Почта',
+    emailHelperText: 'Почта в формате name@example.com',
+    passwordLabel: 'Пароль',
+    passwordHelperText: 'Ваш пароль',
+    actionButtonText: 'Войти',
+    hintText: 'Нет аккаунта?',
+    linkText: 'Регистрация',
+    validation: {
+      invalidEmailFormat: 'Неверный формат почты',
+      invalidPassword: 'Необходимо ввести пароль',
+    },
+  },
+};
+
 vi.mock('next/navigation', () => ({
   useRouter: () => ({
     push: mocks.push,
@@ -47,6 +65,14 @@ vi.mock('@/database/browser-client', () => ({
     },
   }),
 }));
+
+function renderLoginForm() {
+  return render(
+    <NextIntlClientProvider locale="ru" messages={messages}>
+      <LoginForm />
+    </NextIntlClientProvider>,
+  );
+}
 
 describe('LoginForm', () => {
   beforeEach(() => {
@@ -63,7 +89,7 @@ describe('LoginForm', () => {
   });
 
   it('renders login form', () => {
-    render(<LoginForm />);
+    renderLoginForm();
 
     expect(screen.getByRole('heading', { name: 'Вход' })).toBeInTheDocument();
     expect(screen.getByLabelText('Почта')).toBeInTheDocument();
@@ -76,7 +102,7 @@ describe('LoginForm', () => {
   it('toggles password visibility', async () => {
     const user = userEvent.setup();
 
-    render(<LoginForm />);
+    renderLoginForm();
 
     const passwordInput = screen.getByLabelText('Пароль');
 
@@ -94,7 +120,7 @@ describe('LoginForm', () => {
   it('logs in and redirects to home page', async () => {
     const user = userEvent.setup();
 
-    render(<LoginForm />);
+    renderLoginForm();
 
     await user.type(screen.getByLabelText('Почта'), 'test@example.com');
     await user.type(screen.getByLabelText('Пароль'), 'password123');
@@ -122,7 +148,7 @@ describe('LoginForm', () => {
       error: new Error('Invalid login credentials'),
     });
 
-    render(<LoginForm />);
+    renderLoginForm();
 
     await user.type(screen.getByLabelText('Почта'), 'test@example.com');
     await user.type(screen.getByLabelText('Пароль'), 'password123');
@@ -142,7 +168,7 @@ describe('LoginForm', () => {
   it('shows validation errors when submitting empty form', async () => {
     const user = userEvent.setup();
 
-    render(<LoginForm />);
+    renderLoginForm();
 
     await user.click(screen.getByRole('button', { name: /войти/i }));
 
@@ -156,7 +182,7 @@ describe('LoginForm', () => {
   it('shows validation error for invalid email', async () => {
     const user = userEvent.setup();
 
-    render(<LoginForm />);
+    renderLoginForm();
 
     await user.type(screen.getByLabelText('Почта'), 'invalid-email');
     await user.type(screen.getByLabelText('Пароль'), 'password123');
@@ -171,7 +197,7 @@ describe('LoginForm', () => {
   it('clears validation errors after successful validation', async () => {
     const user = userEvent.setup();
 
-    render(<LoginForm />);
+    renderLoginForm();
 
     await user.click(screen.getByRole('button', { name: /войти/i }));
 
