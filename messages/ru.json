@@ -31,7 +31,7 @@
     "validation": {
       "invalidEmailFormat": "Неверный формат почты",
       "invalidPassword": "Необходимо ввести пароль",
-      "passwordMinLenght": "Минимальная длина пароля 8 символов",
+      "passwordMinLength": "Минимальная длина пароля 8 символов",
       "passwordLetter": "Пароль должен содержать английские буквы",
       "passwordDigit": "Пароль должен содержать хотя бы одну цифру",
       "passwordSpecialChar": "Пароль должен содержать хотя бы один специальный символ"

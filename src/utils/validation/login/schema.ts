@@ -12,7 +12,7 @@ export const createLoginSchema = (t: TranslationFn): z.ZodType<LoginFormData> =>
     email: z.email({ error: t('invalidEmailFormat') }),
     password: z
       .string()
-      .min(MIN_LENGTH, { error: t('passwordMinLenght') })
+      .min(MIN_LENGTH, { error: t('passwordMinLength') })
       .refine(hasLetter, { error: t('passwordLetter') })
       .refine(hasDigit, { error: t('passwordDigit') })
       .refine(hasSpecialChar, { error: t('passwordSpecialChar') }),

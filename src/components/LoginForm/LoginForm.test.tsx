@@ -46,7 +46,10 @@ const messages = {
     linkText: 'Регистрация',
     validation: {
       invalidEmailFormat: 'Неверный формат почты',
-      invalidPassword: 'Необходимо ввести пароль',
+      passwordMinLength: 'Минимальная длина пароля 8 символов',
+      passwordLetter: 'Пароль должен содержать английские буквы',
+      passwordDigit: 'Пароль должен содержать хотя бы одну цифру',
+      passwordSpecialChar: 'Пароль должен содержать хотя бы один специальный символ',
     },
   },
 };
@@ -123,13 +126,13 @@ describe('LoginForm', () => {
     renderLoginForm();
 
     await user.type(screen.getByLabelText('Почта'), 'test@example.com');
-    await user.type(screen.getByLabelText('Пароль'), 'password123');
+    await user.type(screen.getByLabelText('Пароль'), 'password123!!');
     await user.click(screen.getByRole('button', { name: /войти/i }));
 
     await waitFor(() => {
       expect(mocks.signInWithPassword).toHaveBeenCalledWith({
         email: 'test@example.com',
-        password: 'password123',
+        password: 'password123!!',
       });
     });
 
@@ -151,13 +154,13 @@ describe('LoginForm', () => {
     renderLoginForm();
 
     await user.type(screen.getByLabelText('Почта'), 'test@example.com');
-    await user.type(screen.getByLabelText('Пароль'), 'password123');
+    await user.type(screen.getByLabelText('Пароль'), 'password123!');
     await user.click(screen.getByRole('button', { name: /войти/i }));
 
     await waitFor(() => {
       expect(mocks.signInWithPassword).toHaveBeenCalledWith({
         email: 'test@example.com',
-        password: 'password123',
+        password: 'password123!',
       });
     });
 
@@ -172,8 +175,8 @@ describe('LoginForm', () => {
 
     await user.click(screen.getByRole('button', { name: /войти/i }));
 
-    expect(await screen.findByText('Неверный формат почты')).toBeInTheDocument();
-    expect(await screen.findByText('Необходимо ввести пароль')).toBeInTheDocument();
+    expect(await screen.findByText(messages.LOGIN_PAGE.validation.invalidEmailFormat)).toBeInTheDocument();
+    expect(await screen.findByText(messages.LOGIN_PAGE.validation.passwordMinLength)).toBeInTheDocument();
     expect(mocks.signInWithPassword).not.toHaveBeenCalled();
     expect(mocks.push).not.toHaveBeenCalled();
     expect(mocks.refresh).not.toHaveBeenCalled();
@@ -185,10 +188,10 @@ describe('LoginForm', () => {
     renderLoginForm();
 
     await user.type(screen.getByLabelText('Почта'), 'invalid-email');
-    await user.type(screen.getByLabelText('Пароль'), 'password123');
+    await user.type(screen.getByLabelText('Пароль'), 'password123!');
     await user.click(screen.getByRole('button', { name: /войти/i }));
 
-    expect(await screen.findByText('Неверный формат почты')).toBeInTheDocument();
+    expect(await screen.findByText(messages.LOGIN_PAGE.validation.invalidEmailFormat)).toBeInTheDocument();
     expect(mocks.signInWithPassword).not.toHaveBeenCalled();
     expect(mocks.push).not.toHaveBeenCalled();
     expect(mocks.refresh).not.toHaveBeenCalled();
@@ -201,21 +204,21 @@ describe('LoginForm', () => {
 
     await user.click(screen.getByRole('button', { name: /войти/i }));
 
-    expect(await screen.findByText('Неверный формат почты')).toBeInTheDocument();
-    expect(await screen.findByText('Необходимо ввести пароль')).toBeInTheDocument();
+    expect(await screen.findByText(messages.LOGIN_PAGE.validation.invalidEmailFormat)).toBeInTheDocument();
+    expect(await screen.findByText(messages.LOGIN_PAGE.validation.passwordMinLength)).toBeInTheDocument();
 
     await user.type(screen.getByLabelText('Почта'), 'test@example.com');
-    await user.type(screen.getByLabelText('Пароль'), 'password123');
+    await user.type(screen.getByLabelText('Пароль'), 'password123!');
     await user.click(screen.getByRole('button', { name: /войти/i }));
 
     await waitFor(() => {
       expect(mocks.signInWithPassword).toHaveBeenCalledWith({
         email: 'test@example.com',
-        password: 'password123',
+        password: 'password123!',
       });
     });
 
-    expect(screen.queryByText('Неверный формат почты')).not.toBeInTheDocument();
-    expect(screen.queryByText('Необходимо ввести пароль')).not.toBeInTheDocument();
+    expect(screen.queryByText(messages.LOGIN_PAGE.validation.invalidEmailFormat)).not.toBeInTheDocument();
+    expect(screen.queryByText(messages.LOGIN_PAGE.validation.passwordMinLength)).not.toBeInTheDocument();
   });
 });
