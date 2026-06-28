@@ -5,14 +5,14 @@ export type ValidationErrors = {
 
 export type LoginValidationResult =
   | {
-      success: true;
       data: {
         email: string;
         password: string;
       };
+      errors: null;
     }
   | {
-      success: false;
+      data: null;
       errors: ValidationErrors;
     };
 

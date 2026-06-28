@@ -29,21 +29,19 @@ export function LoginForm() {
   async function handleLogin(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const validationResult = validateLoginForm(new FormData(event.currentTarget), tValidation);
+    const { data: validatedData, errors } = validateLoginForm(new FormData(event.currentTarget), tValidation);
 
-    if (!validationResult.success) {
-      setValidationErrors(validationResult.errors);
+    if (errors) {
+      setValidationErrors(errors);
       return;
     }
 
     setValidationErrors({});
 
-    const { email, password } = validationResult.data;
-
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+        email: validatedData.email,
+        password: validatedData.password,
       });
 
       if (error) {

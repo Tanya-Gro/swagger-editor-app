@@ -10,7 +10,7 @@ export const validateLoginForm = (formData: FormData, t: TranslationFn): LoginVa
     const fieldErrors = z.treeifyError(result.error).properties;
 
     return {
-      success: false,
+      data: null,
       errors: {
         email: fieldErrors?.email?.errors[0],
         password: fieldErrors?.password?.errors[0],
@@ -19,7 +19,7 @@ export const validateLoginForm = (formData: FormData, t: TranslationFn): LoginVa
   }
 
   return {
-    success: true,
     data: result.data,
+    errors: null,
   };
 };
