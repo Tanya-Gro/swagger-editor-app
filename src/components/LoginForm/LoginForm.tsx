@@ -24,6 +24,7 @@ export function LoginForm() {
   const tValidation = useTranslations('LOGIN_PAGE.validation');
 
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   async function handleLogin(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -38,12 +39,15 @@ export function LoginForm() {
     setValidationErrors({});
 
     try {
+      setLoading(true);
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email: validatedData.email,
         password: validatedData.password,
       });
 
       if (error) {
+        setLoading(false);
         console.error(error);
         return;
       }
@@ -53,6 +57,7 @@ export function LoginForm() {
       router.push('/');
       router.refresh();
     } catch (error) {
+      setLoading(false);
       console.error(error);
     }
   }
@@ -81,7 +86,7 @@ export function LoginForm() {
           error={validationErrors.password}
         />
 
-        <Button variant="contained" fullWidth type="submit" className={cx('button')}>
+        <Button variant="contained" fullWidth type="submit" className={cx('button')} loading={isLoading}>
           {t('actionButtonText')}
         </Button>
       </form>
