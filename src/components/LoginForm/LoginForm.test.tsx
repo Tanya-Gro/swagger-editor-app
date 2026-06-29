@@ -50,6 +50,15 @@ vi.mock('@/database/browser-client', () => ({
   }),
 }));
 
+const loginMessages = messages.LOGIN_PAGE;
+const validationMessages = loginMessages.validation;
+const password = messages.PASSWORD;
+
+const validEmail = 'test@example.com';
+const invalidEmail = 'invalid-email';
+const validPassword = 'password123!';
+const validPasswordWithDoubleSpecialChar = 'password123!!';
+
 function renderLoginForm() {
   return render(
     <NextIntlClientProvider locale="en" messages={messages}>
@@ -75,12 +84,12 @@ describe('LoginForm', () => {
   it('renders login form', () => {
     renderLoginForm();
 
-    expect(screen.getByRole('heading', { name: 'Вход' })).toBeInTheDocument();
-    expect(screen.getByLabelText('Почта')).toBeInTheDocument();
-    expect(screen.getByLabelText('Пароль')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /войти/i })).toBeInTheDocument();
-    expect(screen.getByText('Нет аккаунта?')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Регистрация' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: loginMessages.title })).toBeInTheDocument();
+    expect(screen.getByLabelText(loginMessages.emailLabel)).toBeInTheDocument();
+    expect(screen.getByLabelText(loginMessages.passwordLabel)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: loginMessages.actionButtonText })).toBeInTheDocument();
+    expect(screen.getByText(loginMessages.hintText)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: loginMessages.linkText })).toBeInTheDocument();
   });
 
   it('toggles password visibility', async () => {
@@ -88,15 +97,15 @@ describe('LoginForm', () => {
 
     renderLoginForm();
 
-    const passwordInput = screen.getByLabelText('Пароль');
+    const passwordInput = screen.getByLabelText(loginMessages.passwordLabel);
 
     expect(passwordInput).toHaveAttribute('type', 'password');
 
-    await user.click(screen.getByRole('button', { name: 'Show password' }));
+    await user.click(screen.getByRole('button', { name: password.showPasswordButtonLabel }));
 
     expect(passwordInput).toHaveAttribute('type', 'text');
 
-    await user.click(screen.getByRole('button', { name: 'Hide password' }));
+    await user.click(screen.getByRole('button', { name: password.hidePasswordButtonLabel }));
 
     expect(passwordInput).toHaveAttribute('type', 'password');
   });
@@ -106,14 +115,14 @@ describe('LoginForm', () => {
 
     renderLoginForm();
 
-    await user.type(screen.getByLabelText('Почта'), 'test@example.com');
-    await user.type(screen.getByLabelText('Пароль'), 'password123!!');
-    await user.click(screen.getByRole('button', { name: /войти/i }));
+    await user.type(screen.getByLabelText(loginMessages.emailLabel), validEmail);
+    await user.type(screen.getByLabelText(loginMessages.passwordLabel), validPasswordWithDoubleSpecialChar);
+    await user.click(screen.getByRole('button', { name: loginMessages.actionButtonText }));
 
     await waitFor(() => {
       expect(mocks.signInWithPassword).toHaveBeenCalledWith({
-        email: 'test@example.com',
-        password: 'password123!!',
+        email: validEmail,
+        password: validPasswordWithDoubleSpecialChar,
       });
     });
 
@@ -134,14 +143,14 @@ describe('LoginForm', () => {
 
     renderLoginForm();
 
-    await user.type(screen.getByLabelText('Почта'), 'test@example.com');
-    await user.type(screen.getByLabelText('Пароль'), 'password123!');
-    await user.click(screen.getByRole('button', { name: /войти/i }));
+    await user.type(screen.getByLabelText(loginMessages.emailLabel), validEmail);
+    await user.type(screen.getByLabelText(loginMessages.passwordLabel), validPassword);
+    await user.click(screen.getByRole('button', { name: loginMessages.actionButtonText }));
 
     await waitFor(() => {
       expect(mocks.signInWithPassword).toHaveBeenCalledWith({
-        email: 'test@example.com',
-        password: 'password123!',
+        email: validEmail,
+        password: validPassword,
       });
     });
 
@@ -154,10 +163,10 @@ describe('LoginForm', () => {
 
     renderLoginForm();
 
-    await user.click(screen.getByRole('button', { name: /войти/i }));
+    await user.click(screen.getByRole('button', { name: loginMessages.actionButtonText }));
 
-    expect(await screen.findByText(messages.LOGIN_PAGE.validation.invalidEmailFormat)).toBeInTheDocument();
-    expect(await screen.findByText(messages.LOGIN_PAGE.validation.passwordMinLength)).toBeInTheDocument();
+    expect(await screen.findByText(validationMessages.invalidEmailFormat)).toBeInTheDocument();
+    expect(await screen.findByText(validationMessages.passwordMinLength)).toBeInTheDocument();
     expect(mocks.signInWithPassword).not.toHaveBeenCalled();
     expect(mocks.push).not.toHaveBeenCalled();
     expect(mocks.refresh).not.toHaveBeenCalled();
@@ -168,11 +177,11 @@ describe('LoginForm', () => {
 
     renderLoginForm();
 
-    await user.type(screen.getByLabelText('Почта'), 'invalid-email');
-    await user.type(screen.getByLabelText('Пароль'), 'password123!');
-    await user.click(screen.getByRole('button', { name: /войти/i }));
+    await user.type(screen.getByLabelText(loginMessages.emailLabel), invalidEmail);
+    await user.type(screen.getByLabelText(loginMessages.passwordLabel), validPassword);
+    await user.click(screen.getByRole('button', { name: loginMessages.actionButtonText }));
 
-    expect(await screen.findByText(messages.LOGIN_PAGE.validation.invalidEmailFormat)).toBeInTheDocument();
+    expect(await screen.findByText(validationMessages.invalidEmailFormat)).toBeInTheDocument();
     expect(mocks.signInWithPassword).not.toHaveBeenCalled();
     expect(mocks.push).not.toHaveBeenCalled();
     expect(mocks.refresh).not.toHaveBeenCalled();
@@ -183,23 +192,23 @@ describe('LoginForm', () => {
 
     renderLoginForm();
 
-    await user.click(screen.getByRole('button', { name: /войти/i }));
+    await user.click(screen.getByRole('button', { name: loginMessages.actionButtonText }));
 
-    expect(await screen.findByText(messages.LOGIN_PAGE.validation.invalidEmailFormat)).toBeInTheDocument();
-    expect(await screen.findByText(messages.LOGIN_PAGE.validation.passwordMinLength)).toBeInTheDocument();
+    expect(await screen.findByText(validationMessages.invalidEmailFormat)).toBeInTheDocument();
+    expect(await screen.findByText(validationMessages.passwordMinLength)).toBeInTheDocument();
 
-    await user.type(screen.getByLabelText('Почта'), 'test@example.com');
-    await user.type(screen.getByLabelText('Пароль'), 'password123!');
-    await user.click(screen.getByRole('button', { name: /войти/i }));
+    await user.type(screen.getByLabelText(loginMessages.emailLabel), validEmail);
+    await user.type(screen.getByLabelText(loginMessages.passwordLabel), validPassword);
+    await user.click(screen.getByRole('button', { name: loginMessages.actionButtonText }));
 
     await waitFor(() => {
       expect(mocks.signInWithPassword).toHaveBeenCalledWith({
-        email: 'test@example.com',
-        password: 'password123!',
+        email: validEmail,
+        password: validPassword,
       });
     });
 
-    expect(screen.queryByText(messages.LOGIN_PAGE.validation.invalidEmailFormat)).not.toBeInTheDocument();
-    expect(screen.queryByText(messages.LOGIN_PAGE.validation.passwordMinLength)).not.toBeInTheDocument();
+    expect(screen.queryByText(validationMessages.invalidEmailFormat)).not.toBeInTheDocument();
+    expect(screen.queryByText(validationMessages.passwordMinLength)).not.toBeInTheDocument();
   });
 });
