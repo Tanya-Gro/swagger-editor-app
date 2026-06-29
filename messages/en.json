@@ -10,6 +10,7 @@
     "navigationAriaLabel": "Main navigation",
     "about": "About",
     "editor": "Editor",
+    "history": "History",
     "authAction": "Sign in",
     "menuAriaLabel": "Open menu",
     "languageLabel": "Language",
@@ -20,5 +21,24 @@
     "title": "Swagger Editor",
     "clearButton": "Clear",
     "loadButton": "Load"
+  },
+  "HISTORY": {
+    "title": "Request history",
+    "description": "Review executed API requests, response statuses, and key performance metrics.",
+    "tableAriaLabel": "Request history list",
+    "method": "Method",
+    "url": "URL",
+    "status": "Status",
+    "time": "Time",
+    "request": "Req",
+    "response": "Res",
+    "timestamp": "Timestamp",
+    "error": "Error",
+    "analytics": "Analytics",
+    "details": "Details",
+    "emptyTitle": "Empty history",
+    "emptyDescription": "You haven't executed any requests yet. Start from the editor or open the API viewer.",
+    "editorAction": "Editor",
+    "viewerAction": "Viewer"
   }
 }

@@ -197,7 +197,7 @@
   }
 
   .mobile-menu-details[open] .mobile-menu {
-    max-height: 180px;
+    max-height: 320px;
     padding: 16px;
     border-top-color: var(--color-border-subtle);
     opacity: 1;

@@ -4,6 +4,8 @@ import { describe, expect, it, vi } from 'vitest';
 import messages from '@messages/ru.json';
 import { Header } from './Header';
 
+const NAVIGATION_LINKS_COUNT = 3;
+
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ refresh: vi.fn() }),
 }));
@@ -38,9 +40,10 @@ describe('Header', () => {
 
     const navigation = screen.getByRole('navigation', { name: 'Основная навигация' });
 
-    expect(within(navigation).getAllByRole('link')).toHaveLength(2);
+    expect(within(navigation).getAllByRole('link')).toHaveLength(NAVIGATION_LINKS_COUNT);
     expect(within(navigation).getByRole('link', { name: 'О проекте' })).toHaveAttribute('href', '/about');
     expect(within(navigation).getByRole('link', { name: 'Редактор' })).toHaveAttribute('href', '/');
+    expect(within(navigation).getByRole('link', { name: 'История' })).toHaveAttribute('href', '/history');
   });
 
   it('login button has link to login page', () => {

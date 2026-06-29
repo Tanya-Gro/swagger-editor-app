@@ -12,6 +12,7 @@ const cx = classNames.bind(styles);
 const navigationLinks = [
   { href: '/about', messageKey: 'about' },
   { href: '/', messageKey: 'editor' },
+  { href: '/history', messageKey: 'history' },
 ] as const;
 
 export function Header() {
@@ -55,7 +56,13 @@ export function Header() {
               </IconButton>
             </summary>
             <div className={cx('mobile-menu')} id="mobile-header-menu">
-              <div className={cx('mobile-menu-section')} />
+              <div className={cx('mobile-menu-section')}>
+                {navigationLinks.map(({ href, messageKey }) => (
+                  <Link className={cx('nav-link')} href={href} key={href}>
+                    {t(messageKey)}
+                  </Link>
+                ))}
+              </div>
               <div className={cx('mobile-menu-section')}>
                 <LanguageSwitcher className={cx('mobile-menu-action')} />
                 <Link href="/login">

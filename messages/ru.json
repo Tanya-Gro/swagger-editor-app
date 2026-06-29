@@ -10,6 +10,7 @@
     "navigationAriaLabel": "Основная навигация",
     "about": "О проекте",
     "editor": "Редактор",
+    "history": "История",
     "authAction": "Войти",
     "menuAriaLabel": "Открыть меню",
     "languageLabel": "Язык",
@@ -20,5 +21,24 @@
     "title": "Сваггер Редактор",
     "clearButton": "Очистить",
     "loadButton": "Загрузить"
+  },
+  "HISTORY": {
+    "title": "История запросов",
+    "description": "Просматривайте выполненные API-запросы, статусы ответов и основные метрики производительности.",
+    "tableAriaLabel": "Список истории запросов",
+    "method": "Method",
+    "url": "URL",
+    "status": "Status",
+    "time": "Time",
+    "request": "Req",
+    "response": "Res",
+    "timestamp": "Timestamp",
+    "error": "Error",
+    "analytics": "Analytics",
+    "details": "Детали",
+    "emptyTitle": "Пустая история",
+    "emptyDescription": "Вы ещё не выполняли запросы. Начните с редактора или откройте просмотрщик API.",
+    "editorAction": "Editor",
+    "viewerAction": "Viewer"
   }
 }
