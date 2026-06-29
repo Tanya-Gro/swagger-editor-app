@@ -37,7 +37,7 @@
     "analytics": "Аналитика",
     "details": "Детали",
     "emptyTitle": "Пустая история",
-    "emptyDescription": "Вы ещё не выполняли запросы. Начните с редактора или откройте просмотрщик API.",
+    "emptyDescription": "You haven't executed any requests yet. Начните с редактора или откройте просмотрщик API.",
     "editorAction": "Editor",
     "viewerAction": "Viewer"
   }
