@@ -7,7 +7,7 @@ import { browserClient } from '@/database/browser-client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { type ValidationErrorsLogin } from '@/types';
-import { validateLoginForm } from '@/utils/validation/login/validate-form';
+import { validateLoginForm } from '@/utils/login/validate-form';
 
 import { Button, TextField } from '@mui/material';
 import { PasswordField } from '@/components/PasswordField/PasswordField';
