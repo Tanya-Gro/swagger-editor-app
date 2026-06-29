@@ -31,8 +31,8 @@ export function LoginForm() {
 
     const { data: validatedData, errors } = validateLoginForm(new FormData(event.currentTarget), tValidation);
 
-    if (errors) {
-      setValidationErrors(errors);
+    if (!validatedData) {
+      setValidationErrors(errors ?? {});
       return;
     }
 

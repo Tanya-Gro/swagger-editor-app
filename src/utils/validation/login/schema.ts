@@ -1,20 +1,16 @@
 import { z } from 'zod';
-import { type TranslationFn, type LoginFormData } from './types';
+import { type TranslationFn, type UserData } from './types';
 
 const MIN_LENGTH = 8;
 
-const hasLetter = (value: string): boolean => /[a-zA-Z]/.test(value);
-const hasDigit = (value: string): boolean => /[0-9]/.test(value);
-const hasSpecialChar = (value: string): boolean => /[.,?!@#$%^&*()_\-+=]/.test(value);
-
-export const createLoginSchema = (t: TranslationFn): z.ZodType<LoginFormData> => {
+export const createLoginSchema = (t: TranslationFn): z.ZodType<UserData> => {
   return z.object({
     email: z.email({ error: t('invalidEmailFormat') }),
     password: z
       .string()
       .min(MIN_LENGTH, { error: t('passwordMinLength') })
-      .refine(hasLetter, { error: t('passwordLetter') })
-      .refine(hasDigit, { error: t('passwordDigit') })
-      .refine(hasSpecialChar, { error: t('passwordSpecialChar') }),
+      .regex(/[a-zA-Z]/, { error: t('passwordLetter') })
+      .regex(/[0-9]/, { error: t('passwordDigit') })
+      .regex(/[.,?!@#$%^&*()_\-+=]/, { error: t('passwordSpecialChar') }),
   });
 };

@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { LoginForm } from './LoginForm';
 import { NextIntlClientProvider } from 'next-intl';
+import messages from '@messages/en.json';
 
 type Credentials = {
   email: string;
@@ -34,26 +35,6 @@ const mocks = vi.hoisted(() => ({
   signInWithPassword: vi.fn<(credentials: Credentials) => Promise<SignInResult>>(),
 }));
 
-const messages = {
-  LOGIN_PAGE: {
-    title: 'Вход',
-    emailLabel: 'Почта',
-    emailHelperText: 'Почта в формате name@example.com',
-    passwordLabel: 'Пароль',
-    passwordHelperText: 'Ваш пароль',
-    actionButtonText: 'Войти',
-    hintText: 'Нет аккаунта?',
-    linkText: 'Регистрация',
-    validation: {
-      invalidEmailFormat: 'Неверный формат почты',
-      passwordMinLength: 'Минимальная длина пароля 8 символов',
-      passwordLetter: 'Пароль должен содержать английские буквы',
-      passwordDigit: 'Пароль должен содержать хотя бы одну цифру',
-      passwordSpecialChar: 'Пароль должен содержать хотя бы один специальный символ',
-    },
-  },
-};
-
 vi.mock('next/navigation', () => ({
   useRouter: () => ({
     push: mocks.push,
@@ -71,7 +52,7 @@ vi.mock('@/database/browser-client', () => ({
 
 function renderLoginForm() {
   return render(
-    <NextIntlClientProvider locale="ru" messages={messages}>
+    <NextIntlClientProvider locale="en" messages={messages}>
       <LoginForm />
     </NextIntlClientProvider>,
   );
