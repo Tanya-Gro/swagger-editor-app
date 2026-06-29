@@ -41,5 +41,9 @@
     "title": "Сваггер Редактор",
     "clearButton": "Очистить",
     "loadButton": "Загрузить"
+  },
+  "PASSWORD": {
+    "showPasswordButtonLabel": "Показать пароль",
+    "hidePasswordButtonLabel": "Скрыть пароль"
   }
 }

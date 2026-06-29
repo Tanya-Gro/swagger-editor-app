@@ -40,5 +40,9 @@
     "title": "Swagger Editor",
     "clearButton": "Clear",
     "loadButton": "Load"
+  },
+  "PASSWORD": {
+    "showPasswordButtonLabel": "Show password",
+    "hidePasswordButtonLabel": "Hide password"
   }
 }

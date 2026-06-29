@@ -1,6 +1,7 @@
 import { useState, useId } from 'react';
 import { TextField, IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useTranslations } from 'next-intl';
 
 type PasswordFieldProps = {
   label: string;
@@ -12,6 +13,8 @@ type PasswordFieldProps = {
 export function PasswordField({ label, name, helperText, error }: PasswordFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
   const id = useId();
+
+  const t = useTranslations('PASSWORD');
 
   return (
     <TextField
@@ -29,7 +32,7 @@ export function PasswordField({ label, name, helperText, error }: PasswordFieldP
           endAdornment: (
             <InputAdornment position="end">
               <IconButton
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                aria-label={showPassword ? t('hidePasswordButtonLabel') : t('showPasswordButtonLabel')}
                 onClick={() => setShowPassword((prev) => !prev)}
                 onMouseDown={(event) => event.preventDefault()}
               >
