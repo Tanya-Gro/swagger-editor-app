@@ -6,13 +6,12 @@ import classNames from 'classnames/bind';
 import { browserClient } from '@/database/browser-client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { type ValidationErrorsLogin } from '@/types';
+import { validateLoginForm } from '@/utils/login/validate-form';
 
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Button, TextField } from '@mui/material';
+import { PasswordField } from '@/components/PasswordField/PasswordField';
+import { useTranslations } from 'next-intl';
 
 const cx = classNames.bind(styles);
 
@@ -21,27 +20,34 @@ const supabase = browserClient();
 export function LoginForm() {
   const router = useRouter();
 
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const t = useTranslations('LOGIN_PAGE');
+  const tValidation = useTranslations('LOGIN_PAGE.validation');
+
+  const [validationErrors, setValidationErrors] = useState<ValidationErrorsLogin>({});
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   async function handleLogin(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    const { data: validatedData, errors } = validateLoginForm(new FormData(event.currentTarget), tValidation);
+
+    if (!validatedData) {
+      setValidationErrors(errors ?? {});
+      return;
+    }
+
+    setValidationErrors({});
+
     try {
-      const formData = new FormData(event.currentTarget);
-
-      const email = formData.get('email');
-      const password = formData.get('password');
-
-      if (typeof email !== 'string' || typeof password !== 'string') {
-        return;
-      }
+      setLoading(true);
 
       const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+        email: validatedData.email,
+        password: validatedData.password,
       });
 
       if (error) {
+        setLoading(false);
         console.error(error);
         return;
       }
@@ -51,60 +57,42 @@ export function LoginForm() {
       router.push('/');
       router.refresh();
     } catch (error) {
+      setLoading(false);
       console.error(error);
     }
   }
 
   return (
     <div className={cx('container')}>
-      <h1 className={cx('title')}>Вход</h1>
+      <h1 className={cx('title')}>{t('title')}</h1>
       <form onSubmit={(event) => void handleLogin(event)}>
         <TextField
-          label="Почта"
+          label={t('emailLabel')}
           id="email"
           name="email"
           variant="outlined"
           fullWidth
-          helperText="Почта в формате name@example.com"
+          error={Boolean(validationErrors.email)}
+          helperText={validationErrors.email ?? t('emailHelperText')}
           margin="normal"
           autoComplete="email"
         />
 
-        <TextField
-          label="Пароль"
-          id="password"
+        <PasswordField
+          label={t('passwordLabel')}
           name="password"
-          type={showPassword ? 'text' : 'password'}
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          helperText={'Ваш пароль'}
-          slotProps={{
-            input: {
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label={showPassword ? 'Hide password' : 'Show password'}
-                    onClick={() => setShowPassword((prev) => !prev)}
-                    onMouseDown={(event) => event.preventDefault()}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            },
-          }}
-          autoComplete="current-password"
+          helperText={t('passwordHelperText')}
+          error={validationErrors.password}
         />
 
-        <Button variant="contained" fullWidth type="submit" className={cx('button')}>
-          Войти
+        <Button variant="contained" fullWidth type="submit" className={cx('button')} loading={isLoading}>
+          {t('actionButtonText')}
         </Button>
       </form>
       <div className={cx('footer')}>
-        <p>Нет аккаунта?</p>
+        <p>{t('hintText')}</p>
         <Link href="/registration" className={cx('link')}>
-          Регистрация
+          {t('linkText')}
         </Link>
       </div>
     </div>

@@ -16,9 +16,34 @@
     "english": "EN",
     "russian": "RU"
   },
+  "MAIN_PAGE": {
+    "title": "Главная страница"
+  },
+  "LOGIN_PAGE": {
+    "title": "Вход",
+    "emailLabel": "Почта",
+    "emailHelperText": "Почта в формате name@example.com",
+    "passwordLabel": "Пароль",
+    "passwordHelperText": "Ваш пароль",
+    "actionButtonText": "Войти",
+    "hintText": "Нет аккаунта?",
+    "linkText": "Регистрация",
+    "validation": {
+      "invalidEmailFormat": "Неверный формат почты",
+      "invalidPassword": "Необходимо ввести пароль",
+      "passwordMinLength": "Минимальная длина пароля 8 символов",
+      "passwordLetter": "Пароль должен содержать английские буквы",
+      "passwordDigit": "Пароль должен содержать хотя бы одну цифру",
+      "passwordSpecialChar": "Пароль должен содержать хотя бы один специальный символ"
+    }
+  },
   "EDITOR": {
     "title": "Сваггер Редактор",
     "clearButton": "Очистить",
     "loadButton": "Загрузить"
+  },
+  "PASSWORD": {
+    "showPasswordButtonLabel": "Показать пароль",
+    "hidePasswordButtonLabel": "Скрыть пароль"
   }
 }
