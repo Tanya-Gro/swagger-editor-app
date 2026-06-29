@@ -1,8 +1,8 @@
 import { createLoginSchema } from './schema';
-import { type LoginValidationResult, type TranslationFn } from './types';
+import { type ValidationResultLogin, type TranslationFn } from '@/types';
 import { z } from 'zod';
 
-export const validateLoginForm = (formData: FormData, t: TranslationFn): LoginValidationResult => {
+export const validateLoginForm = (formData: FormData, t: TranslationFn): ValidationResultLogin => {
   const formValues = Object.fromEntries(formData);
   const result = createLoginSchema(t).safeParse(formValues);
 

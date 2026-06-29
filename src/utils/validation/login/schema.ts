@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import { type TranslationFn, type UserData } from './types';
+import { type TranslationFn, type UserDataLogin } from '@/types';
 
 const MIN_LENGTH = 8;
 
-export const createLoginSchema = (t: TranslationFn): z.ZodType<UserData> => {
+export const createLoginSchema = (t: TranslationFn): z.ZodType<UserDataLogin> => {
   return z.object({
     email: z.email({ error: t('invalidEmailFormat') }),
     password: z

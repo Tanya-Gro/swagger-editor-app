@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import { browserClient } from '@/database/browser-client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { type ValidationErrors } from '@/utils/validation/login/types';
+import { type ValidationErrorsLogin } from '@/types';
 import { validateLoginForm } from '@/utils/validation/login/validate-form';
 
 import { Button, TextField } from '@mui/material';
@@ -23,7 +23,7 @@ export function LoginForm() {
   const t = useTranslations('LOGIN_PAGE');
   const tValidation = useTranslations('LOGIN_PAGE.validation');
 
-  const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
+  const [validationErrors, setValidationErrors] = useState<ValidationErrorsLogin>({});
   const [isLoading, setLoading] = useState<boolean>(false);
 
   async function handleLogin(event: SubmitEvent<HTMLFormElement>) {
