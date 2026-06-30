@@ -17,6 +17,26 @@
     "english": "EN",
     "russian": "RU"
   },
+  "MAIN_PAGE": {
+    "title": "Main page"
+  },
+  "LOGIN_PAGE": {
+    "title": "Login",
+    "emailLabel": "Email",
+    "emailHelperText": "The email must be in the format name@example.com",
+    "passwordLabel": "Password",
+    "passwordHelperText": "Please enter your password",
+    "actionButtonText": "Log in",
+    "hintText": "Don't have an account yet?",
+    "linkText": "Register",
+    "validation": {
+      "invalidEmailFormat": "Incorrect email format",
+      "passwordMinLength": "Password must be at least 8 characters long",
+      "passwordLetter": "Password must contain at least one letter",
+      "passwordDigit": "Password must contain at least one digit",
+      "passwordSpecialChar": "Password must contain at least one special character"
+    }
+  },
   "EDITOR": {
     "title": "Swagger Editor",
     "clearButton": "Clear",
@@ -40,5 +60,8 @@
     "emptyDescription": "You haven't executed any requests yet. Start from the editor or open the API viewer.",
     "editorAction": "Editor",
     "viewerAction": "Viewer"
+  "PASSWORD": {
+    "showPasswordButtonLabel": "Show password",
+    "hidePasswordButtonLabel": "Hide password"
   }
 }
