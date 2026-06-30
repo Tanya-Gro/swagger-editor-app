@@ -2,7 +2,7 @@
 
 import { Chip, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import type { HistoryMethod, HistoryStatusTone, RequestHistoryItem } from './types';
 import styles from './History.module.css';
 
@@ -59,7 +59,18 @@ function formatBytes(bytes: number): string {
   return `${(bytes / kilobyte).toFixed(1)} KB`;
 }
 
+function formatTimestamp(timestamp: string, locale: string): string {
+  return new Intl.DateTimeFormat(locale, {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(timestamp));
+}
+
 export default function HistoryTable({ entries }: HistoryTableProps) {
+  const locale = useLocale();
   const t = useTranslations('HISTORY');
 
   return (
@@ -111,7 +122,7 @@ export default function HistoryTable({ entries }: HistoryTableProps) {
                   {formatBytes(entry.responseSize)}
                 </TableCell>
                 <TableCell className={styles['table-cell']} data-label={t('timestamp')}>
-                  {entry.timestamp}
+                  {formatTimestamp(entry.timestamp, locale)}
                 </TableCell>
                 <TableCell
                   className={entry.errorDetails ? styles['table-cell'] : `${styles['table-cell']} ${styles.muted}`}

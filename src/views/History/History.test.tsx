@@ -31,6 +31,16 @@ const mockEntries: RequestHistoryItem[] = [
   },
 ];
 
+function formatExpectedTimestamp(timestamp: string): string {
+  return new Intl.DateTimeFormat('en', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(timestamp));
+}
+
 function renderHistory(entries = mockEntries): void {
   render(
     <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
@@ -71,6 +81,8 @@ describe('History', () => {
     expect(within(table).getByText('/pets/unknown')).toBeInTheDocument();
     expect(within(table).getByText('120 ms')).toBeInTheDocument();
     expect(within(table).getByText('2.0 KB')).toBeInTheDocument();
+    expect(within(table).getByText(formatExpectedTimestamp(mockEntries[0].timestamp))).toBeInTheDocument();
+    expect(within(table).queryByText('2026-06-19T15:00:00.000Z')).not.toBeInTheDocument();
     expect(within(table).getByText('Pet not found')).toBeInTheDocument();
     expect(within(table).getAllByRole('link', { name: 'Details' })[0]).toHaveAttribute('href', '/history/req_test_001');
   });
