@@ -140,6 +140,15 @@
   color: var(--color-text-secondary);
 }
 
+.mobile-menu-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+}
+
 .mobile-menu-details {
   display: none;
 }

@@ -1,6 +1,6 @@
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import { Button, IconButton } from '@mui/material';
+import { Button } from '@mui/material';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
@@ -53,9 +53,9 @@ export function Header() {
 
       <details className={cx('mobile-menu-details')}>
         <summary aria-label={t('menuAriaLabel')} className={cx('mobile-menu-button')}>
-          <IconButton aria-hidden="true" className={cx('mobile-menu-icon')} component="span" size="medium">
+          <span aria-hidden="true" className={cx('mobile-menu-icon')}>
             <MenuOutlinedIcon />
-          </IconButton>
+          </span>
         </summary>
         <div className={cx('mobile-menu')} id="mobile-header-menu">
           <div className={cx('mobile-menu-section')}>
