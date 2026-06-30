@@ -65,9 +65,9 @@ export default function HistoryTable({ entries }: HistoryTableProps) {
   return (
     <section aria-label={t('tableAriaLabel')} className={styles['table-card']}>
       <div className={styles['table-wrap']}>
-        <Table sx={{ minWidth: 1040 }}>
-          <TableHead>
-            <TableRow>
+        <Table className={styles.table}>
+          <TableHead className={styles['table-head']}>
+            <TableRow className={styles['table-row']}>
               <TableCell>{t('method')}</TableCell>
               <TableCell>{t('url')}</TableCell>
               <TableCell>{t('status')}</TableCell>
@@ -79,10 +79,10 @@ export default function HistoryTable({ entries }: HistoryTableProps) {
               <TableCell>{t('analytics')}</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className={styles['table-body']}>
             {entries.map((entry) => (
-              <TableRow key={entry.id}>
-                <TableCell>
+              <TableRow className={styles['table-row']} key={entry.id}>
+                <TableCell className={styles['table-cell']} data-label={t('method')}>
                   <Chip
                     className={methodClasses[entry.method]}
                     color={methodColors[entry.method]}
@@ -91,24 +91,35 @@ export default function HistoryTable({ entries }: HistoryTableProps) {
                     variant="outlined"
                   />
                 </TableCell>
-                <TableCell>
+                <TableCell className={styles['table-cell']} data-label={t('url')}>
                   <code className={styles.code}>{entry.endpoint}</code>
                 </TableCell>
-                <TableCell>
+                <TableCell className={styles['table-cell']} data-label={t('status')}>
                   <Chip
                     color={statusColors[getStatusTone(entry.statusCode)]}
                     label={String(entry.statusCode)}
                     size="small"
                   />
                 </TableCell>
-                <TableCell>{entry.duration} ms</TableCell>
-                <TableCell>{formatBytes(entry.requestSize)}</TableCell>
-                <TableCell>{formatBytes(entry.responseSize)}</TableCell>
-                <TableCell>{entry.timestamp}</TableCell>
-                <TableCell className={entry.errorDetails ? undefined : styles.muted}>
+                <TableCell className={styles['table-cell']} data-label={t('time')}>
+                  {entry.duration} ms
+                </TableCell>
+                <TableCell className={styles['table-cell']} data-label={t('request')}>
+                  {formatBytes(entry.requestSize)}
+                </TableCell>
+                <TableCell className={styles['table-cell']} data-label={t('response')}>
+                  {formatBytes(entry.responseSize)}
+                </TableCell>
+                <TableCell className={styles['table-cell']} data-label={t('timestamp')}>
+                  {entry.timestamp}
+                </TableCell>
+                <TableCell
+                  className={entry.errorDetails ? styles['table-cell'] : `${styles['table-cell']} ${styles.muted}`}
+                  data-label={t('error')}
+                >
                   {entry.errorDetails ?? '-'}
                 </TableCell>
-                <TableCell>
+                <TableCell className={styles['table-cell']} data-label={t('analytics')}>
                   <Link className={styles['analytics-link']} href={`/history/${entry.id}`}>
                     {t('details')}
                   </Link>
