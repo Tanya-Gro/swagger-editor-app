@@ -2,8 +2,8 @@ import { render, screen, within } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it } from 'vitest';
 import messages from '@messages/en.json';
+import { History } from './History';
 import { HistoryClient } from './HistoryClient';
-import { HistoryPage } from './HistoryPage';
 import HistoryTable from './HistoryTable';
 import type { RequestHistoryItem } from './types';
 
@@ -31,10 +31,10 @@ const mockEntries: RequestHistoryItem[] = [
   },
 ];
 
-function renderHistoryPage(entries = mockEntries): void {
+function renderHistory(entries = mockEntries): void {
   render(
     <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
-      <HistoryPage entries={entries} />
+      <History entries={entries} />
     </NextIntlClientProvider>,
   );
 }
@@ -55,9 +55,9 @@ function renderHistoryTable(entries: RequestHistoryItem[]): void {
   );
 }
 
-describe('HistoryPage', () => {
+describe('History', () => {
   it('renders for an authorized user', () => {
-    renderHistoryPage();
+    renderHistory();
 
     expect(screen.getByRole('heading', { name: 'Request history' })).toBeInTheDocument();
   });
@@ -75,13 +75,13 @@ describe('HistoryPage', () => {
     expect(within(table).getAllByRole('link', { name: 'Details' })[0]).toHaveAttribute('href', '/history/req_test_001');
   });
 
-  it('renders an empty state with editor and viewer links when history is empty', () => {
+  it('renders an empty state with an editor link when history is empty', () => {
     renderHistoryClient([]);
 
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Empty history' })).toBeInTheDocument();
     expect(screen.getByText(/You haven't executed any requests yet/i)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Editor' })).toHaveAttribute('href', '/');
-    expect(screen.getByRole('link', { name: 'Viewer' })).toHaveAttribute('href', '/viewer');
+    expect(screen.queryByRole('link', { name: 'Viewer' })).not.toBeInTheDocument();
   });
 });

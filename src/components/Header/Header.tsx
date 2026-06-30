@@ -48,38 +48,38 @@ export function Header() {
               </Button>
             </Link>
           </div>
-
-          <details className={cx('mobile-menu-details')}>
-            <summary aria-label={t('menuAriaLabel')} className={cx('mobile-menu-button')}>
-              <IconButton aria-hidden="true" className={cx('mobile-menu-icon')} component="span" size="medium">
-                <MenuOutlinedIcon />
-              </IconButton>
-            </summary>
-            <div className={cx('mobile-menu')} id="mobile-header-menu">
-              <div className={cx('mobile-menu-section')}>
-                {navigationLinks.map(({ href, messageKey }) => (
-                  <Link className={cx('nav-link')} href={href} key={href}>
-                    {t(messageKey)}
-                  </Link>
-                ))}
-              </div>
-              <div className={cx('mobile-menu-section')}>
-                <LanguageSwitcher className={cx('mobile-menu-action')} />
-                <Link href="/login">
-                  <Button
-                    component="span"
-                    className={cx('mobile-menu-action')}
-                    startIcon={<LoginOutlinedIcon />}
-                    variant="contained"
-                  >
-                    {t('authAction')}
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </details>
         </div>
       </div>
+
+      <details className={cx('mobile-menu-details')}>
+        <summary aria-label={t('menuAriaLabel')} className={cx('mobile-menu-button')}>
+          <IconButton aria-hidden="true" className={cx('mobile-menu-icon')} component="span" size="medium">
+            <MenuOutlinedIcon />
+          </IconButton>
+        </summary>
+        <div className={cx('mobile-menu')} id="mobile-header-menu">
+          <div className={cx('mobile-menu-section')}>
+            {navigationLinks.map(({ href, messageKey }) => (
+              <Link className={cx('nav-link')} href={href} key={href}>
+                {t(messageKey)}
+              </Link>
+            ))}
+          </div>
+          <div className={cx('mobile-menu-section')}>
+            <LanguageSwitcher className={cx('mobile-menu-action')} />
+            <Link href="/login">
+              <Button
+                component="span"
+                className={cx('mobile-menu-action')}
+                startIcon={<LoginOutlinedIcon />}
+                variant="contained"
+              >
+                {t('authAction')}
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </details>
     </header>
   );
 }

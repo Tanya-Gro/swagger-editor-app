@@ -57,9 +57,9 @@
     "analytics": "Analytics",
     "details": "Details",
     "emptyTitle": "Empty history",
-    "emptyDescription": "You haven't executed any requests yet. Start from the editor or open the API viewer.",
-    "editorAction": "Editor",
-    "viewerAction": "Viewer"
+    "emptyDescription": "You haven't executed any requests yet. Start from the editor.",
+    "editorAction": "Editor"
+  },
   "PASSWORD": {
     "showPasswordButtonLabel": "Show password",
     "hidePasswordButtonLabel": "Hide password"

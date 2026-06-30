@@ -58,9 +58,9 @@
     "analytics": "Аналитика",
     "details": "Детали",
     "emptyTitle": "Пустая история",
-    "emptyDescription": "You haven't executed any requests yet. Начните с редактора или откройте просмотрщик API.",
-    "editorAction": "Editor",
-    "viewerAction": "Viewer"
+    "emptyDescription": "Вы ещё не выполняли запросы. Начните с редактора.",
+    "editorAction": "Редактор"
+  },
   "PASSWORD": {
     "showPasswordButtonLabel": "Показать пароль",
     "hidePasswordButtonLabel": "Скрыть пароль"

@@ -156,7 +156,13 @@
 
   .mobile-menu-button {
     cursor: pointer;
+
+    position: absolute;
+    top: 12px;
+    right: 16px;
+
     display: inline-flex;
+
     color: var(--color-text-secondary);
     list-style: none;
   }
@@ -170,11 +176,7 @@
   }
 
   .mobile-menu {
-    position: absolute;
     z-index: 40;
-    top: 100%;
-    right: 0;
-    left: 0;
 
     overflow: hidden;
     display: flex;

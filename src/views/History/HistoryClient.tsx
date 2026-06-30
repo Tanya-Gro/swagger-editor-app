@@ -43,9 +43,6 @@ export function HistoryClient({ entries }: HistoryClientProps) {
             <Button component={Link} href="/" variant="contained">
               {t('editorAction')}
             </Button>
-            <Button component={Link} href="/viewer" variant="outlined">
-              {t('viewerAction')}
-            </Button>
           </Stack>
         </section>
       )}
