@@ -13,5 +13,7 @@ review:
   inline_tag: '#ai-review-inline'
 
 prompt:
+  inline_prompt_files:
+    - ./prompts/rs-school-review.md
   context_prompt_files:
     - ./prompts/rs-school-review.md
