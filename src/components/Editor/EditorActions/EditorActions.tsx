@@ -36,7 +36,14 @@ export function EditorActions({ format, onChangeFormat, onClear }: EditorActions
         {t('title')}
       </h2>
       <div className={cx('toolbar')}>
-        <ToggleButtonGroup aria-label="Format" exclusive onChange={changeFormat} size="small" value={format}>
+        <ToggleButtonGroup
+          aria-label="Format"
+          exclusive
+          onChange={changeFormat}
+          size="small"
+          value={format}
+          disabled={format === 'unknown'}
+        >
           <ToggleButton value="JSON">JSON</ToggleButton>
           <ToggleButton value="YAML">YAML</ToggleButton>
         </ToggleButtonGroup>

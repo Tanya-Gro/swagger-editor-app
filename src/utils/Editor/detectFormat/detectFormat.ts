@@ -1,44 +1,33 @@
+import { load } from 'js-yaml';
 import { type EditorFormat } from '@/types';
-import yaml from 'js-yaml';
 
-export function detectFormat(text: string): EditorFormat | 'unknown' {
-  if (!text || text.trim() === '') {
+export function detectFormat(text: string): EditorFormat {
+  const trimmed = text.trim();
+
+  if (trimmed === '') {
     return 'unknown';
   }
 
-  const trimmed = text.trim();
-
-  if (isJSON(trimmed)) {
-    return 'JSON';
+  if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
+    try {
+      JSON.parse(trimmed);
+      return 'JSON';
+    } catch {
+      return 'unknown';
+    }
   }
 
-  if (isYAML(trimmed)) {
-    return 'YAML';
+  const hasYamlStructure = /:\s|\n-\s/.test(trimmed);
+  if (hasYamlStructure) {
+    try {
+      const result = load(text);
+      if (typeof result === 'object' && result !== null) {
+        return 'YAML';
+      }
+    } catch {
+      return 'unknown';
+    }
   }
 
   return 'unknown';
-}
-
-function isJSON(text: string): boolean {
-  try {
-    const firstChar = text.charAt(0);
-
-    if (firstChar !== '{' && firstChar !== '[') {
-      return false;
-    }
-
-    JSON.parse(text);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-function isYAML(text: string): boolean {
-  try {
-    yaml.load(text);
-    return true;
-  } catch {
-    return false;
-  }
 }

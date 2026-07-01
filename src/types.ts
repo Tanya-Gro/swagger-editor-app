@@ -1,1 +1,1 @@
-export type EditorFormat = 'JSON' | 'YAML';
+export type EditorFormat = 'JSON' | 'YAML' | 'unknown';
