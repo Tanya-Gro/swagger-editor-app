@@ -1,0 +1,17 @@
+llm:
+  # Groq exposes an OpenAI-compatible API.
+  provider: OPENAI
+  meta:
+    model: llama-3.3-70b-versatile
+    temperature: 0.1
+    max_tokens: 4000
+  http_client:
+    timeout: 120
+    # api_url and api_token are supplied by the GitHub Actions workflow.
+
+review:
+  inline_tag: '#ai-review-inline'
+
+prompt:
+  context_prompt_files:
+    - ./prompts/rs-school-review.md
