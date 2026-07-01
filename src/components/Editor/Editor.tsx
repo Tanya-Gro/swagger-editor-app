@@ -5,7 +5,7 @@ import { json } from '@codemirror/lang-json';
 import { yaml } from '@codemirror/lang-yaml';
 import { EditorActions } from './EditorActions/EditorActions';
 import CodeMirror from '@uiw/react-codemirror';
-import { detectFormat } from '@/utils/Editor/detectFormat/detectFormat';
+import { detectFormat } from '@/utils/editor/detectFormat';
 import { type EditorFormat } from '@/types';
 
 import classNames from 'classnames/bind';
