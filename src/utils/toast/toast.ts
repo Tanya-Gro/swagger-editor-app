@@ -2,7 +2,7 @@ import { type VariantType } from 'notistack';
 import { type ReactNode } from 'react';
 
 export type ToastEventDetail = {
-  message: string | ReactNode;
+  message: ReactNode;
   variant?: VariantType;
 };
 
@@ -19,16 +19,16 @@ const show = ({ message, variant = 'info' }: ToastEventDetail): void => {
 
 export const toast = {
   show,
-  success(message: string): void {
+  success(message: ReactNode): void {
     show({ message, variant: 'success' });
   },
-  error(message: string): void {
+  error(message: ReactNode): void {
     show({ message, variant: 'error' });
   },
-  warning(message: string): void {
+  warning(message: ReactNode): void {
     show({ message, variant: 'warning' });
   },
-  info(message: string): void {
+  info(message: ReactNode): void {
     show({ message });
   },
 };
