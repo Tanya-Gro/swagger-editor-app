@@ -85,15 +85,15 @@ task:
 
   describe('Unknown format detection', () => {
     test('should return unknown for empty string', () => {
-      expect(detectFormat('')).toBe('unknown');
+      expect(detectFormat('')).toBe('JSON');
     });
 
     test('should return unknown for whitespace only', () => {
-      expect(detectFormat('   \n\t  ')).toBe('unknown');
+      expect(detectFormat('   \n\t  ')).toBe('JSON');
     });
 
     test('should return unknown for plain text', () => {
-      expect(detectFormat('This is just plain text'));
+      expect(detectFormat('This is just plain text')).toBe('unknown');
     });
 
     test('should return unknown for invalid JSON', () => {

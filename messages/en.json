@@ -39,7 +39,11 @@
   "EDITOR": {
     "title": "Swagger Editor",
     "clearButton": "Clear",
-    "loadButton": "Load"
+    "loadButton": "Load",
+    "notifications": {
+      "unsupportedFormat": "Unsupported schema format",
+      "conversionDisabled": "Unsupported schema format. Conversion not possible"
+    }
   },
   "PASSWORD": {
     "showPasswordButtonLabel": "Show password",

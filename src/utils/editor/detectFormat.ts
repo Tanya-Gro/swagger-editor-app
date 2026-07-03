@@ -5,7 +5,7 @@ export function detectFormat(text: string): EditorFormat {
   const trimmed = text.trim();
 
   if (trimmed === '') {
-    return 'unknown';
+    return 'JSON';
   }
 
   if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
@@ -17,17 +17,14 @@ export function detectFormat(text: string): EditorFormat {
     }
   }
 
-  const hasYamlStructure = /:\s|\n-\s/.test(trimmed);
-  if (hasYamlStructure) {
-    try {
-      const result = load(text);
-      if (typeof result === 'object' && result !== null) {
-        return 'YAML';
-      }
-    } catch {
-      return 'unknown';
+  try {
+    const result = load(text);
+    if (typeof result === 'object' && result !== null) {
+      return 'YAML';
     }
-  }
 
-  return 'unknown';
+    return 'unknown';
+  } catch {
+    return 'unknown';
+  }
 }
