@@ -1,4 +1,4 @@
-export type EditorFormat = 'JSON' | 'YAML';
+export type EditorFormat = 'JSON' | 'YAML' | 'unknown';
 
 export type ValidationErrorsLogin = {
   email?: string;

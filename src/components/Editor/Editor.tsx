@@ -1,25 +1,78 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { json } from '@codemirror/lang-json';
 import { yaml } from '@codemirror/lang-yaml';
-import { EditorActions } from './EditorActions/EditorActions';
 import CodeMirror from '@uiw/react-codemirror';
+
+import { EditorActions } from './EditorActions/EditorActions';
+import { detectFormat } from '@/utils/Editor/detectFormat';
+import { toast } from '@/utils/toast/toast';
+import { type EditorFormat } from '@/types';
+import { useTranslations } from 'next-intl';
 
 import classNames from 'classnames/bind';
 import styles from './Editor.module.css';
 
-import { type EditorFormat } from '@/types';
-
 const cx = classNames.bind(styles);
+const AUTO_DETECT_DELAY = 500;
 
 export function Editor() {
   const [format, setFormat] = useState<EditorFormat>('JSON');
   const [schema, setSchema] = useState<string>('');
-  const extension = format === 'JSON' ? [json()] : [yaml()];
+
+  const t = useTranslations('EDITOR');
+
+  useEffect(() => {
+    if (schema.trim() === '' && format !== 'unknown') {
+      return;
+    }
+
+    const timeoutId = globalThis.setTimeout(() => {
+      const detectedFormat = detectFormat(schema);
+
+      if (detectedFormat === format) {
+        return;
+      }
+
+      setFormat(detectedFormat);
+
+      if (detectedFormat === 'unknown') {
+        toast.error(t('notifications.unsupportedFormat'));
+      }
+    }, AUTO_DETECT_DELAY);
+
+    return () => {
+      globalThis.clearTimeout(timeoutId);
+    };
+  }, [schema, format, t]);
+
+  const extension = useMemo(() => {
+    switch (format) {
+      case 'JSON': {
+        return [json()];
+      }
+
+      case 'YAML': {
+        return [yaml()];
+      }
+
+      default: {
+        return [];
+      }
+    }
+  }, [format]);
 
   const handleInputEditor = (value: string): void => {
     setSchema(value);
+  };
+
+  const handleChangeFormat = (value: EditorFormat): void => {
+    if (format === 'unknown') {
+      toast.warning(t('notifications.conversionDisabled'));
+    } else {
+      setFormat(value);
+    }
   };
 
   const handleClear = (): void => {
@@ -28,7 +81,7 @@ export function Editor() {
 
   return (
     <section className={cx('panel')} aria-labelledby="editor-heading">
-      <EditorActions format={format} onChangeFormat={setFormat} onClear={handleClear} />
+      <EditorActions format={format} onChangeFormat={handleChangeFormat} onClear={handleClear} />
       <div className={cx('panel-body')}>
         <CodeMirror value={schema} className={cx('editor')} extensions={extension} onChange={handleInputEditor} />
       </div>

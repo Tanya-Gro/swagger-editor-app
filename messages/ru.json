@@ -40,7 +40,11 @@
   "EDITOR": {
     "title": "Сваггер Редактор",
     "clearButton": "Очистить",
-    "loadButton": "Загрузить"
+    "loadButton": "Загрузить",
+    "notifications": {
+      "unsupportedFormat": "Неподдерживаемый формат схемы",
+      "conversionDisabled": "Неподдерживаемый формат схемы. Конвертация невозможна"
+    }
   },
   "PASSWORD": {
     "showPasswordButtonLabel": "Показать пароль",

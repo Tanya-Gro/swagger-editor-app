@@ -6,10 +6,6 @@ import { GlobalNotificationListener } from './NotificationListener';
 const enqueueSnackbar = vi.fn();
 
 vi.mock('notistack', async () => {
-  beforeEach(() => {
-    enqueueSnackbar.mockClear();
-  });
-
   const actual = await vi.importActual<typeof import('notistack')>('notistack');
 
   return {
@@ -21,6 +17,10 @@ vi.mock('notistack', async () => {
 });
 
 describe('NotificationListener', () => {
+  beforeEach(() => {
+    enqueueSnackbar.mockClear();
+  });
+
   it('shows snackbar after event', () => {
     render(
       <SnackbarProvider>
