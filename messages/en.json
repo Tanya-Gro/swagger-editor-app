@@ -39,7 +39,10 @@
   "EDITOR": {
     "title": "Swagger Editor",
     "clearButton": "Clear",
-    "loadButton": "Load"
+    "loadButton": "Load",
+    "loadingSuccess": "successfully loaded",
+    "loadingError": "Error reading file",
+    "invalidFileType": "has an invalid format. Only JSON, YAML, and YML are allowed."
   },
   "PASSWORD": {
     "showPasswordButtonLabel": "Show password",

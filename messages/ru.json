@@ -40,7 +40,10 @@
   "EDITOR": {
     "title": "Сваггер Редактор",
     "clearButton": "Очистить",
-    "loadButton": "Загрузить"
+    "loadButton": "Загрузить",
+    "loadingSuccess": "успешно загружен",
+    "loadingError": "Ошибка при чтении файла",
+    "invalidFileType": "имеет недопустимый формат. Разрешены только JSON, YAML и YML."
   },
   "PASSWORD": {
     "showPasswordButtonLabel": "Показать пароль",

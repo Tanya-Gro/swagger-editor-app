@@ -6,12 +6,12 @@ import { EditorActions } from './EditorActions';
 
 describe('EditorActions', () => {
   const onChangeFormat = vi.fn();
-  const onClear = vi.fn();
+  const onChangeSchema = vi.fn();
 
   function renderEditorActions(): void {
     render(
       <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
-        <EditorActions format="JSON" onChangeFormat={onChangeFormat} onClear={onClear} />
+        <EditorActions format="JSON" onChangeFormat={onChangeFormat} onChangeSchema={onChangeSchema} />
       </NextIntlClientProvider>,
     );
   }
@@ -37,7 +37,7 @@ describe('EditorActions', () => {
       }),
     );
 
-    expect(onClear).toHaveBeenCalledTimes(1);
+    expect(onChangeSchema).toHaveBeenCalledTimes(1);
   });
 
   it('renders action buttons', () => {

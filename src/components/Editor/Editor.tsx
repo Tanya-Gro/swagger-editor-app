@@ -22,13 +22,9 @@ export function Editor() {
     setSchema(value);
   };
 
-  const handleClear = (): void => {
-    setSchema('');
-  };
-
   return (
     <section className={cx('panel')} aria-labelledby="editor-heading">
-      <EditorActions format={format} onChangeFormat={setFormat} onClear={handleClear} />
+      <EditorActions format={format} onChangeFormat={setFormat} onChangeSchema={setSchema} />
       <div className={cx('panel-body')}>
         <CodeMirror value={schema} className={cx('editor')} extensions={extension} onChange={handleInputEditor} />
       </div>
