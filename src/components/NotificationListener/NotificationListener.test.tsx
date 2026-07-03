@@ -1,11 +1,15 @@
 import { render } from '@testing-library/react';
 import { SnackbarProvider } from 'notistack';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { GlobalNotificationListener } from './NotificationListener';
 
 const enqueueSnackbar = vi.fn();
 
 vi.mock('notistack', async () => {
+  beforeEach(() => {
+    enqueueSnackbar.mockClear();
+  });
+
   const actual = await vi.importActual<typeof import('notistack')>('notistack');
 
   return {
