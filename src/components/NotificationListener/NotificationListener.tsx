@@ -36,5 +36,11 @@ export function GlobalNotificationListener() {
 }
 
 function isToastEvent(event: Event): event is CustomEvent<ToastEventDetail> {
-  return event.type === 'app:toast';
+  return (
+    event instanceof CustomEvent &&
+    event.type === 'app:toast' &&
+    typeof event.detail === 'object' &&
+    event.detail !== null &&
+    'message' in event.detail
+  );
 }
