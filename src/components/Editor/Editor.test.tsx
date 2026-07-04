@@ -1,8 +1,11 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import messages from '@messages/en.json';
 import { Editor } from './Editor';
+import { detectFormat } from '@/utils/Editor/detectFormat/detectFormat';
+import { toast } from '@/utils/toast/toast';
+import { jsonToYaml } from '@/utils/Editor/convertFormat/convertFormat';
 
 vi.mock('@uiw/react-codemirror', () => ({
   default: ({ value, onChange }: { value: string; onChange: (value: string) => void }) => (
@@ -10,7 +13,35 @@ vi.mock('@uiw/react-codemirror', () => ({
   ),
 }));
 
+vi.mock('@/utils/Editor/convertFormat/convertFormat', () => ({
+  jsonToYaml: vi.fn(),
+  yamlToJson: vi.fn(),
+}));
+
+vi.mock('@/utils/Editor/detectFormat/detectFormat', () => ({
+  detectFormat: vi.fn(),
+}));
+
+vi.mock('@/utils/toast/toast', () => ({
+  toast: {
+    error: vi.fn(),
+    warning: vi.fn(),
+    success: vi.fn(),
+  },
+}));
+
+const AUTO_DETECT_DELAY = 500;
+
 describe('Editor', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   function renderEditor(): void {
     render(
       <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
@@ -108,5 +139,74 @@ describe('Editor', () => {
 
     expect(jsonButton).toHaveAttribute('aria-pressed', 'false');
     expect(yamlButton).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('should auto-detect unknown format after delay and show error toast', () => {
+    vi.mocked(detectFormat).mockImplementation(() => 'unknown');
+    renderEditor();
+
+    const editor = screen.getByTestId('editor');
+    fireEvent.change(editor, { target: { value: 'broken content' } });
+
+    expect(toast.error).not.toHaveBeenCalled();
+
+    act(() => {
+      vi.advanceTimersByTime(AUTO_DETECT_DELAY);
+    });
+
+    expect(detectFormat).toHaveBeenCalledWith('broken content');
+    expect(toast.error).toHaveBeenCalledWith(messages.EDITOR.notifications.unsupportedFormat);
+  });
+
+  it('should block conversion and show warning if format is unknown', () => {
+    vi.mocked(detectFormat).mockImplementation(() => 'unknown');
+    renderEditor();
+
+    const editor = screen.getByTestId('editor');
+    fireEvent.change(editor, { target: { value: 'invalid format data' } });
+
+    act(() => {
+      vi.advanceTimersByTime(AUTO_DETECT_DELAY);
+    });
+
+    const yamlButton = screen.getByRole('button', { name: 'YAML' });
+    fireEvent.click(yamlButton);
+
+    expect(toast.warning).toHaveBeenCalledWith(messages.EDITOR.notifications.conversionDisabled);
+    expect(jsonToYaml).not.toHaveBeenCalled();
+  });
+
+  it('should catch error during conversion and show error toast with the key message', () => {
+    vi.mocked(detectFormat).mockImplementation(() => 'JSON');
+    vi.mocked(jsonToYaml).mockImplementation(() => {
+      throw new Error('notifications.jsonToYaml');
+    });
+
+    renderEditor();
+    const editor = screen.getByTestId('editor');
+
+    fireEvent.change(editor, { target: { value: '{"name": "test"}' } });
+    act(() => {
+      vi.advanceTimersByTime(AUTO_DETECT_DELAY);
+    });
+
+    const yamlButton = screen.getByRole('button', { name: 'YAML' });
+    fireEvent.click(yamlButton);
+
+    expect(toast.error).toHaveBeenCalledWith(messages.EDITOR.notifications.jsonToYaml);
+  });
+
+  it('should return empty extension array and render safely when format is unknown', () => {
+    vi.mocked(detectFormat).mockImplementation(() => 'unknown');
+    renderEditor();
+
+    const editor = screen.getByTestId('editor');
+    fireEvent.change(editor, { target: { value: '!!!' } });
+
+    act(() => {
+      vi.advanceTimersByTime(AUTO_DETECT_DELAY);
+    });
+
+    expect(editor).toBeInTheDocument();
   });
 });
