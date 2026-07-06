@@ -42,7 +42,11 @@
     "loadButton": "Load",
     "notifications": {
       "unsupportedFormat": "Unsupported schema format",
-      "conversionDisabled": "Unsupported schema format. Conversion not possible"
+      "conversionDisabled": "Unsupported schema format. Conversion not possible",
+      "conversionError": "Unsupported schema format. Conversion not possible",
+      "jsonToYaml": "Failed to convert JSON to YAML: Check the source code syntax",
+      "yamlToJson": "Failed to convert YAML to JSON: Check the source code syntax",
+      "invalidYaml": "Invalid YAML structure"
     }
   },
   "PASSWORD": {

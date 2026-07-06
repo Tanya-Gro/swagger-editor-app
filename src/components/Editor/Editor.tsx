@@ -6,10 +6,11 @@ import { yaml } from '@codemirror/lang-yaml';
 import CodeMirror from '@uiw/react-codemirror';
 
 import { EditorActions } from './EditorActions/EditorActions';
-import { detectFormat } from '@/utils/Editor/detectFormat';
 import { toast } from '@/utils/toast/toast';
-import { type EditorFormat } from '@/types';
+import { detectFormat } from '@/utils/editor/detectFormat/detectFormat';
+import { jsonToYaml, yamlToJson } from '@/utils/editor/convertFormat/convertFormat';
 import { useTranslations } from 'next-intl';
+import { type EditorFormat } from '@/types';
 
 import classNames from 'classnames/bind';
 import styles from './Editor.module.css';
@@ -67,11 +68,18 @@ export function Editor() {
     setSchema(value);
   };
 
-  const handleChangeFormat = (value: EditorFormat): void => {
-    if (format === 'unknown') {
+  const handleChangeFormat = (targetFormat: EditorFormat): void => {
+    if (schema.trim() === '') {
+      setFormat(targetFormat);
+    } else if (format === 'unknown') {
       toast.warning(t('notifications.conversionDisabled'));
     } else {
-      setFormat(value);
+      try {
+        setSchema(targetFormat === 'JSON' ? yamlToJson(schema) : jsonToYaml(schema));
+        setFormat(targetFormat);
+      } catch (error) {
+        toast.error(error instanceof Error ? t(error.message) : t('notifications.conversionError'));
+      }
     }
   };
 
