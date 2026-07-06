@@ -1,8 +1,8 @@
 import { render, screen, within } from '@testing-library/react';
+import englishMessages from '@messages/en.json';
+import russianMessages from '@messages/ru.json';
 import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it } from 'vitest';
-import englishMessages from '../../../messages/en.json';
-import russianMessages from '../../../messages/ru.json';
 import { Footer } from './Footer';
 
 describe('Footer', () => {
