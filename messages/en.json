@@ -23,6 +23,36 @@
   "MAIN_PAGE": {
     "title": "Main page"
   },
+  "ABOUT_PAGE": {
+    "title": "Our Team",
+    "subtitle": "Four roles that keep the project in balance.",
+    "photoAlt": "A team of workers sitting on a beam above the city",
+    "captionTitle": "One beam, four roles.",
+    "captionText": "The photo sets the page metaphor: the team balances code, design, documentation, and review.",
+    "rolesAriaLabel": "Team roles",
+    "roles": {
+      "alexey": {
+        "name": "Alexey Morozov",
+        "alt": "Portrait of Alexey Morozov",
+        "description": "Frontend: builds the interface, responsive layout, and API interactions."
+      },
+      "daria": {
+        "name": "Daria Sokolova",
+        "alt": "Portrait of Daria Sokolova",
+        "description": "UI: owns the visual rhythm, cards, spacing, and states."
+      },
+      "bogdan": {
+        "name": "Bogdan Ivanov",
+        "alt": "Portrait of Bogdan Ivanov",
+        "description": "Docs: writes API copy, endpoint examples, and flow descriptions."
+      },
+      "viktor": {
+        "name": "Viktor Lebedev",
+        "alt": "Portrait of Viktor Lebedev",
+        "description": "Mentor: reviews UX, architecture, and result quality."
+      }
+    }
+  },
   "LOGIN_PAGE": {
     "title": "Login",
     "emailLabel": "Email",
