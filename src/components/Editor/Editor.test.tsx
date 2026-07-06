@@ -3,9 +3,10 @@ import { NextIntlClientProvider } from 'next-intl';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import messages from '@messages/en.json';
 import { Editor } from './Editor';
-import { detectFormat } from '@/utils/Editor/detectFormat/detectFormat';
+import { detectFormat } from '@/utils/editor/detectFormat/detectFormat';
+import { jsonToYaml } from '@/utils/editor/convertFormat/convertFormat';
+
 import { toast } from '@/utils/toast/toast';
-import { jsonToYaml } from '@/utils/Editor/convertFormat/convertFormat';
 
 vi.mock('@uiw/react-codemirror', () => ({
   default: ({ value, onChange }: { value: string; onChange: (value: string) => void }) => (
@@ -13,12 +14,12 @@ vi.mock('@uiw/react-codemirror', () => ({
   ),
 }));
 
-vi.mock('@/utils/Editor/convertFormat/convertFormat', () => ({
+vi.mock('@/utils/editor/convertFormat/convertFormat', () => ({
   jsonToYaml: vi.fn(),
   yamlToJson: vi.fn(),
 }));
 
-vi.mock('@/utils/Editor/detectFormat/detectFormat', () => ({
+vi.mock('@/utils/editor/detectFormat/detectFormat', () => ({
   detectFormat: vi.fn(),
 }));
 

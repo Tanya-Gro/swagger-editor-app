@@ -6,14 +6,14 @@ import { yaml } from '@codemirror/lang-yaml';
 import CodeMirror from '@uiw/react-codemirror';
 
 import { EditorActions } from './EditorActions/EditorActions';
-import { detectFormat } from '@/utils/Editor/detectFormat/detectFormat';
 import { toast } from '@/utils/toast/toast';
-import { type EditorFormat } from '@/types';
+import { detectFormat } from '@/utils/editor/detectFormat/detectFormat';
+import { jsonToYaml, yamlToJson } from '@/utils/editor/convertFormat/convertFormat';
 import { useTranslations } from 'next-intl';
+import { type EditorFormat } from '@/types';
 
 import classNames from 'classnames/bind';
 import styles from './Editor.module.css';
-import { jsonToYaml, yamlToJson } from '@/utils/Editor/convertFormat/convertFormat';
 
 const cx = classNames.bind(styles);
 const AUTO_DETECT_DELAY = 500;
