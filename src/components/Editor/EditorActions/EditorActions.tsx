@@ -1,13 +1,15 @@
 'use client';
 
 import { useRef, type ChangeEvent, type MouseEvent } from 'react';
-import { type EditorFormat } from '@/types';
 
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
 import { Button, ToggleButton, ToggleButtonGroup } from '@mui/material';
+
 import { useTranslations } from 'next-intl';
+import { toast } from '@/utils/toast/toast';
+import { type EditorFormat } from '@/types';
 
 import styles from './EditorActions.module.css';
 import classNames from 'classnames/bind';
@@ -46,7 +48,7 @@ export function EditorActions({ format, onChangeFormat, onChangeSchema }: Editor
     const resetInput = () => (event.target.value = '');
 
     if (file.size > MAX_FILE_SIZE) {
-      console.info("добавить toast.error(`${file.name} t('fileTooLarge')`);");
+      toast.error(`${file.name} t('fileTooLarge')`);
       resetInput();
       return;
     }
@@ -60,7 +62,7 @@ export function EditorActions({ format, onChangeFormat, onChangeSchema }: Editor
       fileExtension === 'yml';
 
     if (!isJson && !isYaml) {
-      console.info("добавить toast.error(`${file.name} t('invalidFileType')`);");
+      toast.error(`${file.name} t('invalidFileType')`);
       resetInput();
       return;
     }
@@ -75,9 +77,9 @@ export function EditorActions({ format, onChangeFormat, onChangeSchema }: Editor
           onChangeFormat(detectedFormat);
         }
 
-        console.info("добавить toast.success(`${file.name} t('loadingSuccess')`);");
+        toast.success(`${file.name} t('loadingSuccess')`);
       } catch {
-        console.info("добавить toast.error(t('loadingError'));");
+        toast.error(t('loadingError'));
       } finally {
         resetInput();
       }
