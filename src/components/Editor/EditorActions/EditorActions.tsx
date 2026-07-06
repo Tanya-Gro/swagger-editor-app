@@ -48,7 +48,7 @@ export function EditorActions({ format, onChangeFormat, onChangeSchema }: Editor
     const resetInput = () => (event.target.value = '');
 
     if (file.size > MAX_FILE_SIZE) {
-      toast.error(`${file.name} t('fileTooLarge')`);
+      toast.error(`${file.name} ${t('fileTooLarge')}`);
       resetInput();
       return;
     }
@@ -62,7 +62,7 @@ export function EditorActions({ format, onChangeFormat, onChangeSchema }: Editor
       fileExtension === 'yml';
 
     if (!isJson && !isYaml) {
-      toast.error(`${file.name} t('invalidFileType')`);
+      toast.error(`${file.name} ${t('invalidFileType')}`);
       resetInput();
       return;
     }
@@ -77,7 +77,7 @@ export function EditorActions({ format, onChangeFormat, onChangeSchema }: Editor
           onChangeFormat(detectedFormat);
         }
 
-        toast.success(`${file.name} t('loadingSuccess')`);
+        toast.success(`${file.name} ${t('loadingSuccess')}`);
       } catch {
         toast.error(t('loadingError'));
       } finally {
