@@ -16,6 +16,10 @@
     "english": "EN",
     "russian": "RU"
   },
+  "FOOTER": {
+    "about": "About",
+    "madeBy": "Made with ♥ by ATOM Team"
+  },
   "MAIN_PAGE": {
     "title": "Main page"
   },
