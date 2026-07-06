@@ -7,6 +7,8 @@ import styles from './About.module.css';
 const cx = classNames.bind(styles);
 
 const teamPhotoUrl = '/assets/about-team.jpg';
+const schoolLogoUrl = '/assets/rs-school-logo.svg';
+const schoolCourseUrl = 'https://rs.school/courses/reactjs';
 
 const teamRoles = [
   {
@@ -57,6 +59,20 @@ export function About() {
               </Typography>
               <Typography className={cx('caption-text')}>{t('captionText')}</Typography>
             </CardContent>
+            <Link
+              href={schoolCourseUrl}
+              aria-label={t('schoolAriaLabel')}
+              className={cx('school-link')}
+              rel="noopener noreferrer"
+              target="_blank"
+              underline="none"
+            >
+              <Box component="img" src={schoolLogoUrl} alt={t('schoolLogoAlt')} className={cx('school-logo')} />
+              <span className={cx('school-info')}>
+                <span className={cx('school-name')}>{t('schoolCourseTitle')}</span>
+                <span className={cx('school-description')}>{t('schoolCourseText')}</span>
+              </span>
+            </Link>
           </Card>
 
           <div className={cx('role-grid')} aria-label={t('rolesAriaLabel')}>

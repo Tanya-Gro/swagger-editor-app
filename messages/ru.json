@@ -29,6 +29,10 @@
     "photoAlt": "Команда рабочих сидит на балке над городом",
     "captionTitle": "Одна балка, четыре роли.",
     "captionText": "Фотография задает метафору страницы: команда держит баланс между кодом, дизайном, документацией и ревью.",
+    "schoolAriaLabel": "Перейти на страницу курса React в RS School",
+    "schoolLogoAlt": "Эмблема RS School",
+    "schoolCourseTitle": "RS School React Course",
+    "schoolCourseText": "Бесплатный онлайн-курс на английском языке для студентов с сильной базой JavaScript, TypeScript и Frontend.",
     "rolesAriaLabel": "Роли команды",
     "roles": {
       "alexey": {

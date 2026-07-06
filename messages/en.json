@@ -29,6 +29,10 @@
     "photoAlt": "A team of workers sitting on a beam above the city",
     "captionTitle": "One beam, four roles.",
     "captionText": "The photo sets the page metaphor: the team balances code, design, documentation, and review.",
+    "schoolAriaLabel": "Go to the RS School React course page",
+    "schoolLogoAlt": "RS School emblem",
+    "schoolCourseTitle": "RS School React Course",
+    "schoolCourseText": "A free online English-language course for students with strong JavaScript, TypeScript, and Frontend fundamentals.",
     "rolesAriaLabel": "Team roles",
     "roles": {
       "alexey": {
