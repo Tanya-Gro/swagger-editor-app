@@ -42,7 +42,15 @@
     "loadButton": "Load",
     "loadingSuccess": "successfully loaded",
     "loadingError": "Error reading file",
-    "invalidFileType": "has an invalid format. Only JSON, YAML, and YML are allowed."
+    "invalidFileType": "has an invalid format. Only JSON, YAML, and YML are allowed.",
+    "notifications": {
+      "unsupportedFormat": "Unsupported schema format",
+      "conversionDisabled": "Unsupported schema format. Conversion not possible",
+      "conversionError": "Unsupported schema format. Conversion not possible",
+      "jsonToYaml": "Failed to convert JSON to YAML: Check the source code syntax",
+      "yamlToJson": "Failed to convert YAML to JSON: Check the source code syntax",
+      "invalidYaml": "Invalid YAML structure"
+    }
   },
   "PASSWORD": {
     "showPasswordButtonLabel": "Show password",

@@ -43,7 +43,15 @@
     "loadButton": "Загрузить",
     "loadingSuccess": "успешно загружен",
     "loadingError": "Ошибка при чтении файла",
-    "invalidFileType": "имеет недопустимый формат. Разрешены только JSON, YAML и YML."
+    "invalidFileType": "имеет недопустимый формат. Разрешены только JSON, YAML и YML.",
+    "notifications": {
+      "unsupportedFormat": "Неподдерживаемый формат схемы",
+      "conversionDisabled": "Неподдерживаемый формат схемы. Конвертация невозможна",
+      "conversionError": "Неподдерживаемый формат схемы. Конвертация невозможна",
+      "jsonToYaml": "Не удалось сконвертировать JSON в YAML: проверьте синтаксис исходного кода",
+      "yamlToJson": "Не удалось сконвертировать YAML в JSON: проверьте синтаксис исходного кода",
+      "invalidYaml": "Недопустимая структура YAML"
+    }
   },
   "PASSWORD": {
     "showPasswordButtonLabel": "Показать пароль",

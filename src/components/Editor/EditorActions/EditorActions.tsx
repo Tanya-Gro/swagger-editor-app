@@ -27,7 +27,7 @@ export function EditorActions({ format, onChangeFormat, onChangeSchema }: Editor
   const t = useTranslations('EDITOR');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const changeFormat = (_event: MouseEvent<HTMLElement>, nextFormat: EditorFormat | null) => {
+  const handleChangeFormat = (_event: MouseEvent<HTMLElement>, nextFormat: EditorFormat | null) => {
     if (nextFormat) {
       onChangeFormat(nextFormat);
     }
@@ -91,7 +91,7 @@ export function EditorActions({ format, onChangeFormat, onChangeSchema }: Editor
         {t('title')}
       </h2>
       <div className={cx('toolbar')}>
-        <ToggleButtonGroup aria-label="Format" exclusive onChange={changeFormat} size="small" value={format}>
+        <ToggleButtonGroup aria-label="Format" exclusive onChange={handleChangeFormat} size="small" value={format}>
           <ToggleButton value="JSON">JSON</ToggleButton>
           <ToggleButton value="YAML">YAML</ToggleButton>
         </ToggleButtonGroup>
