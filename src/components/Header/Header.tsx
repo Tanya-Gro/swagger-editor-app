@@ -55,7 +55,13 @@ export function Header() {
               </IconButton>
             </summary>
             <div className={cx('mobile-menu')} id="mobile-header-menu">
-              <div className={cx('mobile-menu-section')} />
+              <nav aria-label={t('navigationAriaLabel')} className={cx('mobile-menu-section')}>
+                {navigationLinks.map(({ href, messageKey }) => (
+                  <Link className={cx('mobile-menu-item')} href={href} key={href}>
+                    {t(messageKey)}
+                  </Link>
+                ))}
+              </nav>
               <div className={cx('mobile-menu-section')}>
                 <LanguageSwitcher className={cx('mobile-menu-action')} />
                 <Link href="/login">

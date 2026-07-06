@@ -1,0 +1,167 @@
+.about-team {
+  width: 100%;
+  min-height: 100vh;
+  padding: 72px 24px;
+}
+
+.inner {
+  width: min(100%, 1200px);
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 56px;
+  text-align: center;
+}
+
+.title {
+  font-size: 44px;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  letter-spacing: 0;
+}
+
+.subtitle {
+  max-width: 720px;
+  margin: 12px auto 0;
+
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 596px 1fr;
+  gap: 28px;
+  align-items: center;
+}
+
+.photo-card,
+.role-card {
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-surface) 78%, transparent);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--color-text-primary) 12%, transparent);
+}
+
+.photo-card {
+  overflow: hidden;
+  border-radius: var(--border-radius-l);
+}
+
+.photo-card-image {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  object-fit: cover;
+}
+
+.photo-card-caption {
+  padding: 20px;
+}
+
+.photo-card-caption:last-child {
+  padding-bottom: 20px;
+}
+
+.caption-title {
+  font-size: 22px;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.caption-text {
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.role-card {
+  min-height: 244px;
+  padding: 20px;
+  border-radius: var(--border-radius-m);
+}
+
+.role-photo {
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+
+  background: linear-gradient(135deg, #dbeafe, #fce7f3);
+  box-shadow: 0 4px 6px color-mix(in srgb, var(--color-text-primary) 12%, transparent);
+}
+
+.role-name {
+  margin-top: 18px;
+
+  font-size: var(--font-size-l);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+.github-link {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+
+  margin-top: 6px;
+
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-secondary-hover);
+}
+
+.github-link:hover {
+  color: #be185d;
+}
+
+.github-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.role-description {
+  margin-top: 10px;
+  font-size: var(--font-size-s);
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+@media (width <= 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (width <= 640px) {
+  .about-team {
+    padding: 48px 16px;
+  }
+
+  .header {
+    margin-bottom: 32px;
+  }
+
+  .title {
+    font-size: 34px;
+  }
+
+  .subtitle {
+    font-size: var(--font-size-m);
+  }
+
+  .role-grid {
+    grid-template-columns: 1fr;
+  }
+}
