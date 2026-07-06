@@ -11,13 +11,16 @@ export function jsonToYaml(jsonText: string): string {
 }
 
 export function yamlToJson(yamlText: string): string {
+  let obj: unknown;
   try {
-    const obj = load(yamlText);
-    if (typeof obj !== 'object' || obj === null) {
-      throw new Error('notifications.invalidYaml');
-    }
-    return JSON.stringify(obj, null, 2);
+    obj = load(yamlText);
   } catch {
     throw new Error('notifications.yamlToJson');
   }
+
+  if (typeof obj !== 'object' || obj === null) {
+    throw new Error('notifications.invalidYaml');
+  }
+
+  return JSON.stringify(obj, null, 2);
 }

@@ -76,6 +76,7 @@ export function Editor() {
     } else {
       try {
         setSchema(targetFormat === 'JSON' ? yamlToJson(schema) : jsonToYaml(schema));
+        setFormat(targetFormat);
       } catch (error) {
         toast.error(error instanceof Error ? t(error.message) : t('notifications.conversionError'));
       }

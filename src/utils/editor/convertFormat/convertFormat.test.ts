@@ -48,11 +48,11 @@ describe('Convert Schema', () => {
 
   describe('primitive YAML', () => {
     it('throws for primitive YAML values', () => {
-      expect(() => yamlToJson('123')).toThrow();
+      expect(() => yamlToJson('123')).toThrow('notifications.invalidYaml');
     });
 
     it('throws for null YAML', () => {
-      expect(() => yamlToJson('null')).toThrow();
+      expect(() => yamlToJson('null')).toThrow('notifications.invalidYaml');
     });
   });
 });
