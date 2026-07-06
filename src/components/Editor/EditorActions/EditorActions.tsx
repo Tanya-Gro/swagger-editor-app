@@ -48,23 +48,15 @@ export function EditorActions({ format, onChangeFormat, onChangeSchema }: Editor
     const resetInput = () => (event.target.value = '');
 
     if (file.size > MAX_FILE_SIZE) {
-      toast.error(`${file.name} ${t('fileTooLarge')}`);
-      resetInput();
-      return;
+      toast.error(t('notifications.fileTooLarge'));
+      return resetInput();
     }
 
-    const fileExtension = file.name.split('.').pop()?.toLowerCase();
-    const isJson = file.type === 'application/json' || fileExtension === 'json';
-    const isYaml =
-      file.type === 'application/x-yaml' ||
-      file.type === 'text/yaml' ||
-      fileExtension === 'yaml' ||
-      fileExtension === 'yml';
+    const fileFormat = getFileFormat(file);
 
-    if (!isJson && !isYaml) {
-      toast.error(`${file.name} ${t('invalidFileType')}`);
-      resetInput();
-      return;
+    if (!fileFormat) {
+      toast.error(`${file.name} ${t('notifications.invalidFileType')}`);
+      return resetInput();
     }
 
     void (async () => {
@@ -72,14 +64,13 @@ export function EditorActions({ format, onChangeFormat, onChangeSchema }: Editor
         const text = await file.text();
         onChangeSchema(text);
 
-        const detectedFormat: EditorFormat = isJson ? 'JSON' : 'YAML';
-        if (format !== detectedFormat) {
-          onChangeFormat(detectedFormat);
+        if (format !== fileFormat) {
+          onChangeFormat(fileFormat);
         }
 
-        toast.success(`${file.name} ${t('loadingSuccess')}`);
+        toast.success(`${file.name} ${t('notifications.loadingSuccess')}`);
       } catch {
-        toast.error(t('loadingError'));
+        toast.error(t('notifications.loadingError'));
       } finally {
         resetInput();
       }
@@ -111,9 +102,29 @@ export function EditorActions({ format, onChangeFormat, onChangeSchema }: Editor
             onChange={handleFileChange}
             accept=".json,.yaml,.yml"
             style={{ display: 'none' }}
+            data-testid="file-input"
           />
         </div>
       </div>
     </header>
   );
 }
+
+const getFileFormat = (file: File): 'JSON' | 'YAML' | null => {
+  const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+  if (file.type === 'application/json' || fileExtension === 'json') {
+    return 'JSON';
+  }
+
+  if (
+    file.type === 'application/x-yaml' ||
+    file.type === 'text/yaml' ||
+    fileExtension === 'yaml' ||
+    fileExtension === 'yml'
+  ) {
+    return 'YAML';
+  }
+
+  return null;
+};
