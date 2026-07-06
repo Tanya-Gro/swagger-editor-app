@@ -35,7 +35,6 @@ const AUTO_DETECT_DELAY = 500;
 
 describe('Editor', () => {
   beforeEach(() => {
-    vi.clearAllMocks();
     vi.useFakeTimers();
   });
 

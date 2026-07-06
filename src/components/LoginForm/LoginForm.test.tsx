@@ -69,8 +69,6 @@ function renderLoginForm() {
 
 describe('LoginForm', () => {
   beforeEach(() => {
-    vi.clearAllMocks();
-
     mocks.signInWithPassword.mockResolvedValue({
       data: {
         user: {

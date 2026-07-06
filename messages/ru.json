@@ -42,6 +42,10 @@
     "clearButton": "Очистить",
     "loadButton": "Загрузить",
     "notifications": {
+      "loadingSuccess": "успешно загружен",
+      "loadingError": "Ошибка при чтении файла",
+      "fileTooLarge": "Размер файла не должен превышать 2MB",
+      "invalidFileType": "имеет недопустимый формат. Разрешены только JSON, YAML и YML.",
       "unsupportedFormat": "Неподдерживаемый формат схемы",
       "conversionDisabled": "Неподдерживаемый формат схемы. Конвертация невозможна",
       "conversionError": "Неподдерживаемый формат схемы. Конвертация невозможна",
