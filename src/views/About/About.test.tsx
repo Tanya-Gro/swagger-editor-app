@@ -18,6 +18,9 @@ describe('About', () => {
 
     expect(screen.getByRole('heading', { level: 1, name: /team/i })).toBeInTheDocument();
     expect(screen.getByText(/rs school react course/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: /about the app and technologies/i })).toBeInTheDocument();
+    expect(screen.getByText('Next.js')).toBeInTheDocument();
+    expect(screen.getByText('React')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /rs school react course/i })).toHaveAttribute(
       'href',
       'https://rs.school/courses/reactjs',

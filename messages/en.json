@@ -33,6 +33,9 @@
     "schoolLogoAlt": "RS School emblem",
     "schoolCourseTitle": "RS School React Course",
     "schoolCourseText": "A free online English-language course for students with strong JavaScript, TypeScript, and Frontend fundamentals.",
+    "appInfoTitle": "About the app and technologies",
+    "appInfoText": "Swagger Editor App helps load, edit, and review API schemas in JSON and YAML. The project is built with a modern React stack, typing, internationalization, Material UI components, and tests.",
+    "techStackAriaLabel": "Project technology stack",
     "rolesAriaLabel": "Team roles",
     "roles": {
       "alexey": {

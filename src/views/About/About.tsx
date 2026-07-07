@@ -10,6 +10,8 @@ const teamPhotoUrl = '/assets/about-team.jpg';
 const schoolLogoUrl = '/assets/rs-school-logo.svg';
 const schoolCourseUrl = 'https://rs.school/courses/reactjs';
 
+const techStack = ['Next.js', 'React', 'TypeScript', 'Material UI', 'next-intl', 'Vitest', 'Supabase'] as const;
+
 const teamRoles = [
   {
     nameKey: 'alexey',
@@ -97,6 +99,22 @@ export function About() {
             ))}
           </div>
         </div>
+
+        <section className={cx('app-info')} aria-labelledby="about-app-title">
+          <div className={cx('app-info-copy')}>
+            <Typography component="h2" className={cx('app-info-title')} id="about-app-title">
+              {t('appInfoTitle')}
+            </Typography>
+            <Typography className={cx('app-info-text')}>{t('appInfoText')}</Typography>
+          </div>
+          <div className={cx('stack-list')} aria-label={t('techStackAriaLabel')}>
+            {techStack.map((technology) => (
+              <span className={cx('stack-item')} key={technology}>
+                {technology}
+              </span>
+            ))}
+          </div>
+        </section>
       </div>
     </section>
   );
