@@ -55,6 +55,12 @@
   border-radius: var(--border-radius-l);
 }
 
+.photo-card-image-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
 .photo-card-image {
   aspect-ratio: 16 / 9;
   width: 100%;

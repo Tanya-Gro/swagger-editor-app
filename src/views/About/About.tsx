@@ -1,6 +1,7 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { Avatar, Box, Card, CardContent, Link, Typography } from '@mui/material';
+import { Avatar, Card, CardContent, Link, Typography } from '@mui/material';
 import classNames from 'classnames/bind';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import styles from './About.module.css';
 
@@ -39,6 +40,45 @@ const teamRoles = [
   },
 ] as const;
 
+function AboutPhotoCard() {
+  const t = useTranslations('ABOUT_PAGE');
+
+  return (
+    <Card className={cx('photo-card')} elevation={0}>
+      <div className={cx('photo-card-image-frame')}>
+        <Image
+          src={teamPhotoUrl}
+          alt={t('photoAlt')}
+          className={cx('photo-card-image')}
+          fill
+          priority
+          sizes="(max-width: 1024px) calc(100vw - 48px), 596px"
+        />
+      </div>
+      <CardContent className={cx('photo-card-caption')}>
+        <Typography component="h2" className={cx('caption-title')}>
+          {t('captionTitle')}
+        </Typography>
+        <Typography className={cx('caption-text')}>{t('captionText')}</Typography>
+      </CardContent>
+      <Link
+        href={schoolCourseUrl}
+        aria-label={t('schoolAriaLabel')}
+        className={cx('school-link')}
+        rel="noopener noreferrer"
+        target="_blank"
+        underline="none"
+      >
+        <Image src={schoolLogoUrl} alt={t('schoolLogoAlt')} className={cx('school-logo')} width={52} height={52} />
+        <span className={cx('school-info')}>
+          <span className={cx('school-name')}>{t('schoolCourseTitle')}</span>
+          <span className={cx('school-description')}>{t('schoolCourseText')}</span>
+        </span>
+      </Link>
+    </Card>
+  );
+}
+
 export function About() {
   const t = useTranslations('ABOUT_PAGE');
 
@@ -53,29 +93,7 @@ export function About() {
         </header>
 
         <div className={cx('content')}>
-          <Card className={cx('photo-card')} elevation={0}>
-            <Box component="img" src={teamPhotoUrl} alt={t('photoAlt')} className={cx('photo-card-image')} />
-            <CardContent className={cx('photo-card-caption')}>
-              <Typography component="h2" className={cx('caption-title')}>
-                {t('captionTitle')}
-              </Typography>
-              <Typography className={cx('caption-text')}>{t('captionText')}</Typography>
-            </CardContent>
-            <Link
-              href={schoolCourseUrl}
-              aria-label={t('schoolAriaLabel')}
-              className={cx('school-link')}
-              rel="noopener noreferrer"
-              target="_blank"
-              underline="none"
-            >
-              <Box component="img" src={schoolLogoUrl} alt={t('schoolLogoAlt')} className={cx('school-logo')} />
-              <span className={cx('school-info')}>
-                <span className={cx('school-name')}>{t('schoolCourseTitle')}</span>
-                <span className={cx('school-description')}>{t('schoolCourseText')}</span>
-              </span>
-            </Link>
-          </Card>
+          <AboutPhotoCard />
 
           <div className={cx('role-grid')} aria-label={t('rolesAriaLabel')}>
             {teamRoles.map(({ github, href, nameKey, photo }) => (
