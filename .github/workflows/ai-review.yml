@@ -1,0 +1,87 @@
+name: AI Review
+
+on:
+  workflow_dispatch:
+    inputs:
+      review-command:
+        description: Review mode
+        type: choice
+        required: true
+        default: run
+        options:
+          - run
+          - run-inline
+          - run-context
+          - run-summary
+      pull-request-number:
+        description: Pull request number to review
+        type: string
+        required: true
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: ai-review-${{ inputs.pull-request-number || github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  ai-review:
+    # Repository secrets and a write-capable token are unavailable to forked PRs.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (!github.event.pull_request.draft &&
+      github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install AI Review
+        run: pip install --no-cache-dir xai-review==0.67.0
+
+      - name: Run selected AI Review
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        # Keep AI Review blocking so review failures fail the workflow.
+        continue-on-error: false
+        run: |
+          ai-review show-config
+          ai-review ${{ inputs.review-command }}
+        env:
+          LLM__HTTP_CLIENT__API_URL: ${{ vars.GROQ_API_URL }}
+          LLM__HTTP_CLIENT__API_TOKEN: ${{ secrets.GROQ_API_KEY }}
+
+          VCS__PROVIDER: GITHUB
+          VCS__PIPELINE__OWNER: ${{ github.repository_owner }}
+          VCS__PIPELINE__REPO: ${{ github.event.repository.name }}
+          VCS__PIPELINE__PULL_NUMBER: ${{ inputs.pull-request-number || github.event.pull_request.number }}
+          VCS__HTTP_CLIENT__API_URL: https://api.github.com
+          VCS__HTTP_CLIENT__API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run AI Context Review
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        # Keep AI Context Review blocking so review failures fail the workflow.
+        continue-on-error: false
+        run: |
+          ai-review show-config
+          ai-review run-context
+        env:
+          LLM__HTTP_CLIENT__API_URL: ${{ vars.GROQ_API_URL }}
+          LLM__HTTP_CLIENT__API_TOKEN: ${{ secrets.GROQ_API_KEY }}
+
+          VCS__PROVIDER: GITHUB
+          VCS__PIPELINE__OWNER: ${{ github.repository_owner }}
+          VCS__PIPELINE__REPO: ${{ github.event.repository.name }}
+          VCS__PIPELINE__PULL_NUMBER: ${{ github.event.pull_request.number }}
+          VCS__HTTP_CLIENT__API_URL: https://api.github.com
+          VCS__HTTP_CLIENT__API_TOKEN: ${{ secrets.GITHUB_TOKEN }}

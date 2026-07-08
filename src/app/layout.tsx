@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages, getTranslations } from 'next-intl/server';
-import { BaseLayout } from '@components/BaseLayout/BaseLayout';
-import { ThemeRegistry } from '@/theme/ThemeRegistry';
+import { BaseLayout } from '@/components/BaseLayout/BaseLayout';
 import '@/styles/index.css';
+import Providers from './providers';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('METADATA');
@@ -33,9 +33,9 @@ export default async function RootLayout({
     <html lang={locale}>
       <body>
         <NextIntlClientProvider locale={locale} messages={messages} timeZone="UTC">
-          <ThemeRegistry>
+          <Providers>
             <BaseLayout>{children}</BaseLayout>
-          </ThemeRegistry>
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

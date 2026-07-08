@@ -154,6 +154,8 @@ export default defineConfig([
     rules: {
       'max-lines-per-function': 'off',
       '@typescript-eslint/consistent-type-assertions': 'off',
+      '@typescript-eslint/unbound-method': 'off',
+      'no-magic-numbers': 'off',
     },
   },
 ]);
