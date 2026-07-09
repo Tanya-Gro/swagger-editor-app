@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it } from 'vitest';
 import messages from '@messages/en.json';
@@ -25,5 +25,20 @@ describe('About', () => {
       'href',
       'https://rs.school/courses/reactjs',
     );
+  });
+
+  it('renders team role cards and technology stack lists', () => {
+    renderAbout();
+
+    const roles = screen.getByRole('list', { name: 'Team roles' });
+    const stack = screen.getByRole('list', { name: 'Project technology stack' });
+
+    expect(within(roles).getAllByRole('listitem')).toHaveLength(4);
+    expect(within(roles).getByText('Anna Zas')).toBeInTheDocument();
+    expect(within(roles).getByRole('link', { name: /@ansivgit/i })).toHaveAttribute(
+      'href',
+      'https://github.com/ansivgit',
+    );
+    expect(within(stack).getAllByRole('listitem')).toHaveLength(7);
   });
 });

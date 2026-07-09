@@ -101,6 +101,7 @@
   border-top: 1px solid var(--color-border);
 
   color: var(--color-text-primary);
+  text-decoration: none;
 
   background: color-mix(in srgb, var(--color-surface) 66%, transparent);
 
@@ -130,6 +131,17 @@
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-tight);
+}
+
+.school-link.school-link:hover .school-name,
+.school-link.school-link:focus-visible .school-name {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.school-link.school-link:focus-visible {
+  outline: 2px solid var(--color-secondary-hover);
+  outline-offset: 3px;
 }
 
 .school-description {
@@ -186,10 +198,17 @@
   font-size: 13px;
   font-weight: var(--font-weight-semibold);
   color: var(--color-secondary-hover);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .github-link.github-link:hover {
   color: #be185d;
+}
+
+.github-link.github-link:focus-visible {
+  outline: 2px solid var(--color-secondary-hover);
+  outline-offset: 3px;
 }
 
 .github-icon {

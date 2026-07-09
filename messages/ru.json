@@ -8,6 +8,8 @@
     "brandSubtitle": "Документация API",
     "homeAriaLabel": "Главная Swagger UI",
     "navigationAriaLabel": "Основная навигация",
+    "desktopNavigationAriaLabel": "Навигация для десктопа",
+    "mobileNavigationAriaLabel": "Навигация для мобильного меню",
     "about": "О проекте",
     "editor": "Редактор",
     "authAction": "Войти",

@@ -8,6 +8,8 @@
     "brandSubtitle": "API Documentation",
     "homeAriaLabel": "Swagger UI home",
     "navigationAriaLabel": "Main navigation",
+    "desktopNavigationAriaLabel": "Desktop navigation",
+    "mobileNavigationAriaLabel": "Mobile navigation",
     "about": "About",
     "editor": "Editor",
     "authAction": "Sign in",

@@ -95,9 +95,9 @@ export function About() {
         <div className={cx('content')}>
           <AboutPhotoCard />
 
-          <div className={cx('role-grid')} aria-label={t('rolesAriaLabel')}>
+          <div className={cx('role-grid')} aria-label={t('rolesAriaLabel')} role="list">
             {teamRoles.map(({ github, href, nameKey, photo }) => (
-              <Card component="article" className={cx('role-card')} elevation={0} key={github}>
+              <Card component="article" className={cx('role-card')} elevation={0} key={github} role="listitem">
                 <Avatar className={cx('role-photo')} variant="rounded">
                   <Image
                     src={photo}
@@ -133,9 +133,9 @@ export function About() {
             </Typography>
             <Typography className={cx('app-info-text')}>{t('appInfoText')}</Typography>
           </div>
-          <div className={cx('stack-list')} aria-label={t('techStackAriaLabel')}>
+          <div className={cx('stack-list')} aria-label={t('techStackAriaLabel')} role="list">
             {techStack.map((technology) => (
-              <span className={cx('stack-item')} key={technology}>
+              <span className={cx('stack-item')} key={technology} role="listitem">
                 {technology}
               </span>
             ))}

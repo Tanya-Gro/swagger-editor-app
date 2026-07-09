@@ -36,7 +36,7 @@ describe('Header', () => {
   it('renders unique navigation links', () => {
     renderHeader();
 
-    const navigation = screen.getAllByRole('navigation', { name: 'Основная навигация' })[0];
+    const navigation = screen.getByRole('navigation', { name: 'Навигация для десктопа' });
 
     expect(within(navigation).getAllByRole('link')).toHaveLength(2);
     expect(within(navigation).getByRole('link', { name: 'О проекте' })).toHaveAttribute('href', '/about');
@@ -46,7 +46,7 @@ describe('Header', () => {
   it('renders navigation links in the mobile menu', () => {
     renderHeader();
 
-    const mobileNavigation = screen.getAllByRole('navigation', { name: 'Основная навигация' })[1];
+    const mobileNavigation = screen.getByRole('navigation', { name: 'Навигация для мобильного меню' });
 
     expect(within(mobileNavigation).getByRole('link', { name: 'О проекте' })).toHaveAttribute('href', '/about');
     expect(within(mobileNavigation).getByRole('link', { name: 'Редактор' })).toHaveAttribute('href', '/');
