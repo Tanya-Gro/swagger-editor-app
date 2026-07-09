@@ -1,11 +1,6 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { load } from 'js-yaml';
-import { type EditorFormat } from '@/types';
-
-export type ValidationError = {
-  path: string;
-  message: string;
-};
+import type { EditorFormat, ValidationError } from '@/types';
 
 type Detail = {
   instancePath?: string;
@@ -23,7 +18,7 @@ type SwaggerParserError = {
 
 type YamlMarkError = {
   message: string;
-  mark?: {
+  mark: {
     line: number;
   };
 };
@@ -41,7 +36,7 @@ function isYamlMarkError(error: unknown): error is YamlMarkError {
   if (typeof error !== 'object' || error === null) {
     return false;
   }
-  return 'message' in error;
+  return 'message' in error && 'mark' in error && typeof error.mark === 'object' && error.mark !== null;
 }
 
 function isSwaggerDocument(candidate: unknown): candidate is SwaggerDocument {
@@ -78,30 +73,26 @@ export async function validateSchema(text: string, format: EditorFormat): Promis
   } catch (error) {
     if (isSwaggerParserError(error)) {
       return error.details.map((detail) => {
-        let rawPath = detail.instancePath ?? '';
-
-        rawPath = rawPath.replaceAll('/', '.').replaceAll('~1', '/').replaceAll('~0', '~');
+        const rawPath = detail.instancePath ?? '';
 
         let cleanPath = rawPath.startsWith('/') ? rawPath.slice(1) : rawPath;
+
+        cleanPath = cleanPath.replaceAll('/', '.').replaceAll('~1', '/').replaceAll('~0', '~');
 
         if (detail.keyword === 'required' && detail.params?.missingProperty) {
           const missingProp = detail.params.missingProperty;
           cleanPath = cleanPath ? `${cleanPath}.${missingProp}` : missingProp;
         }
 
-        if (!cleanPath) {
-          cleanPath = 'specification';
-        }
-
         return {
-          path: cleanPath,
+          path: cleanPath || 'specification',
           message: detail.message ?? 'notifications.unknownValidationError',
         };
       });
     }
 
     if (isYamlMarkError(error)) {
-      const lineNum = error.mark?.line;
+      const lineNum = error.mark.line;
       const lineInfo = typeof lineNum === 'number' ? `Line ${String(lineNum + 1)}` : 'syntax';
       return [{ path: lineInfo, message: error.message || 'notifications.invalidStructure' }];
     }
