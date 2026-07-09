@@ -10,6 +10,8 @@ import { validateForm } from '@/utils/forms/validate-form';
 import { type ValidationErrorsRegistration } from '@/types';
 import { createRegistrationSchema } from '@/utils/forms/registration-schema';
 import { browserClient } from '@/database/browser-client';
+import { toast } from '@/utils/toast/toast';
+import { useRouter } from 'next/navigation';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -21,6 +23,9 @@ const supabase = browserClient();
 export function RegistrationForm() {
   const t = useTranslations('REGISTRATION_PAGE');
   const tValidation = useTranslations('FORM_VALIDATION');
+  const tDatabase = useTranslations('DATABASE');
+
+  const router = useRouter();
 
   const [validationErrors, setValidationErrors] = useState<ValidationErrorsRegistration>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -43,21 +48,29 @@ export function RegistrationForm() {
     try {
       setIsLoading(true);
 
-      const { error } = await supabase.auth.signUp({
+      const { data: _registrationData, error } = await supabase.auth.signUp({
         email: validatedData.email,
         password: validatedData.password,
       });
 
       if (error) {
         setIsLoading(false);
-        console.error(error);
+
+        const errorCode = typeof error.code === 'string' ? error.code : 'unknown_error';
+
+        toast.error(tDatabase(errorCode));
         return;
       }
+
+      setIsLoading(false);
+      toast.success(tDatabase('successful_registration'));
+
+      router.push('/');
+      router.refresh();
     } catch (error) {
       setIsLoading(false);
-
-      // заменить на тост!!!
       console.error(error);
+      toast.error(tDatabase('unknow_error'));
     }
   }
 
