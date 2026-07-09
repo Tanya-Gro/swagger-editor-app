@@ -39,24 +39,24 @@
     "rolesAriaLabel": "Team roles",
     "roles": {
       "alexey": {
-        "name": "Alexey Morozov",
-        "alt": "Portrait of Alexey Morozov",
-        "description": "Frontend: builds the interface, responsive layout, and API interactions."
+        "name": "Anna Zas",
+        "alt": "Portrait of Anna Zas",
+        "description": "Anna is our mentor. Very strict and tough, but kind at heart."
       },
       "daria": {
-        "name": "Daria Sokolova",
-        "alt": "Portrait of Daria Sokolova",
-        "description": "UI: owns the visual rhythm, cards, spacing, and states."
+        "name": "Tatyana Grosul",
+        "alt": "Portrait of Tatyana Grosul",
+        "description": "Team lead and the driving force of the team. Simply awesome."
       },
       "bogdan": {
-        "name": "Bogdan Ivanov",
-        "alt": "Portrait of Bogdan Ivanov",
-        "description": "Docs: writes API copy, endpoint examples, and flow descriptions."
+        "name": "Maria Fiodorova",
+        "alt": "Portrait of Maria Fiodorova",
+        "description": "Developer by day, rock climber by night."
       },
       "viktor": {
-        "name": "Viktor Lebedev",
-        "alt": "Portrait of Viktor Lebedev",
-        "description": "Mentor: reviews UX, architecture, and result quality."
+        "name": "Andrei Tseniuta",
+        "alt": "Portrait of Andrei Tseniuta",
+        "description": "Developer with a big heart and a smile."
       }
     }
   },

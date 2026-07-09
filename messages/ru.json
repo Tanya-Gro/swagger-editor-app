@@ -39,24 +39,24 @@
     "rolesAriaLabel": "Роли команды",
     "roles": {
       "alexey": {
-        "name": "Алексей Морозов",
-        "alt": "Портрет Алексея Морозова",
-        "description": "Frontend: собирает интерфейс, адаптив и API-интеракции."
+        "name": "Anna Zas",
+        "alt": "Портрет Anna Zas",
+        "description": "Аня - наш ментор. Очень строгий и суровый, но добрый в душе."
       },
       "daria": {
-        "name": "Дарья Соколова",
-        "alt": "Портрет Дарьи Соколовой",
-        "description": "UI: отвечает за визуальный ритм, карточки, отступы и состояния."
+        "name": "Tatyana Grosul",
+        "alt": "Портрет Tatyana Grosul",
+        "description": "Тимлид и двигатель команды, просто пушка."
       },
       "bogdan": {
-        "name": "Богдан Иванов",
-        "alt": "Портрет Богдана Иванова",
-        "description": "Docs: пишет API-тексты, примеры эндпоинтов и описание flow."
+        "name": "Maria Fiodorova",
+        "alt": "Портрет Maria Fiodorova",
+        "description": "Днём разработчик, вечером скалолаз."
       },
       "viktor": {
-        "name": "Виктор Лебедев",
-        "alt": "Портрет Виктора Лебедева",
-        "description": "Mentor: проверяет UX, архитектуру и качество результата."
+        "name": "Andrei Tseniuta",
+        "alt": "Портрет Andrei Tseniuta",
+        "description": "Разработчик с большой душой и улыбкой."
       }
     }
   },

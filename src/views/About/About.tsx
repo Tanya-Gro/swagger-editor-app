@@ -16,27 +16,27 @@ const techStack = ['Next.js', 'React', 'TypeScript', 'Material UI', 'next-intl',
 const teamRoles = [
   {
     nameKey: 'alexey',
-    github: '@alex-morozov',
-    href: 'https://github.com/alex-morozov',
-    photo: 'https://i.pravatar.cc/160?img=12',
+    github: '@ansivgit',
+    href: 'https://github.com/ansivgit',
+    photo: '/assets/about-sloths/sloth-1.webp',
   },
   {
     nameKey: 'daria',
-    github: '@daria-ui',
-    href: 'https://github.com/daria-ui',
-    photo: 'https://i.pravatar.cc/160?img=32',
+    github: '@Tanya-Gro',
+    href: 'https://github.com/Tanya-Gro',
+    photo: '/assets/about-sloths/sloth-2.webp',
   },
   {
     nameKey: 'bogdan',
-    github: '@bogdan-api',
-    href: 'https://github.com/bogdan-api',
-    photo: 'https://i.pravatar.cc/160?img=59',
+    github: '@mariarp10',
+    href: 'https://github.com/mariarp10',
+    photo: '/assets/about-sloths/sloth-3.webp',
   },
   {
     nameKey: 'viktor',
-    github: '@viktor-review',
-    href: 'https://github.com/viktor-review',
-    photo: 'https://i.pravatar.cc/160?img=68',
+    github: '@andreiTsen',
+    href: 'https://github.com/andreiTsen',
+    photo: '/assets/about-sloths/sloth-4.webp',
   },
 ] as const;
 
@@ -98,7 +98,15 @@ export function About() {
           <div className={cx('role-grid')} aria-label={t('rolesAriaLabel')}>
             {teamRoles.map(({ github, href, nameKey, photo }) => (
               <Card component="article" className={cx('role-card')} elevation={0} key={github}>
-                <Avatar alt={t(`roles.${nameKey}.alt`)} src={photo} className={cx('role-photo')} variant="rounded" />
+                <Avatar className={cx('role-photo')} variant="rounded">
+                  <Image
+                    src={photo}
+                    alt={t(`roles.${nameKey}.alt`)}
+                    className={cx('role-photo-image')}
+                    width={72}
+                    height={72}
+                  />
+                </Avatar>
                 <Typography component="h3" className={cx('role-name')}>
                   {t(`roles.${nameKey}.name`)}
                 </Typography>
