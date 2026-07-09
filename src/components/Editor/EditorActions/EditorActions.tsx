@@ -9,6 +9,8 @@ import { Button, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 import { useTranslations } from 'next-intl';
 import { toast } from '@/utils/toast/toast';
+import { useEditorStore } from '@/store/useEditorStore';
+import { jsonToYaml, yamlToJson } from '@/utils/editor/convertFormat/convertFormat';
 import { type EditorFormat } from '@/types';
 
 import styles from './EditorActions.module.css';
@@ -16,22 +18,34 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-type EditorActionsProps = {
-  format: EditorFormat;
-  onChangeFormat: (format: EditorFormat) => void;
-  onChangeSchema: (text: string) => void;
-};
-
 const BITES_IN_KB = 1024;
 const MAX_FILE_SIZE = 2 * BITES_IN_KB * BITES_IN_KB;
 
-export function EditorActions({ format, onChangeFormat, onChangeSchema }: EditorActionsProps) {
+export function EditorActions() {
   const t = useTranslations('EDITOR');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const format = useEditorStore((state) => state.format);
+  const schema = useEditorStore((state) => state.schema);
+  const setFormat = useEditorStore((state) => state.setFormat);
+  const setSchema = useEditorStore((state) => state.updateSchema);
+
   const handleChangeFormat = (_event: MouseEvent<HTMLElement>, nextFormat: EditorFormat | null) => {
     if (nextFormat) {
-      onChangeFormat(nextFormat);
+      if (format === 'unknown') {
+        toast.warning(t('notifications.conversionDisabled'));
+        return;
+      }
+
+      setFormat(nextFormat);
+
+      if (schema.trim() !== '') {
+        try {
+          setSchema(nextFormat === 'JSON' ? yamlToJson(schema) : jsonToYaml(schema));
+        } catch (error) {
+          toast.error(error instanceof Error ? t(error.message) : t('notifications.conversionError'));
+        }
+      }
     }
   };
 
@@ -62,11 +76,7 @@ export function EditorActions({ format, onChangeFormat, onChangeSchema }: Editor
     void (async () => {
       try {
         const text = await file.text();
-        onChangeSchema(text);
-
-        if (format !== fileFormat) {
-          onChangeFormat(fileFormat);
-        }
+        setSchema(text);
 
         toast.success(`${file.name} ${t('notifications.loadingSuccess')}`);
       } catch {
@@ -90,7 +100,7 @@ export function EditorActions({ format, onChangeFormat, onChangeSchema }: Editor
         </ToggleButtonGroup>
 
         <div className={cx('action-group')}>
-          <Button size="small" startIcon={<ClearOutlinedIcon />} variant="outlined" onClick={() => onChangeSchema('')}>
+          <Button size="small" startIcon={<ClearOutlinedIcon />} variant="outlined" onClick={() => setSchema('')}>
             {t('clearButton')}
           </Button>
           <Button size="small" startIcon={<FolderOpenOutlinedIcon />} variant="outlined" onClick={handleLoadClick}>
@@ -99,9 +109,9 @@ export function EditorActions({ format, onChangeFormat, onChangeSchema }: Editor
           <input
             type="file"
             ref={fileInputRef}
+            className={cx('file-input')}
             onChange={handleFileChange}
             accept=".json,.yaml,.yml"
-            style={{ display: 'none' }}
             data-testid="file-input"
           />
         </div>
