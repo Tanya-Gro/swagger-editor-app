@@ -97,6 +97,6 @@ export async function validateSchema(text: string, format: EditorFormat): Promis
       return [{ path: lineInfo, message: error.message || 'notifications.invalidStructure' }];
     }
 
-    return [{ path: 'unknown', message: 'notifications.unknownError' }];
+    return [{ path: 'syntax', message: error instanceof Error ? error.message : 'notifications.unknownError' }];
   }
 }

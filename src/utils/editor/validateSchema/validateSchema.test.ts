@@ -48,7 +48,7 @@ describe('validateSchema Utility', () => {
     ]);
   });
 
-  it('should return a non-critical error if the structure is missing required OpenAPI elements', async () => {
+  it('should return an error if the structure is missing required OpenAPI elements', async () => {
     const incompleteJson = JSON.stringify({
       openapi: '3.0.0',
     });
@@ -88,7 +88,7 @@ describe('validateSchema Utility', () => {
 
     expect(result).toEqual([
       {
-        path: '.info.version',
+        path: 'info.version',
         message: "must have required property 'version'",
       },
     ]);
@@ -117,7 +117,7 @@ describe('validateSchema Utility', () => {
 
     expect(result).toEqual([
       {
-        path: '.paths./users',
+        path: 'paths./users',
         message: 'must be object',
       },
     ]);
@@ -149,6 +149,18 @@ describe('validateSchema Utility', () => {
         message: 'Root schema error',
       },
     ]);
+  });
+
+  it('should catch critical JSON parsing syntax errors and return syntax path', async () => {
+    const brokenJson = '{"openapi": "3.0.0"';
+
+    const result = await validateSchema(brokenJson, 'JSON');
+
+    expect(result.length).toBe(1);
+    expect(result[0].path).toBe('syntax');
+    expect(result[0].message).toContain(
+      "Expected ',' or '}' after property value in JSON at position 19 (line 1 column 20)",
+    );
   });
 
   it('should catch critical YAML syntax errors with line mapping numbers', async () => {

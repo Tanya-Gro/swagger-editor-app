@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { NextIntlClientProvider } from 'next-intl';
 import { ErrorList } from './ErrorList';
-import { type ValidationError } from '@/store/useEditorStore';
+import type { ValidationError } from '@/types';
 import messages from '@messages/en.json';
 
 describe('ErrorList Component', () => {
@@ -46,6 +46,46 @@ describe('ErrorList Component', () => {
 
     expect(screen.getByText('info.title:')).toBeInTheDocument();
     expect(screen.getByText('Raw error from swagger parser')).toBeInTheDocument();
+  });
+
+  it('should render the header with the correct count of errors', () => {
+    const mockErrors: ValidationError[] = [
+      { path: 'info', message: 'Missing property' },
+      { path: 'paths', message: 'Should be an object' },
+    ];
+
+    renderErrorList(mockErrors);
+
+    const heading = screen.getByRole('heading', { level: 3 });
+    expect(heading).toBeInTheDocument();
+    expect(heading).toHaveTextContent('Specification errors (2):');
+  });
+
+  it('should correctly resolve and render localized message when it is a translation key', () => {
+    const mockErrors: ValidationError[] = [{ path: 'root', message: 'notifications.invalidObject' }];
+
+    renderErrorList(mockErrors);
+
+    expect(screen.getByText('root:')).toBeInTheDocument();
+    expect(screen.getByText('Schema must be a valid JSON/YAML object')).toBeInTheDocument();
+    expect(screen.queryByText('notifications.invalidObject')).not.toBeInTheDocument();
+  });
+
+  it('should render raw error messages directly if they are not translation keys', () => {
+    const mockErrors: ValidationError[] = [{ path: 'info.title', message: 'Raw error from swagger parser' }];
+
+    renderErrorList(mockErrors);
+
+    expect(screen.getByText('info.title:')).toBeInTheDocument();
+    expect(screen.getByText('Raw error from swagger parser')).toBeInTheDocument();
+  });
+
+  it('should have aria-live="polite" attribute for screen readers accessibility', () => {
+    const mockErrors: ValidationError[] = [{ path: 'info', message: 'Error' }];
+    renderErrorList(mockErrors);
+
+    const panel = screen.getByTestId('error-list');
+    expect(panel).toHaveAttribute('aria-live', 'polite');
   });
 
   it('should have the correct data-testid attribute for integration tests', () => {

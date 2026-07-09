@@ -2,8 +2,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Editor } from './Editor';
-import { useEditorStore, type ValidationError } from '@/store/useEditorStore';
-import { type EditorFormat } from '@/types';
+import { useEditorStore } from '@/store/useEditorStore';
+import type { EditorFormat, ValidationError } from '@/types';
 import messages from '@messages/en.json';
 
 vi.mock('@uiw/react-codemirror', () => ({
@@ -32,6 +32,7 @@ describe('Editor', () => {
         isValid: errors.length === 0,
         isValidating: false,
         debounceTimeoutId: null,
+        validationGeneration: 0,
         clearErrors: vi.fn(),
       }),
     );

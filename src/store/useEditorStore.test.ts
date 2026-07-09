@@ -22,6 +22,7 @@ describe('useEditorStore', () => {
       errors: [],
       isValid: true,
       isValidating: false,
+      debounceTimeoutId: null,
     });
   });
 
