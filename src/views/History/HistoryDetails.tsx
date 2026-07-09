@@ -1,0 +1,77 @@
+'use client';
+
+import { Button, Chip } from '@mui/material';
+import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
+import { formatBytes, formatTimestamp } from './history-format';
+import type { RequestHistoryItem } from './types';
+import styles from './History.module.css';
+
+type HistoryDetailsProperties = Readonly<{
+  entry: RequestHistoryItem;
+}>;
+
+export function HistoryDetails({ entry }: HistoryDetailsProperties) {
+  const locale = useLocale();
+  const t = useTranslations('HISTORY');
+
+  return (
+    <div className={styles.page}>
+      <div className={styles.inner}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>{t('detailTitle')}</h1>
+          <p className={styles.description}>
+            {entry.method} {entry.endpoint}
+          </p>
+        </header>
+
+        <section aria-label={t('detailTitle')} className={styles.note}>
+          <dl className={styles['detail-list']}>
+            <div>
+              <dt>{t('method')}</dt>
+              <dd>{entry.method}</dd>
+            </div>
+            <div>
+              <dt>{t('url')}</dt>
+              <dd>
+                <code className={styles.code}>{entry.endpoint}</code>
+              </dd>
+            </div>
+            <div>
+              <dt>{t('status')}</dt>
+              <dd>
+                <Chip label={String(entry.statusCode)} size="small" />
+              </dd>
+            </div>
+            <div>
+              <dt>{t('time')}</dt>
+              <dd>{entry.duration} ms</dd>
+            </div>
+            <div>
+              <dt>{t('request')}</dt>
+              <dd>{formatBytes(entry.requestSize)}</dd>
+            </div>
+            <div>
+              <dt>{t('response')}</dt>
+              <dd>{formatBytes(entry.responseSize)}</dd>
+            </div>
+            <div>
+              <dt>{t('timestamp')}</dt>
+              <dd>{formatTimestamp(entry.timestamp, locale)}</dd>
+            </div>
+            <div>
+              <dt>{t('error')}</dt>
+              <dd className={entry.errorDetails ? undefined : styles.muted}>{entry.errorDetails ?? '-'}</dd>
+            </div>
+          </dl>
+
+          <div className={styles['empty-actions']}>
+            <Button component={Link} href="/history" variant="outlined">
+              {t('backToHistory')}
+            </Button>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}

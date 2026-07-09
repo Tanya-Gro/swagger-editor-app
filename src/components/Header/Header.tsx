@@ -17,6 +17,12 @@ const navigationLinks = [
 
 export function Header() {
   const t = useTranslations('HEADER');
+  const renderNavigationItems = () =>
+    navigationLinks.map(({ href, messageKey }) => (
+      <Link className={cx('nav-link')} href={href} key={href}>
+        {t(messageKey)}
+      </Link>
+    ));
 
   return (
     <header className={cx('header')}>
@@ -32,11 +38,7 @@ export function Header() {
         </Link>
 
         <nav aria-label={t('navigationAriaLabel')} className={cx('nav')}>
-          {navigationLinks.map(({ href, messageKey }) => (
-            <Link className={cx('nav-link')} href={href} key={href}>
-              {t(messageKey)}
-            </Link>
-          ))}
+          {renderNavigationItems()}
         </nav>
 
         <div className={cx('actions')}>
@@ -58,13 +60,7 @@ export function Header() {
           </span>
         </summary>
         <div className={cx('mobile-menu')} id="mobile-header-menu">
-          <div className={cx('mobile-menu-section')}>
-            {navigationLinks.map(({ href, messageKey }) => (
-              <Link className={cx('nav-link')} href={href} key={href}>
-                {t(messageKey)}
-              </Link>
-            ))}
-          </div>
+          <div className={cx('mobile-menu-section')}>{renderNavigationItems()}</div>
           <div className={cx('mobile-menu-section')}>
             <LanguageSwitcher className={cx('mobile-menu-action')} />
             <Link href="/login">

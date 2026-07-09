@@ -2,6 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it } from 'vitest';
 import messages from '@messages/en.json';
+import { getHistoryEntries } from './history-data';
 import { History } from './History';
 import { HistoryClient } from './HistoryClient';
 import HistoryTable from './HistoryTable';
@@ -66,6 +67,12 @@ function renderHistoryTable(entries: RequestHistoryItem[]): void {
 }
 
 describe('History', () => {
+  it('returns history entries sorted from newest to oldest', () => {
+    const entries = getHistoryEntries();
+
+    expect(entries.map((entry) => entry.id)).toEqual(['req_001', 'req_002', 'req_003', 'req_004', 'req_005']);
+  });
+
   it('renders for an authorized user', () => {
     renderHistory();
 

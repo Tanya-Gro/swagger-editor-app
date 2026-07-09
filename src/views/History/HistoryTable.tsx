@@ -3,13 +3,14 @@
 import { Chip, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
+import { formatBytes, formatTimestamp } from './history-format';
 import type { HistoryMethod, HistoryStatusTone, RequestHistoryItem } from './types';
 import styles from './History.module.css';
 
-const methodColors: Record<HistoryMethod, 'primary' | 'error'> = {
-  GET: 'primary',
-  POST: 'primary',
-  PUT: 'primary',
+const methodColors: Record<HistoryMethod, 'info' | 'success' | 'warning' | 'error'> = {
+  GET: 'info',
+  POST: 'success',
+  PUT: 'warning',
   DELETE: 'error',
 };
 
@@ -43,30 +44,6 @@ function getStatusTone(statusCode: number): HistoryStatusTone {
   }
 
   return 'success';
-}
-
-function formatBytes(bytes: number): string {
-  const kilobyte = 1024;
-
-  if (bytes === 0) {
-    return '0 B';
-  }
-
-  if (bytes < kilobyte) {
-    return `${String(bytes)} B`;
-  }
-
-  return `${(bytes / kilobyte).toFixed(1)} KB`;
-}
-
-function formatTimestamp(timestamp: string, locale: string): string {
-  return new Intl.DateTimeFormat(locale, {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(new Date(timestamp));
 }
 
 export default function HistoryTable({ entries }: HistoryTableProps) {
@@ -140,6 +117,57 @@ export default function HistoryTable({ entries }: HistoryTableProps) {
           </TableBody>
         </Table>
       </div>
+
+      <ul className={styles['mobile-list']}>
+        {entries.map((entry) => (
+          <li className={styles['mobile-card']} key={entry.id}>
+            <div className={styles['mobile-card-header']}>
+              <div className={styles['mobile-card-title']}>
+                <Chip
+                  className={methodClasses[entry.method]}
+                  color={methodColors[entry.method]}
+                  label={entry.method}
+                  size="small"
+                  variant="outlined"
+                />
+                <code className={styles.code}>{entry.endpoint}</code>
+              </div>
+              <Chip
+                color={statusColors[getStatusTone(entry.statusCode)]}
+                label={String(entry.statusCode)}
+                size="small"
+              />
+            </div>
+
+            <dl className={styles['mobile-card-details']}>
+              <div className={styles['mobile-card-row']}>
+                <dt>{t('time')}</dt>
+                <dd>{entry.duration} ms</dd>
+              </div>
+              <div className={styles['mobile-card-row']}>
+                <dt>{t('request')}</dt>
+                <dd>{formatBytes(entry.requestSize)}</dd>
+              </div>
+              <div className={styles['mobile-card-row']}>
+                <dt>{t('response')}</dt>
+                <dd>{formatBytes(entry.responseSize)}</dd>
+              </div>
+              <div className={styles['mobile-card-row']}>
+                <dt>{t('timestamp')}</dt>
+                <dd>{formatTimestamp(entry.timestamp, locale)}</dd>
+              </div>
+              <div className={styles['mobile-card-row']}>
+                <dt>{t('error')}</dt>
+                <dd className={entry.errorDetails ? undefined : styles.muted}>{entry.errorDetails ?? '-'}</dd>
+              </div>
+            </dl>
+
+            <Link className={styles['analytics-link']} href={`/history/${entry.id}`}>
+              {t('details')}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

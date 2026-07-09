@@ -57,6 +57,8 @@
     "error": "Ошибка",
     "analytics": "Аналитика",
     "details": "Детали",
+    "detailTitle": "Детали запроса",
+    "backToHistory": "Назад к истории",
     "emptyTitle": "Пустая история",
     "emptyDescription": "Вы ещё не выполняли запросы. Начните с редактора.",
     "editorAction": "Редактор"
