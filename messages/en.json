@@ -44,13 +44,19 @@
       "loadingSuccess": "successfully loaded",
       "loadingError": "Error reading file",
       "fileTooLarge": "The file size must not exceed 2MB",
-      "invalidFileType": "has an invalid format. Only JSON, YAML, and YML are allowed.",
-      "unsupportedFormat": "Unsupported schema format",
+      "invalidFileType": "has an invalid format. Only JSON, YAML, and YML are allowed",
       "conversionDisabled": "Unsupported schema format. Conversion not possible",
       "conversionError": "Unsupported schema format. Conversion not possible",
       "jsonToYaml": "Failed to convert JSON to YAML: Check the source code syntax",
       "yamlToJson": "Failed to convert YAML to JSON: Check the source code syntax",
-      "invalidYaml": "Invalid YAML structure"
+      "invalidYaml": "Invalid YAML structure",
+      "invalidObject": "Schema must be a valid JSON/YAML object",
+      "unknownValidationError": "Unknown validation error",
+      "invalidStructure": "Invalid structure",
+      "unknownError": "Unknown error"
+    },
+    "errorList": {
+      "title": "Specification errors"
     }
   },
   "PASSWORD": {
