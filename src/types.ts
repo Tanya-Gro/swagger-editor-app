@@ -16,3 +16,10 @@ export type ValidationResultLogin = {
 };
 
 export type TranslationFn = (key: string, values?: Record<string, string | number | Date>) => string;
+
+export type UserDataRegistration = {
+  email: string;
+  username: string;
+  password: string;
+  repeatPassword: string;
+};

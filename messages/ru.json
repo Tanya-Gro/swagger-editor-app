@@ -44,15 +44,7 @@
     "passwordHelperText": "Ваш пароль",
     "actionButtonText": "Войти",
     "hintText": "Нет аккаунта?",
-    "linkText": "Регистрация",
-    "validation": {
-      "invalidEmailFormat": "Неверный формат почты",
-      "invalidPassword": "Необходимо ввести пароль",
-      "passwordMinLength": "Минимальная длина пароля 8 символов",
-      "passwordLetter": "Пароль должен содержать английские буквы",
-      "passwordDigit": "Пароль должен содержать хотя бы одну цифру",
-      "passwordSpecialChar": "Пароль должен содержать хотя бы один специальный символ"
-    }
+    "linkText": "Регистрация"
   },
   "EDITOR": {
     "title": "Сваггер Редактор",
@@ -74,5 +66,15 @@
   "PASSWORD": {
     "showPasswordButtonLabel": "Показать пароль",
     "hidePasswordButtonLabel": "Скрыть пароль"
+  },
+  "FORM_VALIDATION": {
+    "invalidEmailFormat": "Неверный формат почты",
+    "invalidPassword": "Необходимо ввести пароль",
+    "passwordMinLength": "Минимальная длина пароля 8 символов",
+    "passwordLetter": "Пароль должен содержать английские буквы",
+    "passwordDigit": "Пароль должен содержать хотя бы одну цифру",
+    "passwordSpecialChar": "Пароль должен содержать хотя бы один специальный символ",
+    "usernameMinLength": "Минимальная длина имени пользователя 3 символа",
+    "repeatPassword": "Пароли должны совпадать"
   }
 }

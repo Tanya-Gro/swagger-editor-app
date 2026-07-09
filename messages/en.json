@@ -24,7 +24,7 @@
     "title": "Main page"
   },
   "REGISTRATION_PAGE": {
-    "title": "Register",
+    "title": "Registration",
     "emailLabel": "Email",
     "emailHelperText": "The email must be in the format name@example.com",
     "usernameLabel": "Username",
@@ -44,14 +44,7 @@
     "passwordHelperText": "Please enter your password",
     "actionButtonText": "Log in",
     "hintText": "Don't have an account yet?",
-    "linkText": "Register",
-    "validation": {
-      "invalidEmailFormat": "Incorrect email format",
-      "passwordMinLength": "Password must be at least 8 characters long",
-      "passwordLetter": "Password must contain at least one letter",
-      "passwordDigit": "Password must contain at least one digit",
-      "passwordSpecialChar": "Password must contain at least one special character"
-    }
+    "linkText": "Register"
   },
   "EDITOR": {
     "title": "Swagger Editor",
@@ -73,5 +66,14 @@
   "PASSWORD": {
     "showPasswordButtonLabel": "Show password",
     "hidePasswordButtonLabel": "Hide password"
+  },
+  "FORM_VALIDATION": {
+    "invalidEmailFormat": "Incorrect email format",
+    "passwordMinLength": "Password must be at least 8 characters long",
+    "passwordLetter": "Password must contain at least one letter",
+    "passwordDigit": "Password must contain at least one digit",
+    "passwordSpecialChar": "Password must contain at least one special character",
+    "usernameMinLength": "Username must be at least 3 characters long",
+    "repeatPassword": "Passwords must match"
   }
 }

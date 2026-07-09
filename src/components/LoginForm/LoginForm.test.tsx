@@ -51,7 +51,7 @@ vi.mock('@/database/browser-client', () => ({
 }));
 
 const loginMessages = messages.LOGIN_PAGE;
-const validationMessages = loginMessages.validation;
+const validationMessages = messages.FORM_VALIDATION;
 const password = messages.PASSWORD;
 
 const validEmail = 'test@example.com';

@@ -21,7 +21,7 @@ export function LoginForm() {
   const router = useRouter();
 
   const t = useTranslations('LOGIN_PAGE');
-  const tValidation = useTranslations('LOGIN_PAGE.validation');
+  const tValidation = useTranslations('FORM_VALIDATION');
 
   const [validationErrors, setValidationErrors] = useState<ValidationErrorsLogin>({});
   const [isLoading, setLoading] = useState<boolean>(false);
