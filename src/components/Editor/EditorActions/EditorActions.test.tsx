@@ -1,9 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { NextIntlClientProvider } from 'next-intl';
 import { EditorActions } from './EditorActions';
 import { toast } from '@/utils/toast/toast';
 import { type EditorFormat } from '@/types';
+import { useEditorStore } from '@/store/useEditorStore';
 import messages from '@messages/en.json';
 
 vi.mock('@/utils/toast/toast', () => ({
@@ -13,19 +14,50 @@ vi.mock('@/utils/toast/toast', () => ({
   },
 }));
 
-describe('EditorActions', () => {
-  const onChangeFormat = vi.fn();
-  const onChangeSchema = vi.fn();
+vi.mock('@/store/useEditorStore', () => ({
+  useEditorStore: vi.fn(),
+}));
 
-  function renderEditorActions(format: EditorFormat = 'JSON'): void {
+vi.mock('@/utils/editor/convertFormat/convertFormat', () => ({
+  yamlToJson: vi.fn((str: string) => `converted-json-of-${str}`),
+  jsonToYaml: vi.fn((str: string) => `converted-yaml-of-${str}`),
+}));
+
+describe('EditorActions', () => {
+  const mockSetSchema = vi.fn();
+  const mockSetFormat = vi.fn();
+
+  function setupStoreMock(format: EditorFormat = 'JSON', schema = '') {
+    vi.mocked(useEditorStore).mockImplementation((selector) =>
+      selector({
+        format,
+        schema,
+        setFormat: mockSetFormat,
+        updateSchema: mockSetSchema,
+        validSchema: '',
+        errors: [],
+        isValid: true,
+        isValidating: false,
+        debounceTimeoutId: null,
+        clearErrors: vi.fn(),
+      }),
+    );
+  }
+
+  beforeEach(() => {
+    setupStoreMock();
+  });
+
+  function renderEditorActions(): void {
     render(
       <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
-        <EditorActions format={format} onChangeFormat={onChangeFormat} onChangeSchema={onChangeSchema} />
+        <EditorActions />
       </NextIntlClientProvider>,
     );
   }
 
-  it('calls onChangeFormat when YAML selected', () => {
+  it('calls setFormat and mockSetSchema when YAML selected', () => {
+    setupStoreMock('JSON', 'openapi: 3.0.0');
     renderEditorActions();
 
     fireEvent.click(
@@ -34,10 +66,11 @@ describe('EditorActions', () => {
       }),
     );
 
-    expect(onChangeFormat).toHaveBeenCalledWith('YAML');
+    expect(mockSetSchema).toHaveBeenCalledWith('converted-yaml-of-openapi: 3.0.0');
+    expect(mockSetFormat).toHaveBeenCalledWith('YAML');
   });
 
-  it('calls onClear', () => {
+  it('calls mockSetSchema with empty string on Clear button click', () => {
     renderEditorActions();
 
     fireEvent.click(
@@ -46,8 +79,8 @@ describe('EditorActions', () => {
       }),
     );
 
-    expect(onChangeSchema).toHaveBeenCalledTimes(1);
-    expect(onChangeSchema).toHaveBeenCalledWith('');
+    expect(mockSetSchema).toHaveBeenCalledTimes(1);
+    expect(mockSetSchema).toHaveBeenCalledWith('');
   });
 
   it('renders action buttons', () => {
@@ -66,8 +99,9 @@ describe('EditorActions', () => {
     ).toBeInTheDocument();
   });
 
-  it('does not call onChangeFormat if the active format button is clicked again', () => {
-    renderEditorActions('JSON');
+  it('does not call setFormat if the active format button is clicked again', () => {
+    setupStoreMock('JSON');
+    renderEditorActions();
 
     fireEvent.click(
       screen.getByRole('button', {
@@ -75,7 +109,7 @@ describe('EditorActions', () => {
       }),
     );
 
-    expect(onChangeFormat).not.toHaveBeenCalled();
+    expect(mockSetFormat).not.toHaveBeenCalled();
   });
 
   it('triggers file input click on Load button click', () => {
@@ -113,7 +147,8 @@ describe('EditorActions', () => {
   });
 
   it('reads JSON file successfully and changes schema and active format tab', async () => {
-    renderEditorActions('YAML');
+    setupStoreMock('YAML');
+    renderEditorActions();
 
     const fileInput = screen.getByTestId('file-input');
     const validFile = new File(['{"test": true}'], 'schema.json', { type: 'application/json' });
@@ -123,14 +158,14 @@ describe('EditorActions', () => {
     fireEvent.change(fileInput, { target: { files: [validFile] } });
 
     await waitFor(() => {
-      expect(onChangeSchema).toHaveBeenCalledWith('{"test": true}');
-      expect(onChangeFormat).toHaveBeenCalledWith('JSON');
+      expect(mockSetSchema).toHaveBeenCalledWith('{"test": true}');
       expect(toast.success).toHaveBeenCalledWith(expect.stringContaining('schema.json'));
     });
   });
 
   it('reads YAML file successfully and changes schema and active format tab', async () => {
-    renderEditorActions('JSON');
+    setupStoreMock('JSON');
+    renderEditorActions();
 
     const fileInput = screen.getByTestId('file-input');
     const validFile = new File(['test: true'], 'schema.yaml', { type: 'text/yaml' });
@@ -140,8 +175,7 @@ describe('EditorActions', () => {
     fireEvent.change(fileInput, { target: { files: [validFile] } });
 
     await waitFor(() => {
-      expect(onChangeSchema).toHaveBeenCalledWith('test: true');
-      expect(onChangeFormat).toHaveBeenCalledWith('YAML');
+      expect(mockSetSchema).toHaveBeenCalledWith('test: true');
       expect(toast.success).toHaveBeenCalledWith(expect.stringContaining('schema.yaml'));
     });
   });
@@ -153,7 +187,7 @@ describe('EditorActions', () => {
 
     fireEvent.change(fileInput, { target: { files: [] } });
 
-    expect(onChangeSchema).not.toHaveBeenCalled();
+    expect(mockSetSchema).not.toHaveBeenCalled();
     expect(toast.error).not.toHaveBeenCalled();
     expect(toast.success).not.toHaveBeenCalled();
   });

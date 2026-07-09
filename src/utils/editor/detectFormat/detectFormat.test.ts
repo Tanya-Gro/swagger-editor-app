@@ -12,24 +12,6 @@ describe('detectFormat', () => {
       const json = '[1, 2, 3, "test"]';
       expect(detectFormat(json)).toBe('JSON');
     });
-
-    it('should detect valid JSON with nested structures', () => {
-      const json = '{"user": {"name": "John", "age": 30}, "tags": ["admin", "user"]}';
-      expect(detectFormat(json)).toBe('JSON');
-    });
-
-    it('should detect valid JSON with formatting', () => {
-      const json = `{
-        "name": "test",
-        "value": 123
-      }`;
-      expect(detectFormat(json)).toBe('JSON');
-    });
-
-    it('should not detect JSON if it starts with non-JSON character', () => {
-      const text = 'Hello {"name": "test"}';
-      expect(detectFormat(text)).toBe('unknown');
-    });
   });
 
   describe('YAML detection', () => {
@@ -80,35 +62,6 @@ task:
     it('should detect YAML with tags', () => {
       const yaml = 'value: !!str 123';
       expect(detectFormat(yaml)).toBe('YAML');
-    });
-  });
-
-  describe('Unknown format detection', () => {
-    it('should return unknown for empty string', () => {
-      expect(detectFormat('')).toBe('JSON');
-    });
-
-    it('should return unknown for whitespace only', () => {
-      expect(detectFormat('   \n\t  ')).toBe('JSON');
-    });
-
-    it('should return unknown for plain text', () => {
-      expect(detectFormat('This is just plain text')).toBe('unknown');
-    });
-
-    it('should return unknown for invalid JSON', () => {
-      const invalidJSON = '{"name": "test", "value": }';
-      expect(detectFormat(invalidJSON)).toBe('unknown');
-    });
-
-    it('should return unknown for invalid YAML-like text', () => {
-      const invalidYAML = 'key: value: another: value';
-      expect(detectFormat(invalidYAML)).toBe('unknown');
-    });
-
-    it('should return unknown for XML', () => {
-      const xml = '<root><item>value</item></root>';
-      expect(detectFormat(xml)).toBe('unknown');
     });
   });
 

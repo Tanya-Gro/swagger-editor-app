@@ -1,12 +1,10 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import messages from '@messages/en.json';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Editor } from './Editor';
-import { detectFormat } from '@/utils/editor/detectFormat/detectFormat';
-import { jsonToYaml } from '@/utils/editor/convertFormat/convertFormat';
-
-import { toast } from '@/utils/toast/toast';
+import { useEditorStore, type ValidationError } from '@/store/useEditorStore';
+import { type EditorFormat } from '@/types';
+import messages from '@messages/en.json';
 
 vi.mock('@uiw/react-codemirror', () => ({
   default: ({ value, onChange }: { value: string; onChange: (value: string) => void }) => (
@@ -14,32 +12,33 @@ vi.mock('@uiw/react-codemirror', () => ({
   ),
 }));
 
-vi.mock('@/utils/editor/convertFormat/convertFormat', () => ({
-  jsonToYaml: vi.fn(),
-  yamlToJson: vi.fn(),
+vi.mock('@/store/useEditorStore', () => ({
+  useEditorStore: vi.fn(),
 }));
-
-vi.mock('@/utils/editor/detectFormat/detectFormat', () => ({
-  detectFormat: vi.fn(),
-}));
-
-vi.mock('@/utils/toast/toast', () => ({
-  toast: {
-    error: vi.fn(),
-    warning: vi.fn(),
-    success: vi.fn(),
-  },
-}));
-
-const AUTO_DETECT_DELAY = 500;
 
 describe('Editor', () => {
-  beforeEach(() => {
-    vi.useFakeTimers();
-  });
+  const mockUpdateSchema = vi.fn();
+  const mockSetFormat = vi.fn();
 
-  afterEach(() => {
-    vi.useRealTimers();
+  function setupStoreMock(format: EditorFormat = 'JSON', schema = '', errors: ValidationError[] = []) {
+    vi.mocked(useEditorStore).mockImplementation((selector) =>
+      selector({
+        format,
+        schema,
+        errors,
+        setFormat: mockSetFormat,
+        updateSchema: mockUpdateSchema,
+        validSchema: '',
+        isValid: errors.length === 0,
+        isValidating: false,
+        debounceTimeoutId: null,
+        clearErrors: vi.fn(),
+      }),
+    );
+  }
+
+  beforeEach(() => {
+    setupStoreMock();
   });
 
   function renderEditor(): void {
@@ -50,7 +49,7 @@ describe('Editor', () => {
     );
   }
 
-  it('renders editor header', () => {
+  it('should render editor header', () => {
     renderEditor();
 
     expect(
@@ -60,39 +59,23 @@ describe('Editor', () => {
     ).toBeInTheDocument();
   });
 
-  it('renders editor actions', () => {
+  it('should render editor actions toolbar', () => {
     renderEditor();
 
-    expect(
-      screen.getByRole('button', {
-        name: /json/i,
-      }),
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole('button', {
-        name: /yaml/i,
-      }),
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole('button', {
-        name: /clear/i,
-      }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /json/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /yaml/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /clear/i })).toBeInTheDocument();
   });
 
-  it('uses JSON format by default', () => {
+  it('should set the active format button based on store state', () => {
+    setupStoreMock('JSON');
     renderEditor();
 
-    expect(
-      screen.getByRole('button', {
-        name: 'JSON',
-      }),
-    ).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'JSON' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'YAML' })).toHaveAttribute('aria-pressed', 'false');
   });
 
-  it('updates schema on input', () => {
+  it('should fire store updateSchema action on textarea value changes', () => {
     renderEditor();
 
     const editor = screen.getByTestId('editor');
@@ -103,110 +86,36 @@ describe('Editor', () => {
       },
     });
 
-    expect(editor).toHaveValue('{"openapi":"3.0.0"}');
+    expect(mockUpdateSchema).toHaveBeenCalledWith('{"openapi":"3.0.0"}');
   });
 
-  it('clears schema after clicking Clear', () => {
+  it('should display the error list panel below CodeMirror if errors are present in the store', () => {
+    const mockErrors = [{ path: 'info.title', message: 'must be string' }];
+    setupStoreMock('JSON', '{"info": {"title": 123}}', mockErrors);
+
+    renderEditor();
+
+    const errorPanel = screen.getByTestId('error-list');
+    expect(errorPanel).toBeInTheDocument();
+    expect(screen.getByText('info.title:')).toBeInTheDocument();
+    expect(screen.getByText('must be string')).toBeInTheDocument();
+  });
+
+  it('should safely render without error panels when there are no errors', () => {
+    setupStoreMock('JSON', '{"openapi":"3.0.0"}', []);
+    renderEditor();
+
+    expect(screen.queryByTestId('error-list')).not.toBeInTheDocument();
+  });
+
+  it('should pass an empty extension array to CodeMirror safely if store format is unknown', () => {
+    setupStoreMock('unknown', '!!! broken schema !!!');
     renderEditor();
 
     const editor = screen.getByTestId('editor');
-
-    fireEvent.change(editor, {
-      target: {
-        value: 'test schema',
-      },
-    });
-
-    fireEvent.click(
-      screen.getByRole('button', {
-        name: /clear/i,
-      }),
-    );
-
-    expect(editor).toHaveValue('');
-  });
-
-  it('shows current format as selected and toggle buttons', () => {
-    renderEditor();
-
-    const yamlButton = screen.getByRole('button', { name: 'YAML' });
-    const jsonButton = screen.getByRole('button', { name: 'JSON' });
-
-    expect(jsonButton).toHaveAttribute('aria-pressed', 'true');
-    expect(yamlButton).toHaveAttribute('aria-pressed', 'false');
-
-    fireEvent.click(yamlButton);
-
-    expect(jsonButton).toHaveAttribute('aria-pressed', 'false');
-    expect(yamlButton).toHaveAttribute('aria-pressed', 'true');
-  });
-
-  it('should auto-detect unknown format after delay and show error toast', () => {
-    vi.mocked(detectFormat).mockImplementation(() => 'unknown');
-    renderEditor();
-
-    const editor = screen.getByTestId('editor');
-    fireEvent.change(editor, { target: { value: 'broken content' } });
-
-    expect(toast.error).not.toHaveBeenCalled();
-
-    act(() => {
-      vi.advanceTimersByTime(AUTO_DETECT_DELAY);
-    });
-
-    expect(detectFormat).toHaveBeenCalledWith('broken content');
-    expect(toast.error).toHaveBeenCalledWith(messages.EDITOR.notifications.unsupportedFormat);
-  });
-
-  it('should block conversion and show warning if format is unknown', () => {
-    vi.mocked(detectFormat).mockImplementation(() => 'unknown');
-    renderEditor();
-
-    const editor = screen.getByTestId('editor');
-    fireEvent.change(editor, { target: { value: 'invalid format data' } });
-
-    act(() => {
-      vi.advanceTimersByTime(AUTO_DETECT_DELAY);
-    });
-
-    const yamlButton = screen.getByRole('button', { name: 'YAML' });
-    fireEvent.click(yamlButton);
-
-    expect(toast.warning).toHaveBeenCalledWith(messages.EDITOR.notifications.conversionDisabled);
-    expect(jsonToYaml).not.toHaveBeenCalled();
-  });
-
-  it('should catch error during conversion and show error toast with the key message', () => {
-    vi.mocked(detectFormat).mockImplementation(() => 'JSON');
-    vi.mocked(jsonToYaml).mockImplementation(() => {
-      throw new Error('notifications.jsonToYaml');
-    });
-
-    renderEditor();
-    const editor = screen.getByTestId('editor');
-
-    fireEvent.change(editor, { target: { value: '{"name": "test"}' } });
-    act(() => {
-      vi.advanceTimersByTime(AUTO_DETECT_DELAY);
-    });
-
-    const yamlButton = screen.getByRole('button', { name: 'YAML' });
-    fireEvent.click(yamlButton);
-
-    expect(toast.error).toHaveBeenCalledWith(messages.EDITOR.notifications.jsonToYaml);
-  });
-
-  it('should return empty extension array and render safely when format is unknown', () => {
-    vi.mocked(detectFormat).mockImplementation(() => 'unknown');
-    renderEditor();
-
-    const editor = screen.getByTestId('editor');
-    fireEvent.change(editor, { target: { value: '!!!' } });
-
-    act(() => {
-      vi.advanceTimersByTime(AUTO_DETECT_DELAY);
-    });
-
     expect(editor).toBeInTheDocument();
+    expect(editor).toHaveValue('!!! broken schema !!!');
+    expect(screen.getByRole('button', { name: 'JSON' })).toHaveAttribute('aria-pressed', 'false');
+    expect(screen.getByRole('button', { name: 'YAML' })).toHaveAttribute('aria-pressed', 'false');
   });
 });
