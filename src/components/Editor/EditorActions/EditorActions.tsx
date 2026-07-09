@@ -36,15 +36,16 @@ export function EditorActions() {
         toast.warning(t('notifications.conversionError'));
         return;
       }
+      if (schema.trim() === '') {
+        setFormat(nextFormat);
+        return;
+      }
 
-      setFormat(nextFormat);
-
-      if (schema.trim() !== '') {
-        try {
-          setSchema(nextFormat === 'JSON' ? yamlToJson(schema) : jsonToYaml(schema));
-        } catch (error) {
-          toast.error(error instanceof Error ? t(error.message) : t('notifications.conversionError'));
-        }
+      try {
+        setSchema(nextFormat === 'JSON' ? yamlToJson(schema) : jsonToYaml(schema));
+        setFormat(nextFormat);
+      } catch (error) {
+        toast.error(error instanceof Error ? t(error.message) : t('notifications.conversionError'));
       }
     }
   };
