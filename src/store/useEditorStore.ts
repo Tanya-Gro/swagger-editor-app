@@ -1,12 +1,7 @@
 import { create } from 'zustand';
-import { type EditorFormat } from '@/types';
+import { type EditorFormat, type ValidationError } from '@/types';
 import { detectFormat } from '@/utils/editor/detectFormat/detectFormat';
 import { validateSchema } from '@/utils/editor/validateSchema/validateSchema';
-
-export type ValidationError = {
-  path: string;
-  message: string;
-};
 
 type EditorState = {
   schema: string;
@@ -18,6 +13,7 @@ type EditorState = {
   isValidating: boolean;
 
   debounceTimeoutId: NodeJS.Timeout | null;
+  validationGeneration: number;
 
   setFormat: (format: EditorFormat) => void;
   updateSchema: (text: string, onCriticalError?: (msg: string) => void) => void;
@@ -34,19 +30,21 @@ export const useEditorStore = create<EditorState>((set, get) => ({
   isValid: true,
   isValidating: false,
   debounceTimeoutId: null,
+  validationGeneration: 0,
 
   setFormat: (format): void => set({ format }),
 
   clearErrors: (): void => set({ errors: [], isValid: true }),
 
   updateSchema: (text): void => {
-    const { debounceTimeoutId, format, validSchema } = get();
+    const { debounceTimeoutId, format, validSchema, validationGeneration } = get();
 
     if (debounceTimeoutId) {
       clearTimeout(debounceTimeoutId);
     }
 
-    set({ schema: text });
+    const nextGeneration = validationGeneration + 1;
+    set({ schema: text, validationGeneration: nextGeneration });
 
     if (!text.trim()) {
       set({
@@ -64,9 +62,19 @@ export const useEditorStore = create<EditorState>((set, get) => ({
     const timeoutId = setTimeout(() => {
       void (async (): Promise<void> => {
         const detectedFormat = detectFormat(text);
+
+        if (get().validationGeneration !== nextGeneration) {
+          return;
+        }
+
         set({ format: detectedFormat });
 
         const validationErrors = await validateSchema(text, detectedFormat);
+
+        if (get().validationGeneration !== nextGeneration) {
+          return;
+        }
+
         const hasNoErrors = validationErrors.length === 0;
 
         set({
