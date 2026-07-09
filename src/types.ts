@@ -24,9 +24,4 @@ export type UserDataRegistration = {
   repeatPassword: string;
 };
 
-export type ValidationResultLogin = {
-  data: UserDataLogin | null;
-  errors: ValidationErrorsLogin | null;
-};
-
 export type TranslationFn = (key: string, values?: Record<string, string | number | Date>) => string;

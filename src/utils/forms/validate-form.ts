@@ -1,6 +1,6 @@
 import { type ZodType } from 'zod';
 
-type ValidationErrors = Record<string, string>;
+type ValidationErrors = Record<string, string | undefined>;
 
 type ValidationResult<Data> = {
   data: Data | null;
@@ -17,7 +17,7 @@ export function validateForm<Data>(formData: FormData, schema: ZodType<Data>): V
     for (const issue of result.error.issues) {
       const fieldName = issue.path[0];
 
-      if (typeof fieldName === 'string') {
+      if (typeof fieldName === 'string' && errors[fieldName] === undefined) {
         errors[fieldName] = issue.message;
       }
     }

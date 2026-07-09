@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 import { type SubmitEvent, useState } from 'react';
 import { validateForm } from '@/utils/forms/validate-form';
 import { type ValidationErrorsRegistration } from '@/types';
-import { createRegistrationSchema } from '@/utils/registration/schema';
+import { createRegistrationSchema } from '@/utils/forms/registration-schema';
 import { browserClient } from '@/database/browser-client';
 
 import Button from '@mui/material/Button';

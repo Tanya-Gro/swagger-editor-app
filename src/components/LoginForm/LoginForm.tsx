@@ -7,7 +7,8 @@ import { browserClient } from '@/database/browser-client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { type ValidationErrorsLogin } from '@/types';
-import { validateLoginForm } from '@/utils/login/validate-form';
+import { validateForm } from '@/utils/forms/validate-form';
+import { createLoginSchema } from '@/utils/forms/login-schema';
 
 import { Button, TextField } from '@mui/material';
 import { PasswordField } from '@/components/PasswordField/PasswordField';
@@ -29,7 +30,10 @@ export function LoginForm() {
   async function handleLogin(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const { data: validatedData, errors } = validateLoginForm(new FormData(event.currentTarget), tValidation);
+    const { data: validatedData, errors } = validateForm(
+      new FormData(event.currentTarget),
+      createLoginSchema(tValidation),
+    );
 
     if (!validatedData) {
       setValidationErrors(errors ?? {});
