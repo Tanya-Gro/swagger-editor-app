@@ -70,7 +70,7 @@ export function RegistrationForm() {
     } catch (error) {
       setIsLoading(false);
       console.error(error);
-      toast.error(tDatabase('unknow_error'));
+      toast.error(tDatabase('unknown_error'));
     }
   }
 
