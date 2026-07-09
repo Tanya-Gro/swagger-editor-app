@@ -1,4 +1,4 @@
-import { createLoginSchema } from './schema';
+import { createLoginSchema } from '@/utils/login/schema';
 import { type ValidationResultLogin, type TranslationFn } from '@/types';
 import { z } from 'zod';
 

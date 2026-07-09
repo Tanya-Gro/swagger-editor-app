@@ -5,43 +5,74 @@ import Link from 'next/link';
 import styles from './Registration.module.css';
 import classNames from 'classnames/bind';
 import { useTranslations } from 'next-intl';
-import { registrationAction } from '@/app/registration/register-action';
-import { useActionState } from 'react';
+import { type SubmitEvent, useState } from 'react';
+import { validateForm } from '@/utils/forms/validate-form';
+import { type ValidationErrorsRegistration } from '@/types';
+import { createRegistrationSchema } from '@/utils/registration/schema';
+import { browserClient } from '@/database/browser-client';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 const cx = classNames.bind(styles);
 
+const supabase = browserClient();
+
 export function RegistrationForm() {
   const t = useTranslations('REGISTRATION_PAGE');
+  const tValidation = useTranslations('FORM_VALIDATION');
 
-  const [state, formAction, isPending] = useActionState(registrationAction, {
-    data: null,
-    errors: null,
-    databaseError: null,
-  });
+  const [validationErrors, setValidationErrors] = useState<ValidationErrorsRegistration>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  if (state.data) {
-    console.info(state.data);
-  }
+  async function handleRegistration(event: SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-  if (state.databaseError) {
-    console.error(state.databaseError);
+    const { data: validatedData, errors } = validateForm(
+      new FormData(event.currentTarget),
+      createRegistrationSchema(tValidation),
+    );
+
+    if (!validatedData) {
+      setValidationErrors(errors ?? {});
+      return;
+    }
+
+    setValidationErrors({});
+
+    try {
+      setIsLoading(true);
+
+      const { error } = await supabase.auth.signUp({
+        email: validatedData.email,
+        password: validatedData.password,
+      });
+
+      if (error) {
+        setIsLoading(false);
+        console.error(error);
+        return;
+      }
+    } catch (error) {
+      setIsLoading(false);
+
+      // заменить на тост!!!
+      console.error(error);
+    }
   }
 
   return (
     <div className={cx('container')}>
       <h1 className={cx('title')}>{t('title')}</h1>
-      <form action={formAction}>
+      <form onSubmit={(event) => void handleRegistration(event)}>
         <TextField
           label={t('emailLabel')}
           id="email"
           name="email"
           variant="outlined"
           fullWidth
-          error={Boolean(state.errors?.email)}
-          helperText={state.errors?.email ?? t('emailHelperText')}
+          error={Boolean(validationErrors.email)}
+          helperText={validationErrors.email ?? t('emailHelperText')}
           margin="normal"
           autoComplete="email"
         />
@@ -51,23 +82,23 @@ export function RegistrationForm() {
           name="username"
           variant="outlined"
           fullWidth
-          error={Boolean(state.errors?.username)}
-          helperText={state.errors?.username ?? t('usernameHelperText')}
+          error={Boolean(validationErrors.username)}
+          helperText={validationErrors.username ?? t('usernameHelperText')}
           margin="normal"
         />
         <PasswordField
           label={t('passwordLabel')}
           name="password"
           helperText={t('passwordHelperText')}
-          error={state.errors?.password}
+          error={validationErrors.password}
         />
         <PasswordField
           label={t('repeatPasswordLabel')}
           name="repeatPassword"
           helperText={t('repeatPasswordHelperText')}
-          error={state.errors?.repeatPassword}
+          error={validationErrors.repeatPassword}
         />
-        <Button variant="contained" fullWidth type="submit" className={cx('button')} loading={isPending}>
+        <Button variant="contained" fullWidth type="submit" className={cx('button')} loading={isLoading}>
           {t('actionButtonText')}
         </Button>
       </form>
