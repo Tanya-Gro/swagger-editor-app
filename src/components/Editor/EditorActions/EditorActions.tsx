@@ -33,7 +33,7 @@ export function EditorActions() {
   const handleChangeFormat = (_event: MouseEvent<HTMLElement>, nextFormat: EditorFormat | null) => {
     if (nextFormat) {
       if (format === 'unknown') {
-        toast.warning(t('notifications.conversionDisabled'));
+        toast.warning(t('notifications.conversionError'));
         return;
       }
 
