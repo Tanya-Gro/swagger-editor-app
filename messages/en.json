@@ -32,6 +32,7 @@
     "passwordLabel": "Create a password",
     "passwordHelperText": "The password must be longer than 8 characters",
     "repeatPasswordLabel": "Repeat your password",
+    "repeatPasswordHelperText": "Re-enter your password to confirm",
     "actionButtonText": "Register",
     "infoText": "Already have an account?",
     "actionLinkText": "Log in"

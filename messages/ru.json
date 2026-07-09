@@ -32,6 +32,7 @@
     "passwordLabel": "Придумайте пароль",
     "passwordHelperText": "Пароль должен быть длинее 8 символов",
     "repeatPasswordLabel": "Повторите пароль",
+    "repeatPasswordHelperText": "Повторно введите пароль для подтверждения",
     "actionButtonText": "Зарегестрироваться",
     "infoText": "Уже есть аккаунт?",
     "actionLinkText": "Войти"

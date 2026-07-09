@@ -1,6 +1,6 @@
 'use client';
 
-import { PasswordField } from './PasswordField/PasswordField';
+import { PasswordField } from '@/components/PasswordField/PasswordField';
 import Link from 'next/link';
 import styles from './Registration.module.css';
 import classNames from 'classnames/bind';
@@ -37,8 +37,12 @@ export function RegistrationForm() {
           helperText={t('usernameHelperText')}
           margin="normal"
         />
-        <PasswordField label={t('passwordLabel')} id="password" name="password" />
-        <PasswordField label={t('repeatPasswordLabel')} id="repeat-password" name="repeat-password" />
+        <PasswordField label={t('passwordLabel')} name="password" helperText={t('passwordHelperText')} />
+        <PasswordField
+          label={t('repeatPasswordLabel')}
+          name="repeat-password"
+          helperText={t('repeatPasswordHelperText')}
+        />
         <Button variant="contained" fullWidth type="submit" className={cx('button')}>
           {t('actionButtonText')}
         </Button>
