@@ -89,16 +89,6 @@ export function RegistrationForm() {
           margin="normal"
           autoComplete="email"
         />
-        <TextField
-          label={t('usernameLabel')}
-          id="username"
-          name="username"
-          variant="outlined"
-          fullWidth
-          error={Boolean(validationErrors.username)}
-          helperText={validationErrors.username ?? t('usernameHelperText')}
-          margin="normal"
-        />
         <PasswordField
           label={t('passwordLabel')}
           name="password"

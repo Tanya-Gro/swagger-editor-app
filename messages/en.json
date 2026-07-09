@@ -27,8 +27,6 @@
     "title": "Registration",
     "emailLabel": "Email",
     "emailHelperText": "The email must be in the format name@example.com",
-    "usernameLabel": "Username",
-    "usernameHelperText": "Create your username",
     "passwordLabel": "Create a password",
     "passwordHelperText": "The password must be longer than 8 characters",
     "repeatPasswordLabel": "Repeat your password",
@@ -74,7 +72,6 @@
     "passwordLetter": "Password must contain at least one letter",
     "passwordDigit": "Password must contain at least one digit",
     "passwordSpecialChar": "Password must contain at least one special character",
-    "usernameMinLength": "Username must be at least 3 characters long",
     "repeatPassword": "Passwords must match"
   },
   "DATABASE": {

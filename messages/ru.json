@@ -27,8 +27,6 @@
     "title": "Регистрация",
     "emailLabel": "Почта",
     "emailHelperText": "Почта в формате name@example.com",
-    "usernameLabel": "Имя пользователя",
-    "usernameHelperText": "Придумайте своё имя пользователя",
     "passwordLabel": "Придумайте пароль",
     "passwordHelperText": "Пароль должен быть длинее 8 символов",
     "repeatPasswordLabel": "Повторите пароль",
@@ -75,7 +73,6 @@
     "passwordLetter": "Пароль должен содержать английские буквы",
     "passwordDigit": "Пароль должен содержать хотя бы одну цифру",
     "passwordSpecialChar": "Пароль должен содержать хотя бы один специальный символ",
-    "usernameMinLength": "Минимальная длина имени пользователя 3 символа",
     "repeatPassword": "Пароли должны совпадать"
   },
   "DATABASE": {

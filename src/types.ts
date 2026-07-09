@@ -7,7 +7,6 @@ export type ValidationErrorsLogin = {
 
 export type ValidationErrorsRegistration = {
   email?: string;
-  username?: string;
   password?: string;
   repeatPassword?: string;
 };
@@ -19,7 +18,6 @@ export type UserDataLogin = {
 
 export type UserDataRegistration = {
   email: string;
-  username: string;
   password: string;
   repeatPassword: string;
 };
