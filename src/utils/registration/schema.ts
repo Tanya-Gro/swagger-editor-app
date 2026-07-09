@@ -15,7 +15,7 @@ export const createRegistrationSchema = (t: TranslationFn): ZodType<UserDataRegi
         .regex(/[a-zA-Z]/, { error: t('passwordLetter') })
         .regex(/[0-9]/, { error: t('passwordDigit') })
         .regex(/[.,?!@#$%^&*()_\-+=]/, { error: t('passwordSpecialChar') }),
-      repeatPassword: z.string().min(1, { error: t('passwordMinLength') }),
+      repeatPassword: z.string().min(MIN_PASSWORD_LENGTH, { error: t('passwordMinLength') }),
     })
     .superRefine(({ password, repeatPassword }, ctx) => {
       if (password !== repeatPassword) {

@@ -1,3 +1,5 @@
+import type { User } from '@supabase/supabase-js';
+
 export type EditorFormat = 'JSON' | 'YAML' | 'unknown';
 
 export type ValidationErrorsLogin = {
@@ -22,4 +24,17 @@ export type UserDataRegistration = {
   username: string;
   password: string;
   repeatPassword: string;
+};
+
+export type ValidationErrorsRegistration = {
+  email?: string;
+  username?: string;
+  password?: string;
+  repeatPassword?: string;
+};
+
+export type RegistrationResult = {
+  data: User | null;
+  errors: ValidationErrorsRegistration | null;
+  databaseError: string | null;
 };
