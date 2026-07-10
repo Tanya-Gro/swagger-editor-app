@@ -57,6 +57,9 @@
       "invalidYaml": "Invalid YAML structure"
     }
   },
+  "VIEWER": {
+    "title": "Swagger Viewer"
+  },
   "PASSWORD": {
     "showPasswordButtonLabel": "Show password",
     "hidePasswordButtonLabel": "Hide password"

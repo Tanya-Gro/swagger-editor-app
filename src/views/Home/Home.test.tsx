@@ -12,16 +12,23 @@ function renderHome(): void {
   );
 }
 
+const editor = messages.EDITOR;
+const viewer = messages.VIEWER;
+
 describe('Home', () => {
   it('renders editor and viewer panel', () => {
     renderHome();
 
     expect(
       screen.getByRole('heading', {
-        name: /swagger editor/i,
+        name: editor.title,
       }),
     ).toBeInTheDocument();
 
-    expect(screen.getByText(/viewer placeholder/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', {
+        name: viewer.title,
+      }),
+    ).toBeInTheDocument();
   });
 });

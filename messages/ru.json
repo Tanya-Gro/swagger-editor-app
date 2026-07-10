@@ -58,6 +58,9 @@
       "invalidYaml": "Недопустимая структура YAML"
     }
   },
+  "VIEWER": {
+    "title": "Просмотр"
+  },
   "PASSWORD": {
     "showPasswordButtonLabel": "Показать пароль",
     "hidePasswordButtonLabel": "Скрыть пароль"
