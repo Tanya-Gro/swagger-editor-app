@@ -1,11 +1,12 @@
-import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
-import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+import { LogoutOutlined, LoginOutlined, MenuOutlined } from '@mui/icons-material';
 import { Button, IconButton } from '@mui/material';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import styles from './Header.module.css';
+import { serverClient } from '@/database/server-client';
+import { logoutAction } from './logout-action';
 
 const cx = classNames.bind(styles);
 
@@ -14,8 +15,16 @@ const navigationLinks = [
   { href: '/', messageKey: 'editor' },
 ] as const;
 
-export function Header() {
-  const t = useTranslations('HEADER');
+export async function Header() {
+  const t = await getTranslations('HEADER');
+
+  const supabase = await serverClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const isAuthenticated = user !== null;
 
   return (
     <header className={cx('header')}>
@@ -36,38 +45,66 @@ export function Header() {
               {t(messageKey)}
             </Link>
           ))}
+          {isAuthenticated && (
+            <Link className={cx('nav-link')} href="/history">
+              {t('history')}
+            </Link>
+          )}
         </nav>
 
         <div className={cx('actions')}>
           <div className={cx('desktop-actions')}>
             <LanguageSwitcher />
-            <Link href="/login">
-              <Button component="span" startIcon={<LoginOutlinedIcon />} variant="contained">
-                {t('authAction')}
-              </Button>
-            </Link>
+
+            {isAuthenticated ? (
+              <form action={logoutAction}>
+                <Button startIcon={<LogoutOutlined />} variant="contained" type="submit">
+                  {t('signoutAction')}
+                </Button>
+              </form>
+            ) : (
+              <Link href="/login">
+                <Button component="span" startIcon={<LoginOutlined />} variant="contained">
+                  {t('authAction')}
+                </Button>
+              </Link>
+            )}
           </div>
 
           <details className={cx('mobile-menu-details')}>
             <summary aria-label={t('menuAriaLabel')} className={cx('mobile-menu-button')}>
               <IconButton aria-hidden="true" className={cx('mobile-menu-icon')} component="span" size="medium">
-                <MenuOutlinedIcon />
+                <MenuOutlined />
               </IconButton>
             </summary>
             <div className={cx('mobile-menu')} id="mobile-header-menu">
               <div className={cx('mobile-menu-section')} />
               <div className={cx('mobile-menu-section')}>
                 <LanguageSwitcher className={cx('mobile-menu-action')} />
-                <Link href="/login">
-                  <Button
-                    component="span"
-                    className={cx('mobile-menu-action')}
-                    startIcon={<LoginOutlinedIcon />}
-                    variant="contained"
-                  >
-                    {t('authAction')}
-                  </Button>
-                </Link>
+
+                {isAuthenticated ? (
+                  <form action={logoutAction}>
+                    <Button
+                      className={cx('mobile-menu-action')}
+                      startIcon={<LogoutOutlined />}
+                      variant="contained"
+                      type="submit"
+                    >
+                      {t('signoutAction')}
+                    </Button>
+                  </form>
+                ) : (
+                  <Link href="/login">
+                    <Button
+                      component="span"
+                      className={cx('mobile-menu-action')}
+                      startIcon={<LoginOutlined />}
+                      variant="contained"
+                    >
+                      {t('authAction')}
+                    </Button>
+                  </Link>
+                )}
               </div>
             </div>
           </details>
