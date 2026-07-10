@@ -28,10 +28,10 @@
     "emailLabel": "Почта",
     "emailHelperText": "Почта в формате name@example.com",
     "passwordLabel": "Придумайте пароль",
-    "passwordHelperText": "Пароль должен быть длинее 8 символов",
+    "passwordHelperText": "Пароль должен быть длиннее 8 символов",
     "repeatPasswordLabel": "Повторите пароль",
     "repeatPasswordHelperText": "Повторно введите пароль для подтверждения",
-    "actionButtonText": "Зарегестрироваться",
+    "actionButtonText": "Зарегистрироваться",
     "infoText": "Уже есть аккаунт?",
     "actionLinkText": "Войти"
   },

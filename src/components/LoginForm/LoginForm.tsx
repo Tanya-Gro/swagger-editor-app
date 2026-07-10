@@ -87,6 +87,7 @@ export function LoginForm() {
           name="password"
           helperText={t('passwordHelperText')}
           error={validationErrors.password}
+          autocomplete="current-password"
         />
 
         <Button variant="contained" fullWidth type="submit" className={cx('button')} loading={isLoading}>

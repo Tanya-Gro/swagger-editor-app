@@ -94,12 +94,14 @@ export function RegistrationForm() {
           name="password"
           helperText={t('passwordHelperText')}
           error={validationErrors.password}
+          autocomplete="new-password"
         />
         <PasswordField
           label={t('repeatPasswordLabel')}
           name="repeatPassword"
           helperText={t('repeatPasswordHelperText')}
           error={validationErrors.repeatPassword}
+          autocomplete="new-password"
         />
         <Button variant="contained" fullWidth type="submit" className={cx('button')} loading={isLoading}>
           {t('actionButtonText')}
