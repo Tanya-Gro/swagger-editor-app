@@ -34,7 +34,7 @@ describe('About', () => {
     const stack = screen.getByRole('list', { name: 'Project technology stack' });
 
     expect(within(roles).getAllByRole('listitem')).toHaveLength(4);
-    expect(within(roles).getByText('Anna Zas')).toBeInTheDocument();
+    expect(within(roles).getByText('Anna Zhuravleva')).toBeInTheDocument();
     expect(within(roles).getByRole('link', { name: /@ansivgit/i })).toHaveAttribute(
       'href',
       'https://github.com/ansivgit',

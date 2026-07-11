@@ -41,8 +41,8 @@
     "rolesAriaLabel": "Роли команды",
     "roles": {
       "alexey": {
-        "name": "Anna Zas",
-        "alt": "Портрет Anna Zas",
+        "name": "Anna Zhuravleva",
+        "alt": "Портрет Anna Zhuravleva",
         "description": "Аня - наш ментор. Очень строгий и суровый, но добрый в душе."
       },
       "daria": {
