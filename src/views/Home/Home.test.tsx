@@ -1,8 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import messages from '@messages/en.json';
 import { Home } from './Home';
+
+vi.mock('@/components/Viewer/Viewer', () => ({
+  Viewer: () => <h1>Swagger UI</h1>,
+}));
 
 function renderHome(): void {
   render(
@@ -12,15 +16,13 @@ function renderHome(): void {
   );
 }
 
-const editor = messages.EDITOR;
-
 describe('Home', () => {
   it('renders editor and viewer panel', () => {
     renderHome();
 
     expect(
       screen.getByRole('heading', {
-        name: editor.title,
+        name: /swagger editor/i,
       }),
     ).toBeInTheDocument();
 
