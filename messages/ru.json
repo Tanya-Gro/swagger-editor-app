@@ -49,13 +49,18 @@
       "loadingSuccess": "успешно загружен",
       "loadingError": "Ошибка при чтении файла",
       "fileTooLarge": "Размер файла не должен превышать 2MB",
-      "invalidFileType": "имеет недопустимый формат. Разрешены только JSON, YAML и YML.",
-      "unsupportedFormat": "Неподдерживаемый формат схемы",
-      "conversionDisabled": "Неподдерживаемый формат схемы. Конвертация невозможна",
+      "invalidFileType": "имеет недопустимый формат. Разрешены только JSON, YAML и YML",
       "conversionError": "Неподдерживаемый формат схемы. Конвертация невозможна",
       "jsonToYaml": "Не удалось сконвертировать JSON в YAML: проверьте синтаксис исходного кода",
       "yamlToJson": "Не удалось сконвертировать YAML в JSON: проверьте синтаксис исходного кода",
-      "invalidYaml": "Недопустимая структура YAML"
+      "invalidYaml": "Недопустимая структура YAML",
+      "invalidObject": "Схема должна представлять собой допустимый объект JSON/YAML",
+      "unknownValidationError": "Неизвестная ошибка валидации",
+      "invalidStructure": "Неверная структура",
+      "unknownError": "Неизвестная ошибка"
+    },
+    "errorList": {
+      "title": "Ошибки спецификации"
     }
   },
   "PASSWORD": {

@@ -16,3 +16,8 @@ export type ValidationResultLogin = {
 };
 
 export type TranslationFn = (key: string, values?: Record<string, string | number | Date>) => string;
+
+export type ValidationError = {
+  path: string;
+  message: string;
+};

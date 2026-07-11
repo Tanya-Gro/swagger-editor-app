@@ -1,0 +1,32 @@
+.error-panel {
+  overflow-y: auto;
+
+  max-height: 25%;
+  padding: 12px 16px;
+  border-top: 1px solid #f8b4b4;
+
+  background-color: #fdf2f2;
+}
+
+.title {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #9b1c1c;
+}
+
+.list {
+  margin: 0;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.error {
+  margin-bottom: 4px;
+  font-size: 13px;
+  color: #c81e1e;
+}
+
+.error-path {
+  color: #9b1c1c;
+}

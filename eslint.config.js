@@ -156,6 +156,8 @@ export default defineConfig([
       '@typescript-eslint/consistent-type-assertions': 'off',
       '@typescript-eslint/unbound-method': 'off',
       'no-magic-numbers': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
     },
   },
 ]);
