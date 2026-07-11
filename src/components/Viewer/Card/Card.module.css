@@ -4,12 +4,12 @@
   align-items: center;
 }
 
-.endpoint {
+.path {
   font-size: var(--font-size-s);
   color: var(--color-text-primary);
 }
 
-.description {
+.summary {
   font-size: var(--font-size-s);
   color: var(--color-text-secondary);
   text-transform: capitalize;

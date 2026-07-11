@@ -1,3 +1,5 @@
+import { type HTTP_METHODS } from './constants';
+
 export type EditorFormat = 'JSON' | 'YAML' | 'unknown';
 
 export type ValidationErrorsLogin = {
@@ -16,3 +18,11 @@ export type ValidationResultLogin = {
 };
 
 export type TranslationFn = (key: string, values?: Record<string, string | number | Date>) => string;
+
+export type HttpMethod = (typeof HTTP_METHODS)[number];
+
+export type Endpoint = {
+  path: string;
+  method: HttpMethod;
+  summary: string | null;
+};

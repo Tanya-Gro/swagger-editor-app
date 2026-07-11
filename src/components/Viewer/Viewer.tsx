@@ -1,20 +1,31 @@
+'use client';
+
 import styles from './Viewer.module.css';
 import classNames from 'classnames/bind';
 import { Card } from './Card/Card';
+import exampleSchema from './exampleSchema.json';
+import { getEndpoints } from '@/utils/viewer/getEndpoints';
 
 const cx = classNames.bind(styles);
 
 export function Viewer() {
+  const validSchema = JSON.stringify(exampleSchema);
+  const endpointList = getEndpoints(validSchema);
+
   return (
     <section>
       <header className={cx('header')}>
         <h1 className={cx('title')}>Swagger UI</h1>
       </header>
-      <ul className={cx('list')}>
-        <li>
-          <Card />
-        </li>
-      </ul>
+      {endpointList.length > 0 && (
+        <ul className={cx('list')}>
+          {endpointList.map((endpoint) => (
+            <li key={`${endpoint.method}-${endpoint.path}`}>
+              <Card path={endpoint.path} method={endpoint.method} summary={endpoint.summary} />
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }

@@ -34,16 +34,23 @@ const response = {
   status: 'success',
 };
 
-export function Card() {
+type CardProps = {
+  path: string;
+  method: string;
+  summary: string | null;
+};
+
+export function Card({ path, method, summary }: CardProps) {
   const t = useTranslations('ENDPOINT_CARD');
+
   return (
     <Accordion>
       <AccordionSummary expandIcon={<KeyboardArrowDown />}>
         <div className={cx('header')}>
-          <Chip label="GET" />
-          <code className={cx('endpoint')}>/users</code>
+          <Chip label={method} />
+          <code className={cx('path')}>{path}</code>
         </div>
-        <p className={cx('description')}>Get a list of all users</p>
+        <p className={cx('summary')}>{summary ?? ''}</p>
       </AccordionSummary>
       <Divider sx={{ margin: '16px 4px' }} />
       <AccordionDetails>

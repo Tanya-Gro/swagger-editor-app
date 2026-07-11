@@ -13,7 +13,6 @@ function renderHome(): void {
 }
 
 const editor = messages.EDITOR;
-const viewer = messages.VIEWER;
 
 describe('Home', () => {
   it('renders editor and viewer panel', () => {
@@ -27,7 +26,7 @@ describe('Home', () => {
 
     expect(
       screen.getByRole('heading', {
-        name: viewer.title,
+        name: /swagger ui/i,
       }),
     ).toBeInTheDocument();
   });
