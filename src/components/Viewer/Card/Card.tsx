@@ -5,6 +5,7 @@ import { ContentCopyOutlined, KeyboardArrowDown, PlayArrowOutlined } from '@mui/
 import { Button } from '@mui/material';
 import styles from './Card.module.css';
 import classNames from 'classnames/bind';
+import { useTranslations } from 'next-intl';
 
 const cx = classNames.bind(styles);
 
@@ -34,6 +35,7 @@ const response = {
 };
 
 export function Card() {
+  const t = useTranslations('ENDPOINT_CARD');
   return (
     <Accordion>
       <AccordionSummary expandIcon={<KeyboardArrowDown />}>
@@ -48,7 +50,7 @@ export function Card() {
         <form className={cx('form')}>
           {parameters.length > 0 && (
             <>
-              <p className={cx('section-title')}>Параметры</p>
+              <p className={cx('section-title')}>{t('parameters')}</p>
               {parameters.map((param) => (
                 <TextField fullWidth key={`${param.in}-${param.name}`} name={param.name} label={param.name} />
               ))}
@@ -56,7 +58,7 @@ export function Card() {
           )}
           <div className={cx('actions')}>
             <Button type="submit" variant="contained" startIcon={<PlayArrowOutlined />}>
-              Execute
+              {t('executeAction')}
             </Button>
             <Button type="button" variant="outlined" startIcon={<ContentCopyOutlined />}>
               cURL
@@ -64,7 +66,7 @@ export function Card() {
           </div>
         </form>
         <>
-          <p className={cx('section-title')}>Response</p>
+          <p className={cx('section-title')}>{t('response')}</p>
           <p className={cx('status')}>200 OK</p>
           <pre className={cx('response')}>
             <code>{JSON.stringify(response, null, 2)}</code>

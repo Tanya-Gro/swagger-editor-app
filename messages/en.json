@@ -57,11 +57,13 @@
       "invalidYaml": "Invalid YAML structure"
     }
   },
-  "VIEWER": {
-    "title": "Swagger Viewer"
-  },
   "PASSWORD": {
     "showPasswordButtonLabel": "Show password",
     "hidePasswordButtonLabel": "Hide password"
+  },
+  "ENDPOINT_CARD": {
+    "parameters": "Parameters",
+    "executeAction": "Execute",
+    "response": "Response"
   }
 }

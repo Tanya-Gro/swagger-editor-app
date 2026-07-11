@@ -64,5 +64,10 @@
   "PASSWORD": {
     "showPasswordButtonLabel": "Показать пароль",
     "hidePasswordButtonLabel": "Скрыть пароль"
+  },
+  "ENDPOINT_CARD": {
+    "parameters": "Параметры",
+    "executeAction": "Выполнить",
+    "response": "Ответ"
   }
 }
