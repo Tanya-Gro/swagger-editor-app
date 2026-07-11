@@ -36,6 +36,7 @@ export type JsonValue = JsonPrimitive | JsonValue[] | { [key: string]: JsonValue
 
 export type EndpointResponse = {
   status: string;
+  description: string | null;
   example: JsonValue | null;
 };
 

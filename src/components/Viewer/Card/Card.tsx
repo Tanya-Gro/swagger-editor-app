@@ -61,7 +61,7 @@ export function Card({ endpoint }: CardProps) {
               return (
                 <li key={res.status} className={cx('response')}>
                   <p className={cx('section-title')}>{t('response')}</p>
-                  <p className={cx('status')}>{res.status}</p>
+                  <p className={cx('status')}>{`${res.status}, ${res.description ?? ''}`}</p>
                   {res.example !== null && (
                     <pre>
                       <code>{JSON.stringify(res.example, null, 2)}</code>

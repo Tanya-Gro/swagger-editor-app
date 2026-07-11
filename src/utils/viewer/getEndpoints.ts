@@ -240,7 +240,11 @@ function getResponses(operation: Record<string, unknown>): EndpointResponse[] {
       continue;
     }
 
-    responses.push({ status, example: getResponseExample(response) });
+    responses.push({
+      status,
+      description: typeof response.description === 'string' ? response.description : null,
+      example: getResponseExample(response),
+    });
   }
 
   return responses.toSorted((firstResponse, secondResponse) => {
@@ -252,7 +256,9 @@ function getResponses(operation: Record<string, unknown>): EndpointResponse[] {
       return -1;
     }
 
-    return firstResponse.status.localeCompare(secondResponse.status, undefined, { numeric: true });
+    return firstResponse.status.localeCompare(secondResponse.status, undefined, {
+      numeric: true,
+    });
   });
 }
 
