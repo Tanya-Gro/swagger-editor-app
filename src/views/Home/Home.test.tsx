@@ -1,12 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import messages from '@messages/en.json';
 import { Home } from './Home';
-
-vi.mock('@/components/Viewer/Viewer', () => ({
-  Viewer: () => <h1>Swagger UI</h1>,
-}));
 
 function renderHome(): void {
   render(

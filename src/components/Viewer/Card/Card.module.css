@@ -37,17 +37,15 @@
 }
 
 .response {
+  margin: 0;
   padding: 12px;
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius-l);
+
   background-color: var(--color-background);
 }
 
-.status {
-  font-size: var(--font-size-s);
-}
-
-.responses-list {
+.list {
   display: flex;
   flex-direction: column;
   gap: 8px;

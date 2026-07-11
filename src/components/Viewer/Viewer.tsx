@@ -1,10 +1,30 @@
 import exampleSchema from './exampleSchema.json';
 import { getEndpoints } from '@/utils/viewer/getEndpoints';
-import { ViewerView } from '@/views/Viewer/Viewer';
+import classNames from 'classnames/bind';
+import { Card } from '@/components/Viewer/Card/Card';
+import styles from './Viewer.module.css';
 
-export async function Viewer() {
+const cx = classNames.bind(styles);
+
+export function Viewer() {
   const validSchema = JSON.stringify(exampleSchema);
-  const endpointList = await getEndpoints(validSchema);
+  const endpointList = getEndpoints(validSchema);
 
-  return <ViewerView endpointList={endpointList} />;
+  return (
+    <section>
+      <header className={cx('header')}>
+        <h1 className={cx('title')}>Swagger UI</h1>
+      </header>
+
+      {endpointList.length > 0 && (
+        <ul className={cx('list')}>
+          {endpointList.map((endpoint) => (
+            <li key={`${endpoint.method}-${endpoint.pathname}`}>
+              <Card endpoint={endpoint} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
 }

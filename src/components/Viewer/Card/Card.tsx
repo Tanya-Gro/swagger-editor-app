@@ -15,7 +15,7 @@ type CardProps = {
 };
 
 export function Card({ endpoint }: CardProps) {
-  const { path, method, summary, parameters, responses } = endpoint;
+  const { pathname, method, summary, parameters, responses } = endpoint;
   const t = useTranslations('ENDPOINT_CARD');
 
   return (
@@ -23,7 +23,7 @@ export function Card({ endpoint }: CardProps) {
       <AccordionSummary expandIcon={<KeyboardArrowDown />}>
         <div className={cx('header')}>
           <Chip label={method} />
-          <code className={cx('path')}>{path}</code>
+          <code className={cx('path')}>{pathname}</code>
         </div>
         <p className={cx('summary')}>{summary ?? ''}</p>
       </AccordionSummary>
@@ -33,17 +33,19 @@ export function Card({ endpoint }: CardProps) {
           {parameters.length > 0 && (
             <>
               <p className={cx('section-title')}>{t('parameters')}</p>
-              {parameters.map((param) => (
-                <TextField
-                  fullWidth
-                  key={`${param.in}-${param.name}`}
-                  name={param.name}
-                  label={param.name}
-                  helperText={param.description ?? ''}
-                  required={param.required}
-                  type="string"
-                />
-              ))}
+              {parameters.map((param) => {
+                return (
+                  <TextField
+                    key={`${param.in}-${param.name}`}
+                    fullWidth
+                    name={param.name}
+                    label={param.name}
+                    helperText={param.description ?? ''}
+                    required={param.required}
+                    type="string"
+                  />
+                );
+              })}
             </>
           )}
           <div className={cx('actions')}>
@@ -56,21 +58,19 @@ export function Card({ endpoint }: CardProps) {
           </div>
         </form>
         <section className={cx('responses')}>
-          <ul className={cx('responses-list')}>
-            {responses.map((res) => {
-              return (
-                <li key={res.status} className={cx('response')}>
-                  <p className={cx('section-title')}>{t('response')}</p>
-                  <p className={cx('status')}>{`${res.status}, ${res.description ?? ''}`}</p>
-                  {res.example !== null && (
-                    <pre>
-                      <code>{JSON.stringify(res.example, null, 2)}</code>
+          {responses && (
+            <ul className={cx('list')}>
+              {Object.entries(responses).map(([status, response]) => {
+                return (
+                  <li key={status} className={cx('list-item')}>
+                    <pre className={cx('response')}>
+                      <code>{JSON.stringify({ status, response }, null, 2)}</code>
                     </pre>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </section>
       </AccordionDetails>
     </Accordion>
