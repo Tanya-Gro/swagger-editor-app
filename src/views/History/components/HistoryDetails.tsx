@@ -3,9 +3,9 @@
 import { Button, Chip } from '@mui/material';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
-import { formatBytes, formatTimestamp } from './history-format';
-import type { RequestHistoryItem } from './types';
-import styles from './History.module.css';
+import { formatBytes, formatTimestamp } from '../utils/history-format';
+import type { RequestHistoryItem } from '../types';
+import styles from '../History.module.css';
 
 type HistoryDetailsProperties = Readonly<{
   entry: RequestHistoryItem;

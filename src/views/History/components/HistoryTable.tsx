@@ -3,9 +3,9 @@
 import { Chip, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
-import { formatBytes, formatTimestamp } from './history-format';
-import type { HistoryMethod, HistoryStatusTone, RequestHistoryItem } from './types';
-import styles from './History.module.css';
+import { formatBytes, formatTimestamp } from '../utils/history-format';
+import type { HistoryMethod, HistoryStatusTone, RequestHistoryItem } from '../types';
+import styles from '../History.module.css';
 
 const methodColors: Record<HistoryMethod, 'info' | 'success' | 'warning' | 'error'> = {
   GET: 'info',

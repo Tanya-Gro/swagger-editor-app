@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
-import { getHistoryEntryById } from '@/views/History/history-data';
-import { HistoryDetails } from '@/views/History/HistoryDetails';
+import { HistoryDetails } from '@/views/History/components/HistoryDetails';
+import { getHistoryEntryById } from '@/views/History/data/history-data';
 
 type HistoryDetailsPageProperties = Readonly<{
   params: Promise<{

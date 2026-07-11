@@ -1,5 +1,5 @@
-import { getHistoryEntries } from './history-data';
-import { HistoryClient } from './HistoryClient';
+import { HistoryClient } from './components/HistoryClient';
+import { getHistoryEntries } from './data/history-data';
 import styles from './History.module.css';
 
 type HistoryProperties = Readonly<{
