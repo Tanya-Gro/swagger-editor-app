@@ -256,6 +256,14 @@ function getResponses(operation: Record<string, unknown>): EndpointResponse[] {
   });
 }
 
+function getPathGroup(path: string): string {
+  return path.split('/').find(Boolean) ?? '';
+}
+
+function getEndpointGroup(endpoint: Endpoint): string {
+  return endpoint.tags[0] ?? getPathGroup(endpoint.path);
+}
+
 export const getEndpoints = async (schema: string): Promise<Endpoint[]> => {
   const parsedSchema: unknown = parse(schema);
 
@@ -285,10 +293,15 @@ export const getEndpoints = async (schema: string): Promise<Endpoint[]> => {
 
       const summary = typeof operation.summary === 'string' ? operation.summary : null;
 
+      const tags = Array.isArray(operation.tags)
+        ? operation.tags.filter((tag): tag is string => typeof tag === 'string')
+        : [];
+
       endpoints.push({
         path,
         method,
         summary,
+        tags,
         parameters: getParameters(pathItem, operation),
         responses: getResponses(operation),
       });
@@ -296,12 +309,18 @@ export const getEndpoints = async (schema: string): Promise<Endpoint[]> => {
   }
 
   return endpoints.toSorted((firstEndpoint, secondEndpoint) => {
-    const pathComparison = firstEndpoint.path.localeCompare(secondEndpoint.path);
+    const groupComparison = getEndpointGroup(firstEndpoint).localeCompare(getEndpointGroup(secondEndpoint));
 
-    if (pathComparison !== 0) {
-      return pathComparison;
+    if (groupComparison !== 0) {
+      return groupComparison;
     }
 
-    return HTTP_METHOD_ORDER[firstEndpoint.method] - HTTP_METHOD_ORDER[secondEndpoint.method];
+    const methodComparison = HTTP_METHOD_ORDER[firstEndpoint.method] - HTTP_METHOD_ORDER[secondEndpoint.method];
+
+    if (methodComparison !== 0) {
+      return methodComparison;
+    }
+
+    return firstEndpoint.path.localeCompare(secondEndpoint.path);
   });
 };

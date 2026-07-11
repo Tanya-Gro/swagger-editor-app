@@ -43,6 +43,7 @@ export type Endpoint = {
   path: string;
   method: HttpMethod;
   summary: string | null;
+  tags: string[];
   parameters: EndpointParameter[];
   responses: EndpointResponse[];
 };
