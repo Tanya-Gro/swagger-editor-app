@@ -21,7 +21,12 @@ export function Viewer() {
         <ul className={cx('list')}>
           {endpointList.map((endpoint) => (
             <li key={`${endpoint.method}-${endpoint.path}`}>
-              <Card path={endpoint.path} method={endpoint.method} summary={endpoint.summary} />
+              <Card
+                path={endpoint.path}
+                method={endpoint.method}
+                summary={endpoint.summary}
+                parameters={endpoint.parameters}
+              />
             </li>
           ))}
         </ul>

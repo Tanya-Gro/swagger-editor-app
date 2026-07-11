@@ -6,23 +6,9 @@ import { Button } from '@mui/material';
 import styles from './Card.module.css';
 import classNames from 'classnames/bind';
 import { useTranslations } from 'next-intl';
+import { type EndpointParameter } from '@/types';
 
 const cx = classNames.bind(styles);
-
-const parameters = [
-  {
-    name: 'id',
-    in: 'path',
-    required: true,
-    schema: { type: 'string' },
-  },
-  {
-    name: 'includePosts',
-    in: 'query',
-    required: false,
-    schema: { type: 'boolean' },
-  },
-];
 
 const response = {
   data: [
@@ -38,9 +24,10 @@ type CardProps = {
   path: string;
   method: string;
   summary: string | null;
+  parameters: EndpointParameter[];
 };
 
-export function Card({ path, method, summary }: CardProps) {
+export function Card({ path, method, summary, parameters }: CardProps) {
   const t = useTranslations('ENDPOINT_CARD');
 
   return (
@@ -59,7 +46,15 @@ export function Card({ path, method, summary }: CardProps) {
             <>
               <p className={cx('section-title')}>{t('parameters')}</p>
               {parameters.map((param) => (
-                <TextField fullWidth key={`${param.in}-${param.name}`} name={param.name} label={param.name} />
+                <TextField
+                  fullWidth
+                  key={`${param.in}-${param.name}`}
+                  name={param.name}
+                  label={param.name}
+                  helperText={param.description ?? ''}
+                  required={param.required}
+                  type="string"
+                />
               ))}
             </>
           )}

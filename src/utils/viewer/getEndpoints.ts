@@ -1,6 +1,6 @@
 import { parse } from 'yaml';
-import { type Endpoint } from '@/types';
-import { HTTP_METHODS } from '@/constants';
+import { type Endpoint, type ParameterLocation, type EndpointParameter } from '@/types';
+import { HTTP_METHODS, PARAMETER_LOCATIONS } from '@/constants';
 
 const HTTP_METHOD_ORDER = {
   get: 0,
@@ -10,8 +10,57 @@ const HTTP_METHOD_ORDER = {
   delete: 4,
 } satisfies Record<Endpoint['method'], number>;
 
+const PARAMETER_LOCATION_SET: ReadonlySet<string> = new Set(PARAMETER_LOCATIONS);
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
+}
+
+function isParameterLocation(value: unknown): value is ParameterLocation {
+  return typeof value === 'string' && PARAMETER_LOCATION_SET.has(value);
+}
+
+function getParameter(value: unknown): EndpointParameter | null {
+  if (!isRecord(value) || typeof value.name !== 'string' || !isParameterLocation(value.in)) {
+    return null;
+  }
+
+  return {
+    name: value.name,
+    in: value.in,
+    required: value.required === true,
+    description: typeof value.description === 'string' ? value.description : null,
+  };
+}
+
+function getParameters(pathItem: Record<string, unknown>, operation: Record<string, unknown>): EndpointParameter[] {
+  const pathParameters = Array.isArray(pathItem.parameters) ? pathItem.parameters : [];
+
+  const operationParameters = Array.isArray(operation.parameters) ? operation.parameters : [];
+
+  const parameters = new Map<string, EndpointParameter>();
+
+  for (const value of pathParameters) {
+    const parameter = getParameter(value);
+
+    if (parameter === null) {
+      continue;
+    }
+
+    parameters.set(`${parameter.in}-${parameter.name}`, parameter);
+  }
+
+  for (const value of operationParameters) {
+    const parameter = getParameter(value);
+
+    if (parameter === null) {
+      continue;
+    }
+
+    parameters.set(`${parameter.in}-${parameter.name}`, parameter);
+  }
+
+  return [...parameters.values()];
 }
 
 export const getEndpoints = (schema: string): Endpoint[] => {
@@ -41,6 +90,7 @@ export const getEndpoints = (schema: string): Endpoint[] => {
         path,
         method,
         summary,
+        parameters: getParameters(pathItem, operation),
       });
     }
   }

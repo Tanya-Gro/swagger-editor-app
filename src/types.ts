@@ -1,4 +1,4 @@
-import { type HTTP_METHODS } from './constants';
+import { type HTTP_METHODS, type PARAMETER_LOCATIONS } from './constants';
 
 export type EditorFormat = 'JSON' | 'YAML' | 'unknown';
 
@@ -21,8 +21,18 @@ export type TranslationFn = (key: string, values?: Record<string, string | numbe
 
 export type HttpMethod = (typeof HTTP_METHODS)[number];
 
+export type ParameterLocation = (typeof PARAMETER_LOCATIONS)[number];
+
+export type EndpointParameter = {
+  name: string;
+  in: 'path' | 'query' | 'header' | 'cookie';
+  required: boolean;
+  description: string | null;
+};
+
 export type Endpoint = {
   path: string;
   method: HttpMethod;
   summary: string | null;
+  parameters: EndpointParameter[];
 };
