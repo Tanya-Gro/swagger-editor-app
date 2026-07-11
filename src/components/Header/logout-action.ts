@@ -9,7 +9,7 @@ export async function logoutAction(): Promise<never> {
   const { error } = await supabase.auth.signOut();
 
   if (error) {
-    throw error;
+    console.error('Cannot logout:', error);
   }
 
   redirect('/');

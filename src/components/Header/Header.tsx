@@ -7,12 +7,7 @@ export async function Header() {
 
   const {
     data: { user },
-    error,
   } = await supabase.auth.getUser();
-
-  if (error) {
-    throw error;
-  }
 
   return <HeaderView isAuthenticated={user !== null} logoutAction={logoutAction} />;
 }
