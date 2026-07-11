@@ -46,3 +46,13 @@
 .status {
   font-size: var(--font-size-s);
 }
+
+.responses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  padding: 0;
+
+  list-style: none;
+}

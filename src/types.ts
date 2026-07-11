@@ -30,9 +30,19 @@ export type EndpointParameter = {
   description: string | null;
 };
 
+export type JsonPrimitive = string | number | boolean | null;
+
+export type JsonValue = JsonPrimitive | JsonValue[] | { [key: string]: JsonValue };
+
+export type EndpointResponse = {
+  status: string;
+  example: JsonValue | null;
+};
+
 export type Endpoint = {
   path: string;
   method: HttpMethod;
   summary: string | null;
   parameters: EndpointParameter[];
+  responses: EndpointResponse[];
 };

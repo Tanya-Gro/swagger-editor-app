@@ -6,28 +6,13 @@ import { Button } from '@mui/material';
 import styles from './Card.module.css';
 import classNames from 'classnames/bind';
 import { useTranslations } from 'next-intl';
-import { type EndpointParameter } from '@/types';
+import { type Endpoint } from '@/types';
 
 const cx = classNames.bind(styles);
 
-const response = {
-  data: [
-    {
-      id: 1,
-      name: 'John',
-    },
-  ],
-  status: 'success',
-};
+type CardProps = Endpoint;
 
-type CardProps = {
-  path: string;
-  method: string;
-  summary: string | null;
-  parameters: EndpointParameter[];
-};
-
-export function Card({ path, method, summary, parameters }: CardProps) {
+export function Card({ path, method, summary, parameters, responses }: CardProps) {
   const t = useTranslations('ENDPOINT_CARD');
 
   return (
@@ -67,13 +52,23 @@ export function Card({ path, method, summary, parameters }: CardProps) {
             </Button>
           </div>
         </form>
-        <>
-          <p className={cx('section-title')}>{t('response')}</p>
-          <p className={cx('status')}>200 OK</p>
-          <pre className={cx('response')}>
-            <code>{JSON.stringify(response, null, 2)}</code>
-          </pre>
-        </>
+        <section className={cx('responses')}>
+          <ul className={cx('responses-list')}>
+            {responses.map((res) => {
+              return (
+                <li key={res.status} className={cx('response')}>
+                  <p className={cx('section-title')}>{t('response')}</p>
+                  <p className={cx('status')}>{res.status}</p>
+                  {res.example !== null && (
+                    <pre>
+                      <code>{JSON.stringify(res.example, null, 2)}</code>
+                    </pre>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
       </AccordionDetails>
     </Accordion>
   );

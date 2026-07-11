@@ -8,9 +8,9 @@ import { getEndpoints } from '@/utils/viewer/getEndpoints';
 
 const cx = classNames.bind(styles);
 
-export function Viewer() {
+export async function Viewer() {
   const validSchema = JSON.stringify(exampleSchema);
-  const endpointList = getEndpoints(validSchema);
+  const endpointList = await getEndpoints(validSchema);
 
   return (
     <section>
@@ -26,6 +26,7 @@ export function Viewer() {
                 method={endpoint.method}
                 summary={endpoint.summary}
                 parameters={endpoint.parameters}
+                responses={endpoint.responses}
               />
             </li>
           ))}
