@@ -10,9 +10,12 @@ import { type Endpoint } from '@/types';
 
 const cx = classNames.bind(styles);
 
-type CardProps = Endpoint;
+type CardProps = {
+  endpoint: Endpoint;
+};
 
-export function Card({ path, method, summary, parameters, responses }: CardProps) {
+export function Card({ endpoint }: CardProps) {
+  const { path, method, summary, parameters, responses } = endpoint;
   const t = useTranslations('ENDPOINT_CARD');
 
   return (
