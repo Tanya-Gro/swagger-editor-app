@@ -4,6 +4,9 @@ import { MuiIconButton } from './components/MuiIconButton';
 import { MuiOutlinedInput } from './components/MuiOutlinedInput';
 import { MuiInputLabel } from './components/MuiInputLabel';
 import { MuiToggleButton, MuiToggleButtonGroup } from './components/MuiToggleButton';
+import { MuiAccordion } from './components/MuiAccordion';
+import { MuiAccordionDetails } from './components/MuiAccordionDetails';
+import { MuiAccordionSummary } from './components/MuiAccordionSummary';
 
 export const theme = createTheme({
   components: {
@@ -13,5 +16,8 @@ export const theme = createTheme({
     MuiInputLabel,
     MuiToggleButton,
     MuiToggleButtonGroup,
+    MuiAccordion,
+    MuiAccordionDetails,
+    MuiAccordionSummary,
   },
 });

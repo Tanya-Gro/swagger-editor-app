@@ -1,12 +1,27 @@
 'use client';
 
-import { Accordion, AccordionDetails, AccordionSummary, Chip, Divider, TextField, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Chip, Divider, TextField } from '@mui/material';
 import { ContentCopyOutlined, KeyboardArrowDown, PlayArrowOutlined } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import styles from './Card.module.css';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
+
+const parameters = [
+  {
+    name: 'id',
+    in: 'path',
+    required: true,
+    schema: { type: 'string' },
+  },
+  {
+    name: 'includePosts',
+    in: 'query',
+    required: false,
+    schema: { type: 'boolean' },
+  },
+];
 
 const response = {
   data: [
@@ -22,28 +37,39 @@ export function Card() {
   return (
     <Accordion>
       <AccordionSummary expandIcon={<KeyboardArrowDown />}>
-        <div className={cx()}>
+        <div className={cx('header')}>
           <Chip label="GET" />
-          <Typography component="code">/users</Typography>
+          <code className={cx('endpoint')}>/users</code>
         </div>
-        <p>Get a list of all users</p>
+        <p className={cx('description')}>Get a list of all users</p>
       </AccordionSummary>
-      <Divider />
+      <Divider sx={{ margin: '16px 4px' }} />
       <AccordionDetails>
-        <TextField name="Parameters" placeholder="id" />
-        {/* использовать переводы тут*/}
-        <Button variant="contained" startIcon={<PlayArrowOutlined />}>
-          Execute
-        </Button>
-        <Button variant="outlined" startIcon={<ContentCopyOutlined />}>
-          cURL
-        </Button>
-        <div></div>
-        <p>Response</p>
-        <p>200 OK</p>
-        <pre>
-          <code>{JSON.stringify(response, null, 2)}</code>
-        </pre>
+        <form className={cx('form')}>
+          {parameters.length > 0 && (
+            <>
+              <p className={cx('section-title')}>Параметры</p>
+              {parameters.map((param) => (
+                <TextField fullWidth key={`${param.in}-${param.name}`} name={param.name} label={param.name} />
+              ))}
+            </>
+          )}
+          <div className={cx('actions')}>
+            <Button type="submit" variant="contained" startIcon={<PlayArrowOutlined />}>
+              Execute
+            </Button>
+            <Button type="button" variant="outlined" startIcon={<ContentCopyOutlined />}>
+              cURL
+            </Button>
+          </div>
+        </form>
+        <>
+          <p className={cx('section-title')}>Response</p>
+          <p className={cx('status')}>200 OK</p>
+          <pre className={cx('response')}>
+            <code>{JSON.stringify(response, null, 2)}</code>
+          </pre>
+        </>
       </AccordionDetails>
     </Accordion>
   );
