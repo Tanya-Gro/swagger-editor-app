@@ -34,6 +34,7 @@
     "linkText": "Регистрация",
     "validation": {
       "invalidEmailFormat": "Неверный формат почты",
+      "validationSuccess": "Схема успешно проверена",
       "invalidPassword": "Необходимо ввести пароль",
       "passwordMinLength": "Минимальная длина пароля 8 символов",
       "passwordLetter": "Пароль должен содержать английские буквы",

@@ -46,6 +46,7 @@
     "loadButton": "Load",
     "notifications": {
       "loadingSuccess": "successfully loaded",
+      "validationSuccess": "Schema successfully parsed",
       "loadingError": "Error reading file",
       "fileTooLarge": "The file size must not exceed 2MB",
       "invalidFileType": "has an invalid format. Only JSON, YAML, and YML are allowed",
