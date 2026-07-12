@@ -38,8 +38,6 @@
     },
     "validation": {
       "invalidEmailFormat": "Неверный формат почты",
-      "validationSuccess": "Схема успешно проверена",
-      "invalidPassword": "Необходимо ввести пароль",
       "passwordMinLength": "Минимальная длина пароля 8 символов",
       "passwordLetter": "Пароль должен содержать английские буквы",
       "passwordDigit": "Пароль должен содержать хотя бы одну цифру",
@@ -52,6 +50,7 @@
     "loadButton": "Загрузить",
     "notifications": {
       "loadingSuccess": "успешно загружен",
+      "validationSuccess": "Схема успешно проверена",
       "loadingError": "Ошибка при чтении файла",
       "fileTooLarge": "Размер файла не должен превышать 2MB",
       "invalidFileType": "имеет недопустимый формат. Разрешены только JSON, YAML и YML",
