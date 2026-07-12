@@ -22,6 +22,7 @@ type EditorState = {
   setFormat: (format: EditorFormat) => void;
   updateSchema: (text: string, onCriticalError?: (msg: string) => void) => void;
   clearErrors: () => void;
+  // loadAuthenticatedSchema: () => Promise<void>;
 };
 
 const AUTO_DETECT_DELAY = 600;

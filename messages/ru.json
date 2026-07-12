@@ -32,6 +32,10 @@
     "actionButtonText": "Войти",
     "hintText": "Нет аккаунта?",
     "linkText": "Регистрация",
+    "notifications": {
+      "loginSuccessful": "Вход выполнен успешно:",
+      "loginFailed": "Ошибка входа"
+    },
     "validation": {
       "invalidEmailFormat": "Неверный формат почты",
       "validationSuccess": "Схема успешно проверена",

@@ -32,6 +32,10 @@
     "actionButtonText": "Log in",
     "hintText": "Don't have an account yet?",
     "linkText": "Register",
+    "notifications": {
+      "loginSuccessful": "Login successful:",
+      "loginFailed": "Login failed"
+    },
     "validation": {
       "invalidEmailFormat": "Incorrect email format",
       "passwordMinLength": "Password must be at least 8 characters long",
