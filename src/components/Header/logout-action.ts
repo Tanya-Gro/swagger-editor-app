@@ -6,10 +6,13 @@ import { redirect } from 'next/navigation';
 export async function logoutAction(): Promise<never> {
   const supabase = await serverClient();
 
-  const { error } = await supabase.auth.signOut();
-
-  if (error) {
-    console.error('Cannot logout:', error);
+  try {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error('Cannot logout:', error);
+    }
+  } catch (error) {
+    console.error('Logout failed:', error);
   }
 
   redirect('/');
