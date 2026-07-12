@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { json } from '@codemirror/lang-json';
 import { yaml } from '@codemirror/lang-yaml';
 import CodeMirror from '@uiw/react-codemirror';
@@ -28,12 +28,25 @@ export function Editor({ fetchError }: EditorProps) {
   const schema = useEditorStore((state) => state.schema);
   const setSchema = useEditorStore((state) => state.updateSchema);
   const isHydrated = useEditorStore((state) => state.isHydrated);
+  const isValidating = useEditorStore((state) => state.isValidating);
+  const isValid = useEditorStore((state) => state.isValid);
+  const validSchema = useEditorStore((state) => state.validSchema);
+
+  const prevIsValidRef = useRef(isValid);
 
   useEffect(() => {
     if (fetchError) {
       toast.error(t(fetchError));
     }
   }, [fetchError, t]);
+
+  useEffect(() => {
+    if (isValid && !isValidating && validSchema && !prevIsValidRef.current) {
+      toast.success(t('notifications.validationSuccess'));
+    }
+
+    prevIsValidRef.current = isValid;
+  }, [validSchema, isValid, isValidating, t]);
 
   const extension = useMemo(() => {
     switch (format) {

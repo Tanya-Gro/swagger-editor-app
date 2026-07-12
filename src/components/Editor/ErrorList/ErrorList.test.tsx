@@ -3,15 +3,8 @@ import { describe, it, expect, vi } from 'vitest';
 import { NextIntlClientProvider } from 'next-intl';
 import { ErrorList } from './ErrorList';
 import { useEditorStore } from '@/store/useEditorStore';
-import { toast } from '@/utils/toast/toast';
 import type { EditorFormat, ValidationError } from '@/types';
 import messages from '@messages/en.json';
-
-vi.mock('@/utils/toast/toast', () => ({
-  toast: {
-    success: vi.fn(),
-  },
-}));
 
 vi.mock('@/store/useEditorStore', () => ({
   useEditorStore: vi.fn(),
@@ -152,14 +145,6 @@ describe('ErrorList Component', () => {
 
     const panel = screen.getByTestId('error-list');
     expect(panel).toHaveAttribute('aria-live', 'polite');
-  });
-
-  it('should trigger toast.success from useEffect when validation succeeds', () => {
-    setupStoreMock({ isValid: true, isValidating: false, validSchema: 'new-valid-schema' });
-
-    renderErrorList();
-
-    expect(toast.success).toHaveBeenCalledWith(messages.EDITOR.notifications.validationSuccess);
   });
 
   it('should have the correct data-testid attribute for integration tests', () => {

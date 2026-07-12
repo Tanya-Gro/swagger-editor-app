@@ -1,8 +1,6 @@
-import { useEffect } from 'react';
-import { toast } from '@/utils/toast/toast';
-import Loading from '@/app/loading';
 import { useTranslations } from 'next-intl';
 import { useEditorStore } from '@/store/useEditorStore';
+import Loading from '@/app/loading';
 
 import classNames from 'classnames/bind';
 import styles from './ErrorList.module.css';
@@ -11,17 +9,11 @@ const cx = classNames.bind(styles);
 
 export const ErrorList = () => {
   const t = useTranslations('EDITOR');
+
   const isValidating = useEditorStore((state) => state.isValidating);
   const isValid = useEditorStore((state) => state.isValid);
   const isHydrated = useEditorStore((state) => state.isHydrated);
-  const validSchema = useEditorStore((state) => state.validSchema);
   const errors = useEditorStore((state) => state.errors);
-
-  useEffect(() => {
-    if (isValid && !isValidating && validSchema) {
-      toast.success(t('notifications.validationSuccess'));
-    }
-  }, [validSchema, isValid, isValidating, t]);
 
   if (!isHydrated || isValid) {
     return null;
