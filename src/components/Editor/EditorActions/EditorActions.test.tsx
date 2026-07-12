@@ -38,8 +38,10 @@ describe('EditorActions', () => {
         errors: [],
         isValid: true,
         isValidating: false,
+        isHydrated: true,
         validationGeneration: 0,
         debounceTimeoutId: null,
+        saveTimeoutId: null,
         clearErrors: vi.fn(),
       }),
     );

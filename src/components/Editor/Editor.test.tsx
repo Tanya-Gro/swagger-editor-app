@@ -31,8 +31,10 @@ describe('Editor', () => {
         validSchema: '',
         isValid: errors.length === 0,
         isValidating: false,
+        isHydrated: true,
         debounceTimeoutId: null,
         validationGeneration: 0,
+        saveTimeoutId: null,
         clearErrors: vi.fn(),
       }),
     );

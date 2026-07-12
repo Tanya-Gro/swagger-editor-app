@@ -1,7 +1,16 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi, beforeAll } from 'vitest';
 import { useEditorStore } from './useEditorStore';
 import { validateSchema } from '@/utils/editor/validateSchema/validateSchema';
 import { detectFormat } from '@/utils/editor/detectFormat/detectFormat';
+
+beforeAll(() => {
+  process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://supabase.co';
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'mock-key';
+});
+
+vi.mock('@/app/actions/schemaActions', () => ({
+  updateSchemaAction: vi.fn(() => Promise.resolve({ success: true })),
+}));
 
 vi.mock('@/utils/editor/validateSchema/validateSchema', () => ({
   validateSchema: vi.fn(),
@@ -21,8 +30,11 @@ describe('useEditorStore', () => {
       format: 'JSON',
       errors: [],
       isValid: true,
+      isHydrated: true,
       isValidating: false,
+      validationGeneration: 0,
       debounceTimeoutId: null,
+      saveTimeoutId: null,
     });
   });
 
