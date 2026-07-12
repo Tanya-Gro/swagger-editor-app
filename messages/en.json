@@ -61,6 +61,7 @@
       "invalidObject": "Schema must be a valid JSON/YAML object",
       "unknownValidationError": "Unknown validation error",
       "invalidStructure": "Invalid structure",
+      "failToFetch": "Failed to fetch initial schema from Supabase",
       "unknownError": "Unknown error"
     },
     "errorList": {

@@ -61,6 +61,7 @@
       "invalidObject": "Схема должна представлять собой допустимый объект JSON/YAML",
       "unknownValidationError": "Неизвестная ошибка валидации",
       "invalidStructure": "Неверная структура",
+      "failToFetch": "Не удалось получить исходную схему из Supabase.",
       "unknownError": "Неизвестная ошибка"
     },
     "errorList": {

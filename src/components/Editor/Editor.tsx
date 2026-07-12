@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { json } from '@codemirror/lang-json';
 import { yaml } from '@codemirror/lang-yaml';
 import CodeMirror from '@uiw/react-codemirror';
@@ -12,14 +12,28 @@ import { useEditorStore } from '@/store/useEditorStore';
 import classNames from 'classnames/bind';
 import styles from './Editor.module.css';
 import Loading from '@/app/loading';
+import { toast } from '@/utils/toast/toast';
+import { useTranslations } from 'next-intl';
 
 const cx = classNames.bind(styles);
 
-export function Editor() {
+type EditorProps = {
+  fetchError?: string | undefined;
+};
+
+export function Editor({ fetchError }: EditorProps) {
+  const t = useTranslations('EDITOR');
+
   const format = useEditorStore((state) => state.format);
   const schema = useEditorStore((state) => state.schema);
   const setSchema = useEditorStore((state) => state.updateSchema);
   const isHydrated = useEditorStore((state) => state.isHydrated);
+
+  useEffect(() => {
+    if (fetchError) {
+      toast.error(t(fetchError));
+    }
+  }, [fetchError, t]);
 
   const extension = useMemo(() => {
     switch (format) {

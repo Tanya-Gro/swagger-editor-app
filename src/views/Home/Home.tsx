@@ -10,27 +10,32 @@ import type { EditorFormat } from '@/types';
 const cx = classNames.bind(styles);
 
 export async function Home() {
-  const supabase = await serverClient();
   let initialSchema = '';
   let initialFormat: EditorFormat = 'JSON';
+  let fetchError: string | undefined = undefined;
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  try {
+    const supabase = await serverClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  if (user) {
-    const dbData = await getSchema(supabase, user.id);
+    if (user) {
+      const dbData = await getSchema(supabase, user.id);
 
-    if (dbData) {
-      initialSchema = dbData.schema;
-      initialFormat = dbData.format;
+      if (dbData) {
+        initialSchema = dbData.schema;
+        initialFormat = dbData.format;
+      }
     }
+  } catch {
+    fetchError = 'notifications.failToFetch';
   }
 
   return (
     <div className={cx('main-layout')}>
       <EditorStoreInitializer initialSchema={initialSchema} initialFormat={initialFormat} />
-      <Editor />
+      <Editor fetchError={fetchError} />
       <div className={cx('panel')}>Viewer placeholder</div>
     </div>
   );
