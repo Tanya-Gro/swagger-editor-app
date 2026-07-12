@@ -23,6 +23,18 @@
   "MAIN_PAGE": {
     "title": "Main page"
   },
+  "REGISTRATION_PAGE": {
+    "title": "Registration",
+    "emailLabel": "Email",
+    "emailHelperText": "The email must be in the format name@example.com",
+    "passwordLabel": "Create a password",
+    "passwordHelperText": "The password must be longer than 8 characters",
+    "repeatPasswordLabel": "Repeat your password",
+    "repeatPasswordHelperText": "Re-enter your password to confirm",
+    "actionButtonText": "Register",
+    "infoText": "Already have an account?",
+    "actionLinkText": "Log in"
+  },
   "LOGIN_PAGE": {
     "title": "Login",
     "emailLabel": "Email",
@@ -31,14 +43,7 @@
     "passwordHelperText": "Please enter your password",
     "actionButtonText": "Log in",
     "hintText": "Don't have an account yet?",
-    "linkText": "Register",
-    "validation": {
-      "invalidEmailFormat": "Incorrect email format",
-      "passwordMinLength": "Password must be at least 8 characters long",
-      "passwordLetter": "Password must contain at least one letter",
-      "passwordDigit": "Password must contain at least one digit",
-      "passwordSpecialChar": "Password must contain at least one special character"
-    }
+    "linkText": "Register"
   },
   "EDITOR": {
     "title": "Swagger Editor",
@@ -65,5 +70,19 @@
   "PASSWORD": {
     "showPasswordButtonLabel": "Show password",
     "hidePasswordButtonLabel": "Hide password"
+  },
+  "FORM_VALIDATION": {
+    "invalidEmailFormat": "Incorrect email format",
+    "passwordMinLength": "Password must be at least 8 characters long",
+    "passwordLetter": "Password must contain at least one letter",
+    "passwordDigit": "Password must contain at least one digit",
+    "passwordSpecialChar": "Password must contain at least one special character",
+    "repeatPassword": "Passwords must match"
+  },
+  "DATABASE": {
+    "user_already_exists": "A user with this email already exists",
+    "successful_registration": "Registration successful",
+    "unknown_error": "An error occurred. Please try again later",
+    "unexpected_failure": "Something went wrong. Please try reloading the page"
   }
 }

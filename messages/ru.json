@@ -23,6 +23,18 @@
   "MAIN_PAGE": {
     "title": "Главная страница"
   },
+  "REGISTRATION_PAGE": {
+    "title": "Регистрация",
+    "emailLabel": "Почта",
+    "emailHelperText": "Почта в формате name@example.com",
+    "passwordLabel": "Придумайте пароль",
+    "passwordHelperText": "Пароль должен быть длиннее 8 символов",
+    "repeatPasswordLabel": "Повторите пароль",
+    "repeatPasswordHelperText": "Повторно введите пароль для подтверждения",
+    "actionButtonText": "Зарегистрироваться",
+    "infoText": "Уже есть аккаунт?",
+    "actionLinkText": "Войти"
+  },
   "LOGIN_PAGE": {
     "title": "Вход",
     "emailLabel": "Почта",
@@ -31,15 +43,7 @@
     "passwordHelperText": "Ваш пароль",
     "actionButtonText": "Войти",
     "hintText": "Нет аккаунта?",
-    "linkText": "Регистрация",
-    "validation": {
-      "invalidEmailFormat": "Неверный формат почты",
-      "invalidPassword": "Необходимо ввести пароль",
-      "passwordMinLength": "Минимальная длина пароля 8 символов",
-      "passwordLetter": "Пароль должен содержать английские буквы",
-      "passwordDigit": "Пароль должен содержать хотя бы одну цифру",
-      "passwordSpecialChar": "Пароль должен содержать хотя бы один специальный символ"
-    }
+    "linkText": "Регистрация"
   },
   "EDITOR": {
     "title": "Сваггер Редактор",
@@ -66,5 +70,20 @@
   "PASSWORD": {
     "showPasswordButtonLabel": "Показать пароль",
     "hidePasswordButtonLabel": "Скрыть пароль"
+  },
+  "FORM_VALIDATION": {
+    "invalidEmailFormat": "Неверный формат почты",
+    "invalidPassword": "Необходимо ввести пароль",
+    "passwordMinLength": "Минимальная длина пароля 8 символов",
+    "passwordLetter": "Пароль должен содержать английские буквы",
+    "passwordDigit": "Пароль должен содержать хотя бы одну цифру",
+    "passwordSpecialChar": "Пароль должен содержать хотя бы один специальный символ",
+    "repeatPassword": "Пароли должны совпадать"
+  },
+  "DATABASE": {
+    "user_already_exists": "Пользователь с такой почтой уже существует",
+    "successful_registration": "Вы успешно зарегистрировались",
+    "unknown_error": "Произошла ошибка. Пожалуйста, попробуйте позже",
+    "unexpected_failure": "Что-то пошло не так. Пожалуйста, перезагрузите страницу"
   }
 }
