@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { type EditorFormat, type ValidationError } from '@/types';
 import { detectFormat } from '@/utils/editor/detectFormat/detectFormat';
 import { validateSchema } from '@/utils/editor/validateSchema/validateSchema';
+import { updateSchemaAction } from '@/app/actions/schemaActions';
 
 type EditorState = {
   schema: string;
@@ -11,9 +12,12 @@ type EditorState = {
 
   isValid: boolean;
   isValidating: boolean;
+  isHydrated: boolean;
 
   debounceTimeoutId: NodeJS.Timeout | null;
   validationGeneration: number;
+
+  saveTimeoutId: NodeJS.Timeout | null;
 
   setFormat: (format: EditorFormat) => void;
   updateSchema: (text: string, onCriticalError?: (msg: string) => void) => void;
@@ -21,6 +25,7 @@ type EditorState = {
 };
 
 const AUTO_DETECT_DELAY = 600;
+const DB_SAVE_DELAY = 2000;
 
 export const useEditorStore = create<EditorState>((set, get) => ({
   schema: '',
@@ -31,16 +36,22 @@ export const useEditorStore = create<EditorState>((set, get) => ({
   isValidating: false,
   debounceTimeoutId: null,
   validationGeneration: 0,
+  saveTimeoutId: null,
+
+  isHydrated: false,
 
   setFormat: (format): void => set({ format }),
 
   clearErrors: (): void => set({ errors: [], isValid: true }),
 
   updateSchema: (text): void => {
-    const { debounceTimeoutId, format, validSchema, validationGeneration } = get();
+    const { debounceTimeoutId, saveTimeoutId, format, validSchema, validationGeneration } = get();
 
     if (debounceTimeoutId) {
       clearTimeout(debounceTimeoutId);
+    }
+    if (saveTimeoutId) {
+      clearTimeout(saveTimeoutId);
     }
 
     const nextGeneration = validationGeneration + 1;
@@ -83,6 +94,14 @@ export const useEditorStore = create<EditorState>((set, get) => ({
           validSchema: hasNoErrors ? text : validSchema,
           isValidating: false,
         });
+
+        if (hasNoErrors) {
+          const dbTimeoutId = setTimeout(() => {
+            void updateSchemaAction(text, get().format);
+          }, DB_SAVE_DELAY);
+
+          set({ saveTimeoutId: dbTimeoutId });
+        }
       })();
     }, AUTO_DETECT_DELAY);
 
