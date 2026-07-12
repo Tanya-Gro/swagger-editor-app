@@ -11,14 +11,15 @@ import { useEditorStore } from '@/store/useEditorStore';
 
 import classNames from 'classnames/bind';
 import styles from './Editor.module.css';
+import Loading from '@/app/loading';
 
 const cx = classNames.bind(styles);
 
 export function Editor() {
   const format = useEditorStore((state) => state.format);
   const schema = useEditorStore((state) => state.schema);
-  const errors = useEditorStore((state) => state.errors);
   const setSchema = useEditorStore((state) => state.updateSchema);
+  const isHydrated = useEditorStore((state) => state.isHydrated);
 
   const extension = useMemo(() => {
     switch (format) {
@@ -45,9 +46,13 @@ export function Editor() {
       <EditorActions />
       <div className={cx('panel-body')}>
         <div className={cx('panel-code')}>
-          <CodeMirror value={schema} className={cx('editor')} extensions={extension} onChange={handleInputEditor} />
+          {isHydrated ? (
+            <CodeMirror value={schema} className={cx('editor')} extensions={extension} onChange={handleInputEditor} />
+          ) : (
+            <Loading />
+          )}
         </div>
-        <ErrorList errors={errors} />
+        <ErrorList />
       </div>
     </section>
   );
