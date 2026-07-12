@@ -32,6 +32,7 @@ function setupStoreMock({
       isValid,
       isValidating,
       isHydrated,
+      saveStatus: 'idle',
       debounceTimeoutId: null,
       validationGeneration: 0,
       saveTimeoutId: null,

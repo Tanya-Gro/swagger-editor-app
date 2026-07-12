@@ -39,6 +39,7 @@ describe('EditorActions', () => {
         isValid: true,
         isValidating: false,
         isHydrated: true,
+        saveStatus: 'idle',
         validationGeneration: 0,
         debounceTimeoutId: null,
         saveTimeoutId: null,

@@ -50,6 +50,7 @@ describe('Editor', () => {
         validationGeneration: 0,
         saveTimeoutId: null,
         clearErrors: vi.fn(),
+        saveStatus: 'idle',
       }),
     );
   }

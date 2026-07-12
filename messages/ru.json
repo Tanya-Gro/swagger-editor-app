@@ -50,7 +50,7 @@
     "loadButton": "Загрузить",
     "notifications": {
       "loadingSuccess": "успешно загружен",
-      "validationSuccess": "Схема успешно проверена",
+      "validationSuccess": "Схема успешно валидирована",
       "loadingError": "Ошибка при чтении файла",
       "fileTooLarge": "Размер файла не должен превышать 2MB",
       "invalidFileType": "имеет недопустимый формат. Разрешены только JSON, YAML и YML",
@@ -61,7 +61,9 @@
       "invalidObject": "Схема должна представлять собой допустимый объект JSON/YAML",
       "unknownValidationError": "Неизвестная ошибка валидации",
       "invalidStructure": "Неверная структура",
-      "failToFetch": "Не удалось получить исходную схему из Supabase.",
+      "failToFetch": "Не удалось загрузить исходную схему",
+      "savedSuccess": "Схема успешно сохранена",
+      "failedToSave": "Не удалось сохранить изменения",
       "unknownError": "Неизвестная ошибка"
     },
     "errorList": {

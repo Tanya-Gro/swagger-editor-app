@@ -50,7 +50,7 @@
     "loadButton": "Load",
     "notifications": {
       "loadingSuccess": "successfully loaded",
-      "validationSuccess": "Schema successfully parsed",
+      "validationSuccess": "Schema successfully validated",
       "loadingError": "Error reading file",
       "fileTooLarge": "The file size must not exceed 2MB",
       "invalidFileType": "has an invalid format. Only JSON, YAML, and YML are allowed",
@@ -61,7 +61,9 @@
       "invalidObject": "Schema must be a valid JSON/YAML object",
       "unknownValidationError": "Unknown validation error",
       "invalidStructure": "Invalid structure",
-      "failToFetch": "Failed to fetch initial schema from Supabase",
+      "failToFetch": "Failed to load source schema",
+      "savedSuccess": "Schema saved successfully",
+      "failedToSave": "Failed to save changes",
       "unknownError": "Unknown error"
     },
     "errorList": {

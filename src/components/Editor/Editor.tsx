@@ -31,6 +31,7 @@ export function Editor({ fetchError }: EditorProps) {
   const isValidating = useEditorStore((state) => state.isValidating);
   const isValid = useEditorStore((state) => state.isValid);
   const validSchema = useEditorStore((state) => state.validSchema);
+  const saveStatus = useEditorStore((state) => state.saveStatus);
 
   const prevIsValidRef = useRef(isValid);
 
@@ -47,6 +48,16 @@ export function Editor({ fetchError }: EditorProps) {
 
     prevIsValidRef.current = isValid;
   }, [validSchema, isValid, isValidating, t]);
+
+  useEffect(() => {
+    if (saveStatus === 'success') {
+      toast.success(t('notifications.savedSuccess'));
+    }
+
+    if (saveStatus === 'error') {
+      toast.error(t('notifications.failedToSave'));
+    }
+  }, [saveStatus, t]);
 
   const extension = useMemo(() => {
     switch (format) {
