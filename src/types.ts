@@ -7,14 +7,21 @@ export type ValidationErrorsLogin = {
   password?: string;
 };
 
+export type ValidationErrorsRegistration = {
+  email?: string;
+  password?: string;
+  repeatPassword?: string;
+};
+
 export type UserDataLogin = {
   email: string;
   password: string;
 };
 
-export type ValidationResultLogin = {
-  data: UserDataLogin | null;
-  errors: ValidationErrorsLogin | null;
+export type UserDataRegistration = {
+  email: string;
+  password: string;
+  repeatPassword: string;
 };
 
 export type TranslationFn = (key: string, values?: Record<string, string | number | Date>) => string;
@@ -75,4 +82,9 @@ export type Endpoint = {
   tags: string[];
   parameters: EndpointParameter[];
   responses: Record<string, unknown> | undefined;
+};
+
+export type ValidationError = {
+  path: string;
+  message: string;
 };
