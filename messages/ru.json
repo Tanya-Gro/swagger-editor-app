@@ -124,6 +124,26 @@
       "title": "Ошибки спецификации"
     }
   },
+  "HISTORY": {
+    "title": "История запросов",
+    "description": "Просматривайте выполненные API-запросы, статусы ответов и основные метрики производительности.",
+    "tableAriaLabel": "Список истории запросов",
+    "method": "Метод",
+    "url": "URL",
+    "status": "Статус",
+    "time": "Время",
+    "request": "Запрос",
+    "response": "Ответ",
+    "timestamp": "Дата и время",
+    "error": "Ошибка",
+    "analytics": "Аналитика",
+    "details": "Детали",
+    "detailTitle": "Детали запроса",
+    "backToHistory": "Назад к истории",
+    "emptyTitle": "Пустая история",
+    "emptyDescription": "Вы ещё не выполняли запросы. Начните с редактора.",
+    "editorAction": "Редактор"
+  },
   "PASSWORD": {
     "showPasswordButtonLabel": "Показать пароль",
     "hidePasswordButtonLabel": "Скрыть пароль"

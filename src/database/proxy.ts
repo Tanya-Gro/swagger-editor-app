@@ -34,9 +34,7 @@ export async function updateSession(request: NextRequest): Promise<NextResponse>
   const isProtectedRoute = pathname.startsWith('/profile') || pathname.startsWith('/history');
 
   if (!user && isProtectedRoute) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/login';
-    return NextResponse.redirect(url);
+    return new NextResponse('Unauthorized', { status: 401 });
   }
 
   return supabaseResponse;

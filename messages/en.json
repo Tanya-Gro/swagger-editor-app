@@ -124,6 +124,26 @@
       "title": "Specification errors"
     }
   },
+  "HISTORY": {
+    "title": "Request history",
+    "description": "Review executed API requests, response statuses, and key performance metrics.",
+    "tableAriaLabel": "Request history list",
+    "method": "Method",
+    "url": "URL",
+    "status": "Status",
+    "time": "Time",
+    "request": "Req",
+    "response": "Res",
+    "timestamp": "Timestamp",
+    "error": "Error",
+    "analytics": "Analytics",
+    "details": "Details",
+    "detailTitle": "Request details",
+    "backToHistory": "Back to history",
+    "emptyTitle": "Empty history",
+    "emptyDescription": "You haven't executed any requests yet. Start from the editor.",
+    "editorAction": "Editor"
+  },
   "PASSWORD": {
     "showPasswordButtonLabel": "Show password",
     "hidePasswordButtonLabel": "Hide password"
