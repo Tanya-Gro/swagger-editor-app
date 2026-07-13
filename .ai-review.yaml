@@ -11,7 +11,12 @@ llm:
 
 review:
   inline_tag: '#ai-review-inline'
+  summary_tag: '#ai-review-summary'
 
 prompt:
+  inline_prompt_files:
+    - ./prompts/rs-school-review.md
   context_prompt_files:
+    - ./prompts/rs-school-review.md
+  summary_prompt_files:
     - ./prompts/rs-school-review.md

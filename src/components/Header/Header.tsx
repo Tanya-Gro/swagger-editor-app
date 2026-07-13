@@ -1,6 +1,6 @@
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import { Button, IconButton } from '@mui/material';
+import { Button } from '@mui/material';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
@@ -13,6 +13,16 @@ const navigationLinks = [
   { href: '/about', messageKey: 'about' },
   { href: '/', messageKey: 'editor' },
 ] as const;
+
+function HeaderNavigationLinks({ linkClassName }: { linkClassName: string }) {
+  const t = useTranslations('HEADER');
+
+  return navigationLinks.map(({ href, messageKey }) => (
+    <Link className={linkClassName} href={href} key={href}>
+      {t(messageKey)}
+    </Link>
+  ));
+}
 
 export function Header() {
   const t = useTranslations('HEADER');
@@ -30,12 +40,8 @@ export function Header() {
           </span>
         </Link>
 
-        <nav aria-label={t('navigationAriaLabel')} className={cx('nav')}>
-          {navigationLinks.map(({ href, messageKey }) => (
-            <Link className={cx('nav-link')} href={href} key={href}>
-              {t(messageKey)}
-            </Link>
-          ))}
+        <nav aria-label={t('desktopNavigationAriaLabel')} className={cx('nav')}>
+          <HeaderNavigationLinks linkClassName={cx('nav-link')} />
         </nav>
 
         <div className={cx('actions')}>
@@ -50,12 +56,14 @@ export function Header() {
 
           <details className={cx('mobile-menu-details')}>
             <summary aria-label={t('menuAriaLabel')} className={cx('mobile-menu-button')}>
-              <IconButton aria-hidden="true" className={cx('mobile-menu-icon')} component="span" size="medium">
+              <span aria-hidden="true" className={cx('mobile-menu-icon')}>
                 <MenuOutlinedIcon />
-              </IconButton>
+              </span>
             </summary>
             <div className={cx('mobile-menu')} id="mobile-header-menu">
-              <div className={cx('mobile-menu-section')} />
+              <nav aria-label={t('mobileNavigationAriaLabel')} className={cx('mobile-menu-section')}>
+                <HeaderNavigationLinks linkClassName={cx('mobile-menu-item')} />
+              </nav>
               <div className={cx('mobile-menu-section')}>
                 <LanguageSwitcher className={cx('mobile-menu-action')} />
                 <Link href="/login">

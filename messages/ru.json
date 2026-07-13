@@ -8,6 +8,8 @@
     "brandSubtitle": "Документация API",
     "homeAriaLabel": "Главная Swagger UI",
     "navigationAriaLabel": "Основная навигация",
+    "desktopNavigationAriaLabel": "Навигация для десктопа",
+    "mobileNavigationAriaLabel": "Навигация для мобильного меню",
     "about": "О проекте",
     "editor": "Редактор",
     "authAction": "Войти",
@@ -22,6 +24,43 @@
   },
   "MAIN_PAGE": {
     "title": "Главная страница"
+  },
+  "ABOUT_PAGE": {
+    "title": "Наша команда",
+    "subtitle": "Четыре роли, которые держат проект в равновесии.",
+    "photoAlt": "Команда рабочих сидит на балке над городом",
+    "captionTitle": "Одна балка, четыре роли.",
+    "captionText": "Фотография задает метафору страницы: команда держит баланс между кодом, дизайном, документацией и ревью.",
+    "schoolAriaLabel": "Перейти на страницу курса React в RS School",
+    "schoolLogoAlt": "Эмблема RS School",
+    "schoolCourseTitle": "RS School React Course",
+    "schoolCourseText": "Бесплатный онлайн-курс на английском языке для студентов с сильной базой JavaScript, TypeScript и Frontend.",
+    "appInfoTitle": "О приложении и технологиях",
+    "appInfoText": "Swagger Editor App помогает загружать, редактировать и просматривать API-схемы в JSON и YAML. Проект собран на современном React-стеке с типизацией, интернационализацией, Material UI-компонентами и тестами.",
+    "techStackAriaLabel": "Стек технологий проекта",
+    "rolesAriaLabel": "Роли команды",
+    "roles": {
+      "alexey": {
+        "name": "Anna Zhuravleva",
+        "alt": "Портрет Anna Zhuravleva",
+        "description": "Аня - наш ментор. Очень строгий и суровый, но добрый в душе."
+      },
+      "daria": {
+        "name": "Tatyana Grosul",
+        "alt": "Портрет Tatyana Grosul",
+        "description": "Тимлид и двигатель команды, просто пушка."
+      },
+      "bogdan": {
+        "name": "Maria Fiodorova",
+        "alt": "Портрет Maria Fiodorova",
+        "description": "Днём разработчик, вечером скалолаз."
+      },
+      "viktor": {
+        "name": "Andrei Tseniuta",
+        "alt": "Портрет Andrei Tseniuta",
+        "description": "Разработчик с большой душой и улыбкой."
+      }
+    }
   },
   "REGISTRATION_PAGE": {
     "title": "Регистрация",
