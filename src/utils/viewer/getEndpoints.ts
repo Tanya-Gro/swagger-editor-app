@@ -1,7 +1,7 @@
 import { parse } from 'yaml';
 import { sample } from 'openapi-sampler';
 
-import { type Endpoint, type SwaggerDocument, type JsonValue, type RequestBody, type MediaTypeObject } from '@/types';
+import { type Endpoint, type SwaggerDocument, type JsonValue, type RequestBody } from '@/types';
 import { HTTP_METHODS } from '@/types';
 
 function isRecord(candidate: unknown): candidate is Record<string, unknown> {
@@ -39,41 +39,25 @@ function isJsonValue(candidate: unknown): candidate is JsonValue {
   return Object.values(candidate).every(isJsonValue);
 }
 
-function getJsonMediaType(requestBody: RequestBody): MediaTypeObject | null {
-  if (requestBody.content === undefined) {
-    return null;
-  }
-
-  for (const [mediaType, mediaTypeObject] of Object.entries(requestBody.content)) {
-    if (mediaType === 'application/json' || mediaType.endsWith('+json')) {
-      return mediaTypeObject;
-    }
-  }
-
-  return null;
-}
-
 function getRequestBodyExample(requestBody: RequestBody | undefined, document: SwaggerDocument): JsonValue | null {
-  if (requestBody === undefined) {
+  if (requestBody?.content === undefined) {
     return null;
   }
 
-  const mediaType = getJsonMediaType(requestBody);
+  const mediaTypeObject =
+    requestBody.content['application/json'] ??
+    Object.entries(requestBody.content).find(([mediaType]) => mediaType.endsWith('json'))?.[1];
 
-  if (mediaType === null) {
-    return null;
+  if (mediaTypeObject.example !== undefined) {
+    return isJsonValue(mediaTypeObject.example) ? mediaTypeObject.example : null;
   }
 
-  if (mediaType.example !== undefined) {
-    return isJsonValue(mediaType.example) ? mediaType.example : null;
-  }
-
-  if (mediaType.schema === undefined) {
+  if (mediaTypeObject.schema === undefined) {
     return null;
   }
 
   const example: unknown = sample(
-    mediaType.schema,
+    mediaTypeObject.schema,
     {
       skipReadOnly: true,
       skipWriteOnly: false,
