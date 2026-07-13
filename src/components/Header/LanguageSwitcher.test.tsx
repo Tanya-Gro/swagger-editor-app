@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { NextIntlClientProvider } from 'next-intl';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import messages from '@messages/en.json';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
@@ -27,10 +27,6 @@ function renderSwitcher(): void {
 }
 
 describe('LanguageSwitcher', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
   it('renders the language list', () => {
     renderSwitcher();
 

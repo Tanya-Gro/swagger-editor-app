@@ -8,9 +8,10 @@ type PasswordFieldProps = {
   name: string;
   helperText: string;
   error?: string;
+  autocomplete: 'current-password' | 'new-password';
 };
 
-export function PasswordField({ label, name, helperText, error }: PasswordFieldProps) {
+export function PasswordField({ label, name, helperText, error, autocomplete }: PasswordFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
   const id = useId();
 
@@ -42,7 +43,7 @@ export function PasswordField({ label, name, helperText, error }: PasswordFieldP
           ),
         },
       }}
-      autoComplete="current-password"
+      autoComplete={autocomplete}
     />
   );
 }

@@ -8,6 +8,8 @@
     "brandSubtitle": "Документация API",
     "homeAriaLabel": "Главная Swagger UI",
     "navigationAriaLabel": "Основная навигация",
+    "desktopNavigationAriaLabel": "Навигация для десктопа",
+    "mobileNavigationAriaLabel": "Навигация для мобильного меню",
     "about": "О проекте",
     "editor": "Редактор",
     "history": "История",
@@ -17,8 +19,61 @@
     "english": "EN",
     "russian": "RU"
   },
+  "FOOTER": {
+    "about": "О проекте",
+    "madeBy": "Сделано с ♥ командой ATOM"
+  },
   "MAIN_PAGE": {
     "title": "Главная страница"
+  },
+  "ABOUT_PAGE": {
+    "title": "Наша команда",
+    "subtitle": "Четыре роли, которые держат проект в равновесии.",
+    "photoAlt": "Команда рабочих сидит на балке над городом",
+    "captionTitle": "Одна балка, четыре роли.",
+    "captionText": "Фотография задает метафору страницы: команда держит баланс между кодом, дизайном, документацией и ревью.",
+    "schoolAriaLabel": "Перейти на страницу курса React в RS School",
+    "schoolLogoAlt": "Эмблема RS School",
+    "schoolCourseTitle": "RS School React Course",
+    "schoolCourseText": "Бесплатный онлайн-курс на английском языке для студентов с сильной базой JavaScript, TypeScript и Frontend.",
+    "appInfoTitle": "О приложении и технологиях",
+    "appInfoText": "Swagger Editor App помогает загружать, редактировать и просматривать API-схемы в JSON и YAML. Проект собран на современном React-стеке с типизацией, интернационализацией, Material UI-компонентами и тестами.",
+    "techStackAriaLabel": "Стек технологий проекта",
+    "rolesAriaLabel": "Роли команды",
+    "roles": {
+      "alexey": {
+        "name": "Anna Zhuravleva",
+        "alt": "Портрет Anna Zhuravleva",
+        "description": "Аня - наш ментор. Очень строгий и суровый, но добрый в душе."
+      },
+      "daria": {
+        "name": "Tatyana Grosul",
+        "alt": "Портрет Tatyana Grosul",
+        "description": "Тимлид и двигатель команды, просто пушка."
+      },
+      "bogdan": {
+        "name": "Maria Fiodorova",
+        "alt": "Портрет Maria Fiodorova",
+        "description": "Днём разработчик, вечером скалолаз."
+      },
+      "viktor": {
+        "name": "Andrei Tseniuta",
+        "alt": "Портрет Andrei Tseniuta",
+        "description": "Разработчик с большой душой и улыбкой."
+      }
+    }
+  },
+  "REGISTRATION_PAGE": {
+    "title": "Регистрация",
+    "emailLabel": "Почта",
+    "emailHelperText": "Почта в формате name@example.com",
+    "passwordLabel": "Придумайте пароль",
+    "passwordHelperText": "Пароль должен быть длиннее 8 символов",
+    "repeatPasswordLabel": "Повторите пароль",
+    "repeatPasswordHelperText": "Повторно введите пароль для подтверждения",
+    "actionButtonText": "Зарегистрироваться",
+    "infoText": "Уже есть аккаунт?",
+    "actionLinkText": "Войти"
   },
   "LOGIN_PAGE": {
     "title": "Вход",
@@ -28,20 +83,29 @@
     "passwordHelperText": "Ваш пароль",
     "actionButtonText": "Войти",
     "hintText": "Нет аккаунта?",
-    "linkText": "Регистрация",
-    "validation": {
-      "invalidEmailFormat": "Неверный формат почты",
-      "invalidPassword": "Необходимо ввести пароль",
-      "passwordMinLength": "Минимальная длина пароля 8 символов",
-      "passwordLetter": "Пароль должен содержать английские буквы",
-      "passwordDigit": "Пароль должен содержать хотя бы одну цифру",
-      "passwordSpecialChar": "Пароль должен содержать хотя бы один специальный символ"
-    }
+    "linkText": "Регистрация"
   },
   "EDITOR": {
     "title": "Сваггер Редактор",
     "clearButton": "Очистить",
-    "loadButton": "Загрузить"
+    "loadButton": "Загрузить",
+    "notifications": {
+      "loadingSuccess": "успешно загружен",
+      "loadingError": "Ошибка при чтении файла",
+      "fileTooLarge": "Размер файла не должен превышать 2MB",
+      "invalidFileType": "имеет недопустимый формат. Разрешены только JSON, YAML и YML",
+      "conversionError": "Неподдерживаемый формат схемы. Конвертация невозможна",
+      "jsonToYaml": "Не удалось сконвертировать JSON в YAML: проверьте синтаксис исходного кода",
+      "yamlToJson": "Не удалось сконвертировать YAML в JSON: проверьте синтаксис исходного кода",
+      "invalidYaml": "Недопустимая структура YAML",
+      "invalidObject": "Схема должна представлять собой допустимый объект JSON/YAML",
+      "unknownValidationError": "Неизвестная ошибка валидации",
+      "invalidStructure": "Неверная структура",
+      "unknownError": "Неизвестная ошибка"
+    },
+    "errorList": {
+      "title": "Ошибки спецификации"
+    }
   },
   "HISTORY": {
     "title": "История запросов",
@@ -66,5 +130,20 @@
   "PASSWORD": {
     "showPasswordButtonLabel": "Показать пароль",
     "hidePasswordButtonLabel": "Скрыть пароль"
+  },
+  "FORM_VALIDATION": {
+    "invalidEmailFormat": "Неверный формат почты",
+    "invalidPassword": "Необходимо ввести пароль",
+    "passwordMinLength": "Минимальная длина пароля 8 символов",
+    "passwordLetter": "Пароль должен содержать английские буквы",
+    "passwordDigit": "Пароль должен содержать хотя бы одну цифру",
+    "passwordSpecialChar": "Пароль должен содержать хотя бы один специальный символ",
+    "repeatPassword": "Пароли должны совпадать"
+  },
+  "DATABASE": {
+    "user_already_exists": "Пользователь с такой почтой уже существует",
+    "successful_registration": "Вы успешно зарегистрировались",
+    "unknown_error": "Произошла ошибка. Пожалуйста, попробуйте позже",
+    "unexpected_failure": "Что-то пошло не так. Пожалуйста, перезагрузите страницу"
   }
 }

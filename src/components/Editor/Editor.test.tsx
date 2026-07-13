@@ -1,8 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
-import { describe, expect, it, vi } from 'vitest';
-import messages from '@messages/en.json';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Editor } from './Editor';
+import { useEditorStore } from '@/store/useEditorStore';
+import type { EditorFormat, ValidationError } from '@/types';
+import messages from '@messages/en.json';
 
 vi.mock('@uiw/react-codemirror', () => ({
   default: ({ value, onChange }: { value: string; onChange: (value: string) => void }) => (
@@ -10,7 +12,36 @@ vi.mock('@uiw/react-codemirror', () => ({
   ),
 }));
 
+vi.mock('@/store/useEditorStore', () => ({
+  useEditorStore: vi.fn(),
+}));
+
 describe('Editor', () => {
+  const mockUpdateSchema = vi.fn();
+  const mockSetFormat = vi.fn();
+
+  function setupStoreMock(format: EditorFormat = 'JSON', schema = '', errors: ValidationError[] = []) {
+    vi.mocked(useEditorStore).mockImplementation((selector) =>
+      selector({
+        format,
+        schema,
+        errors,
+        setFormat: mockSetFormat,
+        updateSchema: mockUpdateSchema,
+        validSchema: '',
+        isValid: errors.length === 0,
+        isValidating: false,
+        debounceTimeoutId: null,
+        validationGeneration: 0,
+        clearErrors: vi.fn(),
+      }),
+    );
+  }
+
+  beforeEach(() => {
+    setupStoreMock();
+  });
+
   function renderEditor(): void {
     render(
       <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
@@ -19,7 +50,7 @@ describe('Editor', () => {
     );
   }
 
-  it('renders editor header', () => {
+  it('should render editor header', () => {
     renderEditor();
 
     expect(
@@ -29,39 +60,23 @@ describe('Editor', () => {
     ).toBeInTheDocument();
   });
 
-  it('renders editor actions', () => {
+  it('should render editor actions toolbar', () => {
     renderEditor();
 
-    expect(
-      screen.getByRole('button', {
-        name: /json/i,
-      }),
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole('button', {
-        name: /yaml/i,
-      }),
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole('button', {
-        name: /clear/i,
-      }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /json/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /yaml/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /clear/i })).toBeInTheDocument();
   });
 
-  it('uses JSON format by default', () => {
+  it('should set the active format button based on store state', () => {
+    setupStoreMock('JSON');
     renderEditor();
 
-    expect(
-      screen.getByRole('button', {
-        name: 'JSON',
-      }),
-    ).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'JSON' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'YAML' })).toHaveAttribute('aria-pressed', 'false');
   });
 
-  it('updates schema on input', () => {
+  it('should fire store updateSchema action on textarea value changes', () => {
     renderEditor();
 
     const editor = screen.getByTestId('editor');
@@ -72,41 +87,36 @@ describe('Editor', () => {
       },
     });
 
-    expect(editor).toHaveValue('{"openapi":"3.0.0"}');
+    expect(mockUpdateSchema).toHaveBeenCalledWith('{"openapi":"3.0.0"}');
   });
 
-  it('clears schema after clicking Clear', () => {
+  it('should display the error list panel below CodeMirror if errors are present in the store', () => {
+    const mockErrors = [{ path: 'info.title', message: 'must be string' }];
+    setupStoreMock('JSON', '{"info": {"title": 123}}', mockErrors);
+
+    renderEditor();
+
+    const errorPanel = screen.getByTestId('error-list');
+    expect(errorPanel).toBeInTheDocument();
+    expect(screen.getByText('info.title:')).toBeInTheDocument();
+    expect(screen.getByText('must be string')).toBeInTheDocument();
+  });
+
+  it('should safely render without error panels when there are no errors', () => {
+    setupStoreMock('JSON', '{"openapi":"3.0.0"}', []);
+    renderEditor();
+
+    expect(screen.queryByTestId('error-list')).not.toBeInTheDocument();
+  });
+
+  it('should pass an empty extension array to CodeMirror safely if store format is unknown', () => {
+    setupStoreMock('unknown', '!!! broken schema !!!');
     renderEditor();
 
     const editor = screen.getByTestId('editor');
-
-    fireEvent.change(editor, {
-      target: {
-        value: 'test schema',
-      },
-    });
-
-    fireEvent.click(
-      screen.getByRole('button', {
-        name: /clear/i,
-      }),
-    );
-
-    expect(editor).toHaveValue('');
-  });
-
-  it('shows current format as selected and toggle buttons', () => {
-    renderEditor();
-
-    const yamlButton = screen.getByRole('button', { name: 'YAML' });
-    const jsonButton = screen.getByRole('button', { name: 'JSON' });
-
-    expect(jsonButton).toHaveAttribute('aria-pressed', 'true');
-    expect(yamlButton).toHaveAttribute('aria-pressed', 'false');
-
-    fireEvent.click(yamlButton);
-
-    expect(jsonButton).toHaveAttribute('aria-pressed', 'false');
-    expect(yamlButton).toHaveAttribute('aria-pressed', 'true');
+    expect(editor).toBeInTheDocument();
+    expect(editor).toHaveValue('!!! broken schema !!!');
+    expect(screen.getByRole('button', { name: 'JSON' })).toHaveAttribute('aria-pressed', 'false');
+    expect(screen.getByRole('button', { name: 'YAML' })).toHaveAttribute('aria-pressed', 'false');
   });
 });

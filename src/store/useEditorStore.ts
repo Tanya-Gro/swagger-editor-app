@@ -1,0 +1,91 @@
+import { create } from 'zustand';
+import { type EditorFormat, type ValidationError } from '@/types';
+import { detectFormat } from '@/utils/editor/detectFormat/detectFormat';
+import { validateSchema } from '@/utils/editor/validateSchema/validateSchema';
+
+type EditorState = {
+  schema: string;
+  validSchema: string;
+  format: EditorFormat;
+  errors: ValidationError[];
+
+  isValid: boolean;
+  isValidating: boolean;
+
+  debounceTimeoutId: NodeJS.Timeout | null;
+  validationGeneration: number;
+
+  setFormat: (format: EditorFormat) => void;
+  updateSchema: (text: string, onCriticalError?: (msg: string) => void) => void;
+  clearErrors: () => void;
+};
+
+const AUTO_DETECT_DELAY = 600;
+
+export const useEditorStore = create<EditorState>((set, get) => ({
+  schema: '',
+  validSchema: '',
+  format: 'JSON',
+  errors: [],
+  isValid: true,
+  isValidating: false,
+  debounceTimeoutId: null,
+  validationGeneration: 0,
+
+  setFormat: (format): void => set({ format }),
+
+  clearErrors: (): void => set({ errors: [], isValid: true }),
+
+  updateSchema: (text): void => {
+    const { debounceTimeoutId, format, validSchema, validationGeneration } = get();
+
+    if (debounceTimeoutId) {
+      clearTimeout(debounceTimeoutId);
+    }
+
+    const nextGeneration = validationGeneration + 1;
+    set({ schema: text, validationGeneration: nextGeneration });
+
+    if (!text.trim()) {
+      set({
+        errors: [],
+        isValid: true,
+        validSchema: '',
+        isValidating: false,
+        format: format === 'unknown' ? 'JSON' : format,
+      });
+      return;
+    }
+
+    set({ isValidating: true });
+
+    const timeoutId = setTimeout(() => {
+      void (async (): Promise<void> => {
+        const detectedFormat = detectFormat(text);
+
+        if (get().validationGeneration !== nextGeneration) {
+          return;
+        }
+
+        set({ format: detectedFormat });
+
+        const validationErrors = await validateSchema(text, detectedFormat);
+
+        if (get().validationGeneration !== nextGeneration) {
+          return;
+        }
+
+        const hasNoErrors = validationErrors.length === 0;
+
+        set({
+          errors: validationErrors,
+          isValid: hasNoErrors,
+          validSchema: hasNoErrors ? text : validSchema,
+          isValidating: false,
+        });
+      })();
+    }, AUTO_DETECT_DELAY);
+
+    set({ debounceTimeoutId: timeoutId });
+  },
+}));

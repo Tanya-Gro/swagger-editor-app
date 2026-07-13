@@ -1,0 +1,314 @@
+.about-team {
+  width: 100%;
+  min-height: 100vh;
+  padding: 72px 24px;
+}
+
+.inner {
+  width: min(100%, 1200px);
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 56px;
+  text-align: center;
+}
+
+.title.title {
+  font-size: 44px;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  letter-spacing: 0;
+}
+
+.subtitle {
+  display: block;
+
+  width: 100%;
+  max-width: 720px;
+  margin: 12px auto 0;
+
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 596px 1fr;
+  gap: 28px;
+  align-items: center;
+}
+
+.photo-card.photo-card,
+.role-card.role-card {
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-surface) 78%, transparent);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--color-text-primary) 12%, transparent);
+}
+
+.photo-card.photo-card {
+  overflow: hidden;
+  border-radius: var(--border-radius-l);
+}
+
+.photo-card-image-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
+.photo-card-image {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(72%) brightness(118%) opacity(86%);
+}
+
+.photo-card-caption.photo-card-caption {
+  padding: 20px;
+}
+
+.photo-card-caption.photo-card-caption:last-child {
+  padding-bottom: 20px;
+}
+
+.caption-title.caption-title {
+  font-size: 22px;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.caption-text.caption-text {
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.school-link.school-link {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+
+  width: 100%;
+  min-height: 76px;
+  padding: 14px 20px;
+  border-top: 1px solid var(--color-border);
+
+  color: var(--color-text-primary);
+  text-decoration: none;
+
+  background: color-mix(in srgb, var(--color-surface) 66%, transparent);
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.school-link.school-link:hover {
+  color: var(--color-secondary-hover);
+  background-color: color-mix(in srgb, var(--color-border-subtle) 78%, transparent);
+}
+
+.school-logo {
+  width: 52px;
+  height: auto;
+}
+
+.school-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.school-name {
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+}
+
+.school-link.school-link:hover .school-name,
+.school-link.school-link:focus-visible .school-name {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.school-link.school-link:focus-visible {
+  outline: 2px solid var(--color-secondary-hover);
+  outline-offset: 3px;
+}
+
+.school-description {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+}
+
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.role-card.role-card {
+  min-height: 244px;
+  padding: 20px;
+  border-radius: var(--border-radius-m);
+}
+
+.role-photo.role-photo {
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+
+  background: linear-gradient(135deg, #dbeafe, #fce7f3);
+  box-shadow: 0 4px 6px color-mix(in srgb, var(--color-text-primary) 12%, transparent);
+}
+
+.role-photo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.role-name.role-name {
+  margin-top: 18px;
+
+  font-size: var(--font-size-l);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+.github-link.github-link {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+
+  margin-top: 6px;
+
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-secondary-hover);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.github-link.github-link:hover {
+  color: #be185d;
+}
+
+.github-link.github-link:focus-visible {
+  outline: 2px solid var(--color-secondary-hover);
+  outline-offset: 3px;
+}
+
+.github-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.role-description.role-description {
+  margin-top: 10px;
+  font-size: var(--font-size-s);
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.app-info {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+  gap: 28px;
+  align-items: center;
+
+  margin-top: 28px;
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-m);
+
+  background: color-mix(in srgb, var(--color-surface) 78%, transparent);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--color-text-primary) 12%, transparent);
+}
+
+.app-info-title.app-info-title {
+  font-size: 22px;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.app-info-text.app-info-text {
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.stack-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.stack-item {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 30px;
+  padding: 6px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-s);
+
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+
+  background: color-mix(in srgb, var(--color-surface) 66%, transparent);
+}
+
+@media (width <= 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .app-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (width <= 640px) {
+  .about-team {
+    padding: 48px 16px;
+  }
+
+  .header {
+    margin-bottom: 32px;
+  }
+
+  .title.title {
+    font-size: 34px;
+  }
+
+  .subtitle {
+    font-size: var(--font-size-m);
+  }
+
+  .role-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-info {
+    padding: 20px;
+  }
+}

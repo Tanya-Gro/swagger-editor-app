@@ -15,6 +15,16 @@ const navigationLinks = [
   { href: '/history', messageKey: 'history' },
 ] as const;
 
+function HeaderNavigationLinks({ linkClassName }: { linkClassName: string }) {
+  const t = useTranslations('HEADER');
+
+  return navigationLinks.map(({ href, messageKey }) => (
+    <Link className={linkClassName} href={href} key={href}>
+      {t(messageKey)}
+    </Link>
+  ));
+}
+
 export function Header() {
   const t = useTranslations('HEADER');
   const renderNavigationItems = () =>
@@ -50,6 +60,32 @@ export function Header() {
               </Button>
             </Link>
           </div>
+
+          <details className={cx('mobile-menu-details')}>
+            <summary aria-label={t('menuAriaLabel')} className={cx('mobile-menu-button')}>
+              <span aria-hidden="true" className={cx('mobile-menu-icon')}>
+                <MenuOutlinedIcon />
+              </span>
+            </summary>
+            <div className={cx('mobile-menu')} id="mobile-header-menu">
+              <nav aria-label={t('mobileNavigationAriaLabel')} className={cx('mobile-menu-section')}>
+                <HeaderNavigationLinks linkClassName={cx('mobile-menu-item')} />
+              </nav>
+              <div className={cx('mobile-menu-section')}>
+                <LanguageSwitcher className={cx('mobile-menu-action')} />
+                <Link href="/login">
+                  <Button
+                    component="span"
+                    className={cx('mobile-menu-action')}
+                    startIcon={<LoginOutlinedIcon />}
+                    variant="contained"
+                  >
+                    {t('authAction')}
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </details>
         </div>
       </div>
 
