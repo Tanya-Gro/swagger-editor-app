@@ -30,8 +30,8 @@ export function Card({ endpoint }: CardProps) {
       </AccordionSummary>
       <Divider sx={{ margin: '16px 4px' }} />
       <AccordionDetails>
-        <Parameters parameters={parameters} body={requestBodyExample} />
-        <Responses responses={responses} />
+        <Parameters parameters={parameters} body={requestBodyExample} method={method} pathname={pathname} />
+        <Responses responses={responses} method={method} pathname={pathname} />
       </AccordionDetails>
     </Accordion>
   );
