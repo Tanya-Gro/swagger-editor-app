@@ -172,7 +172,6 @@
     "user_already_exists": "Пользователь с такой почтой уже существует",
     "successful_registration": "Вы успешно зарегистрировались",
     "unknown_error": "Произошла ошибка. Пожалуйста, попробуйте позже",
-    "invalid_credentials": "Неверный логин или пароль",
     "unexpected_failure": "Что-то пошло не так"
   }
 }
