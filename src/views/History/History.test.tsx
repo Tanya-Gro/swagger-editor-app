@@ -1,12 +1,12 @@
 import { render, screen, within } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it } from 'vitest';
-import messages from '@messages/en.json';
-import type { Tables } from '@/database/database.types';
 import { mapRequestLogToHistoryItem } from '@/utils/history/mapRequestLog';
 import { History } from './History';
 import { HistoryClient } from './components/HistoryClient';
-import HistoryTable from './components/HistoryTable';
+import HistoryTable from './HistoryTable/HistoryTable';
+import messages from '@messages/en.json';
+import type { Tables } from '@/database/database.types';
 import type { RequestHistoryItem } from './types';
 
 const mockEntries: RequestHistoryItem[] = [

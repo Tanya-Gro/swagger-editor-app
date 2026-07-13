@@ -6,7 +6,11 @@ import { useLocale, useTranslations } from 'next-intl';
 import { formatBytes } from '@/utils/history/formatBytes';
 import { formatTimestamp } from '@/utils/history/formatTimestamp';
 import type { HistoryStatusTone, RequestHistoryItem } from '../types';
-import styles from '../History.module.css';
+
+import classNames from 'classnames/bind';
+import styles from './HistoryTable.module.css';
+
+const cx = classNames.bind(styles);
 
 const statusColors: Record<HistoryStatusTone, 'success' | 'warning' | 'error'> = {
   success: 'success',
@@ -107,36 +111,33 @@ function StatusChip({ statusCode }: { statusCode: number | null }) {
 
 function DesktopHistoryRow({ entry, locale, t }: HistoryEntryProps) {
   return (
-    <TableRow className={styles['table-row']}>
-      <TableCell className={styles['table-cell']} data-label={t('method')}>
+    <TableRow className={cx('table-row')}>
+      <TableCell className={cx('table-cell')} data-label={t('method')}>
         <MethodChip method={entry.method} />
       </TableCell>
-      <TableCell className={styles['table-cell']} data-label={t('url')}>
-        <code className={styles.code}>{entry.endpoint}</code>
+      <TableCell className={cx('table-cell')} data-label={t('url')}>
+        <code className={cx('code')}>{entry.endpoint}</code>
       </TableCell>
-      <TableCell className={styles['table-cell']} data-label={t('status')}>
+      <TableCell className={cx('table-cell')} data-label={t('status')}>
         <StatusChip statusCode={entry.statusCode} />
       </TableCell>
-      <TableCell className={styles['table-cell']} data-label={t('time')}>
+      <TableCell className={cx('table-cell')} data-label={t('time')}>
         {entry.duration} ms
       </TableCell>
-      <TableCell className={styles['table-cell']} data-label={t('request')}>
+      <TableCell className={cx('table-cell')} data-label={t('request')}>
         {formatBytes(entry.requestSize)}
       </TableCell>
-      <TableCell className={styles['table-cell']} data-label={t('response')}>
+      <TableCell className={cx('table-cell')} data-label={t('response')}>
         {formatBytes(entry.responseSize)}
       </TableCell>
-      <TableCell className={styles['table-cell']} data-label={t('timestamp')}>
+      <TableCell className={cx('table-cell')} data-label={t('timestamp')}>
         {formatTimestamp(entry.timestamp, locale)}
       </TableCell>
-      <TableCell
-        className={entry.errorDetails ? styles['table-cell'] : `${styles['table-cell']} ${styles.muted}`}
-        data-label={t('error')}
-      >
+      <TableCell className={cx('table-cell', { muted: !entry.errorDetails })} data-label={t('error')}>
         {entry.errorDetails ?? '-'}
       </TableCell>
-      <TableCell className={styles['table-cell']} data-label={t('analytics')}>
-        <Link className={styles['analytics-link']} href={`/history/${entry.id}`}>
+      <TableCell className={cx('table-cell')} data-label={t('analytics')}>
+        <Link className={cx('analytics-link')} href={`/history/${entry.id}`}>
           {t('details')}
         </Link>
       </TableCell>
@@ -146,10 +147,10 @@ function DesktopHistoryRow({ entry, locale, t }: HistoryEntryProps) {
 
 function DesktopHistoryTable({ entries, locale, t }: HistoryTableContentProps) {
   return (
-    <div className={styles['table-wrap']}>
-      <Table className={styles.table}>
-        <TableHead className={styles['table-head']}>
-          <TableRow className={styles['table-row']}>
+    <div className={cx('table-wrap')}>
+      <Table className={cx('table')}>
+        <TableHead className={cx('table-head')}>
+          <TableRow className={cx('table-row')}>
             <TableCell>{t('method')}</TableCell>
             <TableCell>{t('url')}</TableCell>
             <TableCell>{t('status')}</TableCell>
@@ -161,7 +162,7 @@ function DesktopHistoryTable({ entries, locale, t }: HistoryTableContentProps) {
             <TableCell>{t('analytics')}</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody className={styles['table-body']}>
+        <TableBody className={cx('table-body')}>
           {entries.map((entry) => (
             <DesktopHistoryRow entry={entry} key={entry.id} locale={locale} t={t} />
           ))}
@@ -173,39 +174,39 @@ function DesktopHistoryTable({ entries, locale, t }: HistoryTableContentProps) {
 
 function MobileHistoryCard({ entry, locale, t }: HistoryEntryProps) {
   return (
-    <li className={styles['mobile-card']}>
-      <div className={styles['mobile-card-header']}>
-        <div className={styles['mobile-card-title']}>
+    <li className={cx('mobile-card')}>
+      <div className={cx('mobile-card-header')}>
+        <div className={cx('mobile-card-title')}>
           <MethodChip method={entry.method} />
-          <code className={styles.code}>{entry.endpoint}</code>
+          <code className={cx('code')}>{entry.endpoint}</code>
         </div>
         <StatusChip statusCode={entry.statusCode} />
       </div>
 
-      <dl className={styles['mobile-card-details']}>
-        <div className={styles['mobile-card-row']}>
+      <dl className={cx('mobile-card-details')}>
+        <div className={cx('mobile-card-row')}>
           <dt>{t('time')}</dt>
           <dd>{entry.duration} ms</dd>
         </div>
-        <div className={styles['mobile-card-row']}>
+        <div className={cx('mobile-card-row')}>
           <dt>{t('request')}</dt>
           <dd>{formatBytes(entry.requestSize)}</dd>
         </div>
-        <div className={styles['mobile-card-row']}>
+        <div className={cx('mobile-card-row')}>
           <dt>{t('response')}</dt>
           <dd>{formatBytes(entry.responseSize)}</dd>
         </div>
-        <div className={styles['mobile-card-row']}>
+        <div className={cx('mobile-card-row')}>
           <dt>{t('timestamp')}</dt>
           <dd>{formatTimestamp(entry.timestamp, locale)}</dd>
         </div>
-        <div className={styles['mobile-card-row']}>
+        <div className={cx('mobile-card-row')}>
           <dt>{t('error')}</dt>
-          <dd className={entry.errorDetails ? undefined : styles.muted}>{entry.errorDetails ?? '-'}</dd>
+          <dd className={entry.errorDetails ? undefined : cx('muted')}>{entry.errorDetails ?? '-'}</dd>
         </div>
       </dl>
 
-      <Link className={styles['analytics-link']} href={`/history/${entry.id}`}>
+      <Link className={cx('analytics-link')} href={`/history/${entry.id}`}>
         {t('details')}
       </Link>
     </li>
@@ -214,7 +215,7 @@ function MobileHistoryCard({ entry, locale, t }: HistoryEntryProps) {
 
 function MobileHistoryList({ entries, locale, t }: HistoryTableContentProps) {
   return (
-    <ul className={styles['mobile-list']}>
+    <ul className={cx('mobile-list')}>
       {entries.map((entry) => (
         <MobileHistoryCard entry={entry} key={entry.id} locale={locale} t={t} />
       ))}
@@ -227,7 +228,7 @@ export default function HistoryTable({ entries }: HistoryTableProps) {
   const t = useTranslations('HISTORY');
 
   return (
-    <section aria-label={t('tableAriaLabel')} className={styles['table-card']}>
+    <section aria-label={t('tableAriaLabel')} className={cx('table-card')}>
       <DesktopHistoryTable entries={entries} locale={locale} t={t} />
       <MobileHistoryList entries={entries} locale={locale} t={t} />
     </section>

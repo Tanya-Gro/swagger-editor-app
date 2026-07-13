@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import type { RequestHistoryItem } from '../types';
 import styles from '../History.module.css';
 
-const HistoryTable = dynamic(() => import('./HistoryTable'), {
+const HistoryTable = dynamic(() => import('../HistoryTable/HistoryTable'), {
   ssr: false,
   loading: () => <Paper className={styles.skeleton} variant="outlined" />,
 });
