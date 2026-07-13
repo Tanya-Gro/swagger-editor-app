@@ -3,18 +3,22 @@ import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it, vi } from 'vitest';
 import messages from '@messages/ru.json';
 import { HeaderView } from './Header';
+import { type LogoutAction } from '@/types';
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ refresh: vi.fn() }),
 }));
 
 vi.mock('next-intl/server', () => ({
+  getLocale: () => Promise.resolve('ru'),
+
   getTranslations: (namespace: string) => {
     return (key: string) => {
       const nsMessages = (messages as Record<string, unknown>)[namespace];
 
       if (nsMessages && typeof nsMessages === 'object') {
         const value = (nsMessages as Record<string, unknown>)[key];
+
         return typeof value === 'string' ? value : key;
       }
 
@@ -35,7 +39,13 @@ vi.mock('@/components/Header/Burger/Burger', () => ({
   ),
 }));
 
-const logoutAction = vi.fn<() => Promise<void>>();
+vi.mock('@/components/Logout/Logout', () => ({
+  Logout: ({ label }: { label: string }) => <button type="button">{label}</button>,
+}));
+
+const logoutAction = vi.fn<LogoutAction>().mockResolvedValue({
+  error: null,
+});
 
 async function renderHeader(isAuthenticated: boolean): Promise<void> {
   const HeaderJSX = await HeaderView({ isAuthenticated, logoutAction });

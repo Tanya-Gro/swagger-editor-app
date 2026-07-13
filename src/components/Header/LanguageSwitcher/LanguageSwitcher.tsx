@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { setLocale } from '@/i18n/actions';
 import { isLocale } from '@/i18n/config';
+import { toast } from '@/utils/toast/toast';
 
 type LanguageSwitcherProperties = Readonly<{
   className?: string;
@@ -27,8 +28,8 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProperties) {
       .then(() => {
         router.refresh();
       })
-      .catch((error: unknown) => {
-        console.error(error);
+      .catch(() => {
+        toast.error(t('languageSwitchError'));
       });
   };
 

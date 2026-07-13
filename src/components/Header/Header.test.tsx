@@ -1,10 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Header } from './Header';
 import { HeaderView } from '@/views/Header/Header';
-import { logoutAction } from './logout-action';
+import { type LogoutAction } from '@/types';
 
 const mocks = vi.hoisted(() => ({
   getUser: vi.fn(),
+  logoutAction: vi.fn<LogoutAction>().mockResolvedValue({
+    error: null,
+  }),
 }));
 
 vi.mock('@/database/server-client', () => ({
@@ -18,7 +21,7 @@ vi.mock('@/database/server-client', () => ({
 }));
 
 vi.mock('./logout-action', () => ({
-  logoutAction: vi.fn(),
+  logoutAction: mocks.logoutAction,
 }));
 
 beforeEach(() => {
@@ -39,7 +42,7 @@ describe('Header', () => {
     expect(result.type).toBe(HeaderView);
     expect(result.props).toEqual({
       isAuthenticated: false,
-      logoutAction,
+      logoutAction: mocks.logoutAction,
     });
   });
 
@@ -58,7 +61,7 @@ describe('Header', () => {
     expect(result.type).toBe(HeaderView);
     expect(result.props).toEqual({
       isAuthenticated: true,
-      logoutAction,
+      logoutAction: mocks.logoutAction,
     });
   });
 });

@@ -1,4 +1,4 @@
-import { LogoutOutlined, LoginOutlined } from '@mui/icons-material';
+import { LoginOutlined } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
@@ -7,17 +7,20 @@ import { LanguageSwitcher } from '@/components/Header/LanguageSwitcher/LanguageS
 import { Burger } from '@/components/Header/Burger/Burger';
 import styles from './Header.module.css';
 import { navigationLinks } from '@/components/Header/navigationLinks';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { type LogoutAction } from '@/types';
+import { Logout } from '@/components/Logout/Logout';
 
 const cx = classNames.bind(styles);
 
 type HeaderViewProps = {
   isAuthenticated: boolean;
-  logoutAction: () => Promise<void>;
+  logoutAction: LogoutAction;
 };
 
 export async function HeaderView({ isAuthenticated, logoutAction }: HeaderViewProps) {
   const t = await getTranslations('HEADER');
+  const locale = await getLocale();
 
   return (
     <header className={cx('header')}>
@@ -50,11 +53,7 @@ export async function HeaderView({ isAuthenticated, logoutAction }: HeaderViewPr
             <LanguageSwitcher />
 
             {isAuthenticated ? (
-              <form action={logoutAction}>
-                <Button startIcon={<LogoutOutlined />} variant="contained" type="submit">
-                  {t('signoutAction')}
-                </Button>
-              </form>
+              <Logout action={logoutAction} label={t('signoutAction')} />
             ) : (
               <Link href="/login">
                 <Button component="span" startIcon={<LoginOutlined />} variant="contained">
@@ -63,7 +62,11 @@ export async function HeaderView({ isAuthenticated, logoutAction }: HeaderViewPr
               </Link>
             )}
           </div>
-          <Burger isAuthenticated={isAuthenticated} logoutAction={logoutAction} />
+          <Burger
+            key={`${locale}-${isAuthenticated ? 'authenticated' : 'anonymous'}`}
+            isAuthenticated={isAuthenticated}
+            logoutAction={logoutAction}
+          />
         </div>
       </div>
     </header>

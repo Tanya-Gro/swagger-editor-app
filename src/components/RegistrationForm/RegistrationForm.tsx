@@ -67,9 +67,8 @@ export function RegistrationForm() {
 
       router.push('/');
       router.refresh();
-    } catch (error) {
+    } catch {
       setIsLoading(false);
-      console.error(error);
       toast.error(tDatabase('unknown_error'));
     }
   }
