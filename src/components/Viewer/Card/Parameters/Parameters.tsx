@@ -4,18 +4,19 @@ import classNames from 'classnames/bind';
 import styles from './Parameters.module.css';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Button } from '@mui/material';
+import { Button, InputAdornment } from '@mui/material';
 import { TextField } from '@mui/material';
 import { ContentCopyOutlined, PlayArrowOutlined } from '@mui/icons-material';
-import type { EndpointParameter } from '@/types';
+import type { RequestBody, SwaggerParameter } from '@/types';
 
 const cx = classNames.bind(styles);
 
 type ParametersProps = {
-  parameters: EndpointParameter[];
+  parameters: SwaggerParameter[];
+  body: RequestBody | null;
 };
 
-export function Parameters({ parameters }: ParametersProps) {
+export function Parameters({ parameters, body }: ParametersProps) {
   const [isFormOpen, setOpen] = useState<boolean>(false);
   const t = useTranslations('VIEWER');
 
@@ -34,25 +35,44 @@ export function Parameters({ parameters }: ParametersProps) {
         )}
       </div>
       <form className={cx('form')}>
-        {parameters.length > 0 && (
+        {parameters.length > 0 ? (
           <>
             {parameters.map((param) => {
               return (
-                <TextField
-                  key={`${param.in}-${param.name}`}
-                  fullWidth
-                  name={param.name}
-                  label={param.name}
-                  helperText={param.description ?? ''}
-                  required={param.required}
-                  type="string"
-                  multiline={param.name === 'body'}
-                  minRows={3}
-                  disabled={!isFormOpen}
-                />
+                <div key={`${param.in}-${param.name}`} className={cx('input')}>
+                  <label htmlFor={param.name} className={cx('label')}>
+                    {param.name}
+                    {param.required && <span aria-hidden={true}>*</span>}
+                  </label>
+                  <TextField
+                    id={param.name}
+                    fullWidth
+                    name={param.name}
+                    helperText={param.description ?? ''}
+                    required={param.required}
+                    disabled={!isFormOpen}
+                    slotProps={{
+                      input: {
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <span>{param.in}</span>
+                          </InputAdornment>
+                        ),
+                      },
+                    }}
+                  />
+                </div>
               );
             })}
           </>
+        ) : (
+          <p className={cx('empty-message')}>{t('noParametersMessage')}</p>
+        )}
+        <h2 className={cx('title')}>{t('requestBody')}</h2>
+        {body ? (
+          <TextField fullWidth multiline minRows={3} disabled={!isFormOpen} />
+        ) : (
+          <p className={cx('empty-message')}>{t('noBodyMessage')}</p>
         )}
         {isFormOpen && (
           <div className={cx('actions')}>

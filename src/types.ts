@@ -1,5 +1,3 @@
-import { type HTTP_METHODS, type PARAMETER_LOCATIONS } from './constants';
-
 export type EditorFormat = 'JSON' | 'YAML' | 'unknown';
 
 export type ValidationErrorsLogin = {
@@ -30,6 +28,10 @@ export type JsonPrimitive = string | number | boolean | null;
 
 export type JsonValue = JsonPrimitive | JsonValue[] | { [key: string]: JsonValue };
 
+export const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete'] as const;
+
+export const PARAMETER_LOCATIONS = ['path', 'query', 'header', 'cookie'] as const;
+
 export type SwaggerDocument = {
   openapi?: string;
   swagger?: string;
@@ -46,8 +48,9 @@ export type SwaggerOperation = {
   summary?: string;
   description?: string;
   tags?: string[];
-  parameters?: EndpointParameter[];
+  parameters?: SwaggerParameter[];
   responses?: Record<string, unknown>;
+  requestBody?: RequestBody;
 };
 
 export type SwaggerResponse = {
@@ -62,11 +65,26 @@ export type HttpMethod = (typeof HTTP_METHODS)[number];
 
 export type ParameterLocation = (typeof PARAMETER_LOCATIONS)[number];
 
-export type EndpointParameter = {
+export type SwaggerParameter = {
   name: string;
   in: ParameterLocation;
-  required: boolean;
+  required?: boolean;
   description: string | null;
+  schema?: {
+    type?: string;
+    example?: unknown;
+  };
+};
+
+export type RequestBody = {
+  required?: boolean;
+  content?: Record<
+    string,
+    {
+      schema?: unknown;
+      example?: unknown;
+    }
+  >;
 };
 
 export type EndpointResponse = {
@@ -80,7 +98,8 @@ export type Endpoint = {
   method: HttpMethod;
   summary: string | null;
   tags: string[];
-  parameters: EndpointParameter[];
+  parameters: SwaggerParameter[];
+  requestBody: RequestBody | null;
   responses: Record<string, unknown> | undefined;
 };
 

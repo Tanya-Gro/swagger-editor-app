@@ -1,6 +1,6 @@
 import { parse } from 'yaml';
 import { type Endpoint, type SwaggerDocument } from '@/types';
-import { HTTP_METHODS } from '@/constants';
+import { HTTP_METHODS } from '@/types';
 
 function isRecord(candidate: unknown): candidate is Record<string, unknown> {
   return typeof candidate === 'object' && candidate !== null;
@@ -39,6 +39,7 @@ export function getEndpoints(schema: string): Endpoint[] {
         summary: operation.summary ?? null,
         tags: operation.tags ?? [],
         parameters: operation.parameters ?? [],
+        requestBody: operation.requestBody ?? null,
         responses: operation.responses,
       });
     }

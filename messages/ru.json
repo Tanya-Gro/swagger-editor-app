@@ -70,11 +70,14 @@
   "VIEWER": {
     "title": "Просмотр",
     "parameters": "Параметры",
+    "requestBody": "Тело запроса",
     "executeAction": "Выполнить",
     "response": "Ответы",
-    "tryAction": "Заполнить",
+    "tryAction": "Попробовать",
     "cancelAction": "Отмена",
-    "emptyMessage": "Нет данных для отображения. Пожалуйста, вставьте OpenApi схему"
+    "emptyMessage": "Нет данных для отображения. Пожалуйста, вставьте OpenApi схему",
+    "noParametersMessage": "Параметры отсутствуют",
+    "noBodyMessage": "Тело запроса отсутствует"
   },
   "PASSWORD": {
     "showPasswordButtonLabel": "Показать пароль",

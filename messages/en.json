@@ -76,8 +76,11 @@
     "executeAction": "Execute",
     "response": "Responses",
     "tryAction": "Try it out",
+    "requestBody": "Request body",
     "cancelAction": "Cancel",
-    "emptyMessage": "Nothing to display yet, please insert and OpenApi Schema"
+    "emptyMessage": "Nothing to display yet, please insert and OpenApi Schema",
+    "noParametersMessage": "No parameters",
+    "noBodyMessage": "No request body"
   },
   "FORM_VALIDATION": {
     "invalidEmailFormat": "Incorrect email format",

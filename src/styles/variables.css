@@ -45,6 +45,7 @@
   --color-text-primary: #581c87;
   --color-text-secondary: #9333ea;
   --color-text-muted: #c084fc;
+  --color-text-disabled: gray;
   --color-text-inverse: #fff;
   --color-background: #faf5ff;
   --color-surface: #fff;

@@ -25,3 +25,16 @@
   gap: 10px;
   padding-top: 8px;
 }
+
+.label {
+  font-size: var(--font-size-s);
+}
+
+.empty-message {
+  font-size: var(--font-size-s);
+  color: var(--color-text-disabled);
+}
+
+.input {
+  width: 100%;
+}
