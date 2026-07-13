@@ -36,6 +36,10 @@
   align-items: flex-end;
 }
 
+.file-input {
+  display: none;
+}
+
 @media (width <= 480px) {
   .header {
     min-height: var(--panel-header-height-mobile);
