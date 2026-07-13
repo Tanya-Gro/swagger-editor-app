@@ -75,6 +75,56 @@ export type Database = {
         };
         Relationships: [];
       };
+      request_logs: {
+        Row: {
+          duration: number;
+          error: string | null;
+          id: string;
+          method: string;
+          owner_id: string;
+          request_size: number;
+          response_size: number;
+          schema_id: string;
+          status: number | null;
+          timestamp: string;
+          url: string;
+        };
+        Insert: {
+          duration: number;
+          error?: string | null;
+          id?: string;
+          method: string;
+          owner_id?: string;
+          request_size?: number;
+          response_size?: number;
+          schema_id: string;
+          status?: number | null;
+          timestamp?: string;
+          url: string;
+        };
+        Update: {
+          duration?: number;
+          error?: string | null;
+          id?: string;
+          method?: string;
+          owner_id?: string;
+          request_size?: number;
+          response_size?: number;
+          schema_id?: string;
+          status?: number | null;
+          timestamp?: string;
+          url?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'request_logs_schema_id_fkey';
+            columns: ['schema_id'];
+            isOneToOne: false;
+            referencedRelation: 'openapi_schemas';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;

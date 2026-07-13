@@ -10,7 +10,7 @@ type HistoryDetailsPageProperties = Readonly<{
 
 export default async function Page({ params }: HistoryDetailsPageProperties) {
   const { id } = await params;
-  const entry = getHistoryEntryById(id);
+  const entry = await getHistoryEntryById(id);
 
   if (!entry) {
     notFound();

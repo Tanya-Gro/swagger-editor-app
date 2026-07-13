@@ -11,6 +11,10 @@ type HistoryDetailsProperties = Readonly<{
   entry: RequestHistoryItem;
 }>;
 
+function formatStatus(statusCode: number | null): string {
+  return statusCode === null ? '-' : String(statusCode);
+}
+
 export function HistoryDetails({ entry }: HistoryDetailsProperties) {
   const locale = useLocale();
   const t = useTranslations('HISTORY');
@@ -40,7 +44,7 @@ export function HistoryDetails({ entry }: HistoryDetailsProperties) {
             <div>
               <dt>{t('status')}</dt>
               <dd>
-                <Chip label={String(entry.statusCode)} size="small" />
+                <Chip label={formatStatus(entry.statusCode)} size="small" />
               </dd>
             </div>
             <div>

@@ -2,7 +2,8 @@ import { render, screen, within } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it } from 'vitest';
 import messages from '@messages/en.json';
-import { getHistoryEntries } from './data/history-data';
+import type { Tables } from '@/database/database.types';
+import { mapRequestLogToHistoryItem } from './utils/map-request-log';
 import { History } from './History';
 import { HistoryClient } from './components/HistoryClient';
 import HistoryTable from './components/HistoryTable';
@@ -67,16 +68,32 @@ function renderHistoryTable(entries: RequestHistoryItem[]): void {
 }
 
 describe('History', () => {
-  it('returns history entries sorted from newest to oldest', () => {
-    const entries = getHistoryEntries();
+  it('maps request log rows to history items', () => {
+    const historyItem = mapRequestLogToHistoryItem({
+      id: 'request-log-id',
+      timestamp: '2026-06-19T15:00:00.000Z',
+      method: 'get',
+      url: '/pet/findByStatus?status=available',
+      duration: 120,
+      status: 200,
+      request_size: 512,
+      response_size: 2048,
+      error: null,
+      owner_id: 'user-id',
+      schema_id: 'schema-id',
+    } satisfies Tables<'request_logs'>);
 
-    expect(entries.map((entry) => entry.id)).toEqual([
-      'find-available-pets',
-      'place-store-order',
-      'get-missing-pet',
-      'delete-pet',
-      'update-pet-profile',
-    ]);
+    expect(historyItem).toEqual({
+      id: 'request-log-id',
+      timestamp: '2026-06-19T15:00:00.000Z',
+      method: 'GET',
+      endpoint: '/pet/findByStatus?status=available',
+      duration: 120,
+      statusCode: 200,
+      requestSize: 512,
+      responseSize: 2048,
+      errorDetails: undefined,
+    });
   });
 
   it('renders for an authorized user', () => {
