@@ -1,12 +1,12 @@
-import { getHistoryEntries } from './history-data';
-import { HistoryClient } from './HistoryClient';
+import { HistoryClient } from './components/HistoryClient';
+import type { RequestHistoryItem } from './types';
 import styles from './History.module.css';
 
 type HistoryProperties = Readonly<{
-  entries?: ReturnType<typeof getHistoryEntries>;
+  entries: RequestHistoryItem[];
 }>;
 
-export function History({ entries = getHistoryEntries() }: HistoryProperties = {}) {
+export function History({ entries }: HistoryProperties) {
   return (
     <div className={styles.page}>
       <HistoryClient entries={entries} />

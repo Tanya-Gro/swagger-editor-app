@@ -2,27 +2,29 @@ import { render, screen, within } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it } from 'vitest';
 import messages from '@messages/en.json';
+import type { Tables } from '@/database/database.types';
+import { mapRequestLogToHistoryItem } from './utils/map-request-log';
 import { History } from './History';
-import { HistoryClient } from './HistoryClient';
-import HistoryTable from './HistoryTable';
+import { HistoryClient } from './components/HistoryClient';
+import HistoryTable from './components/HistoryTable';
 import type { RequestHistoryItem } from './types';
 
 const mockEntries: RequestHistoryItem[] = [
   {
-    id: 'req_test_001',
+    id: 'find-pets-test',
     timestamp: '2026-06-19T15:00:00.000Z',
     method: 'GET',
-    endpoint: '/pets',
+    endpoint: '/pet/findByStatus?status=available',
     duration: 120,
     statusCode: 200,
     requestSize: 512,
     responseSize: 2048,
   },
   {
-    id: 'req_test_002',
+    id: 'missing-pet-test',
     timestamp: '2026-06-19T14:00:00.000Z',
     method: 'POST',
-    endpoint: '/pets/unknown',
+    endpoint: '/pet/unknown',
     duration: 350,
     statusCode: 404,
     requestSize: 1024,
@@ -66,6 +68,34 @@ function renderHistoryTable(entries: RequestHistoryItem[]): void {
 }
 
 describe('History', () => {
+  it('maps request log rows to history items', () => {
+    const historyItem = mapRequestLogToHistoryItem({
+      id: 'request-log-id',
+      timestamp: '2026-06-19T15:00:00.000Z',
+      method: 'get',
+      url: '/pet/findByStatus?status=available',
+      duration: 120,
+      status: 200,
+      request_size: 512,
+      response_size: 2048,
+      error: null,
+      owner_id: 'user-id',
+      schema_id: 'schema-id',
+    } satisfies Tables<'request_logs'>);
+
+    expect(historyItem).toEqual({
+      id: 'request-log-id',
+      timestamp: '2026-06-19T15:00:00.000Z',
+      method: 'GET',
+      endpoint: '/pet/findByStatus?status=available',
+      duration: 120,
+      statusCode: 200,
+      requestSize: 512,
+      responseSize: 2048,
+      errorDetails: undefined,
+    });
+  });
+
   it('renders for an authorized user', () => {
     renderHistory();
 
@@ -77,14 +107,17 @@ describe('History', () => {
 
     const table = screen.getByRole('table');
 
-    expect(within(table).getByText('/pets')).toBeInTheDocument();
-    expect(within(table).getByText('/pets/unknown')).toBeInTheDocument();
+    expect(within(table).getByText('/pet/findByStatus?status=available')).toBeInTheDocument();
+    expect(within(table).getByText('/pet/unknown')).toBeInTheDocument();
     expect(within(table).getByText('120 ms')).toBeInTheDocument();
     expect(within(table).getByText('2.0 KB')).toBeInTheDocument();
     expect(within(table).getByText(formatExpectedTimestamp(mockEntries[0].timestamp))).toBeInTheDocument();
     expect(within(table).queryByText('2026-06-19T15:00:00.000Z')).not.toBeInTheDocument();
     expect(within(table).getByText('Pet not found')).toBeInTheDocument();
-    expect(within(table).getAllByRole('link', { name: 'Details' })[0]).toHaveAttribute('href', '/history/req_test_001');
+    expect(within(table).getAllByRole('link', { name: 'Details' })[0]).toHaveAttribute(
+      'href',
+      '/history/find-pets-test',
+    );
   });
 
   it('renders an empty state with an editor link when history is empty', () => {

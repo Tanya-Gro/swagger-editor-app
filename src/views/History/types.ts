@@ -1,4 +1,4 @@
-export type HistoryMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+export type HistoryMethod = string;
 
 export type HistoryStatusTone = 'success' | 'warning' | 'danger';
 
@@ -8,7 +8,7 @@ export type RequestHistoryItem = {
   method: HistoryMethod;
   endpoint: string;
   duration: number;
-  statusCode: number;
+  statusCode: number | null;
   requestSize: number;
   responseSize: number;
   errorDetails?: string;

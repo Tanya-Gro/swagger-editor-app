@@ -122,6 +122,8 @@
     "error": "Error",
     "analytics": "Analytics",
     "details": "Details",
+    "detailTitle": "Request details",
+    "backToHistory": "Back to history",
     "emptyTitle": "Empty history",
     "emptyDescription": "You haven't executed any requests yet. Start from the editor.",
     "editorAction": "Editor"

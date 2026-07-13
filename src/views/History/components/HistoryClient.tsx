@@ -4,8 +4,8 @@ import { Box, Button, Paper, Stack, Typography } from '@mui/material';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import type { RequestHistoryItem } from './types';
-import styles from './History.module.css';
+import type { RequestHistoryItem } from '../types';
+import styles from '../History.module.css';
 
 const HistoryTable = dynamic(() => import('./HistoryTable'), {
   ssr: false,
