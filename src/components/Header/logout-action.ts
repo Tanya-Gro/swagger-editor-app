@@ -2,17 +2,15 @@
 
 import { serverClient } from '@/database/server-client';
 import { redirect } from 'next/navigation';
+import { type LogoutState } from '@/types';
 
-export async function logoutAction(): Promise<never> {
+export async function logoutAction(_previousState: LogoutState): Promise<LogoutState> {
   const supabase = await serverClient();
 
-  try {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error('Cannot logout:', error);
-    }
-  } catch (error) {
-    console.error('Logout failed:', error);
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    return { error: error.message };
   }
 
   redirect('/');

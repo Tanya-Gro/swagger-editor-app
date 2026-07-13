@@ -5,18 +5,21 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { LanguageSwitcher } from '@/components/Header/LanguageSwitcher/LanguageSwitcher';
 
-import { LogoutOutlined, LoginOutlined, MenuOutlined } from '@mui/icons-material';
+import { LoginOutlined, MenuOutlined } from '@mui/icons-material';
 import { Button, IconButton } from '@mui/material';
 
 import styles from './Burger.module.css';
 import { navigationLinks } from '../navigationLinks';
 
 import classNames from 'classnames/bind';
+import type { LogoutAction } from '@/types';
+import { Logout } from '@/components/Logout/Logout';
+
 const cx = classNames.bind(styles);
 
 type BurgerProps = {
   isAuthenticated: boolean;
-  logoutAction: () => Promise<void>;
+  logoutAction: LogoutAction;
 };
 
 export function Burger({ isAuthenticated, logoutAction }: BurgerProps) {
@@ -60,17 +63,7 @@ export function Burger({ isAuthenticated, logoutAction }: BurgerProps) {
           <LanguageSwitcher className={cx('mobile-menu-action')} />
 
           {isAuthenticated ? (
-            <form action={logoutAction}>
-              <Button
-                className={cx('mobile-menu-action')}
-                startIcon={<LogoutOutlined />}
-                variant="contained"
-                type="submit"
-                onClick={closeMenu}
-              >
-                {t('signoutAction')}
-              </Button>
-            </form>
+            <Logout action={logoutAction} className={cx('mobile-menu-action')} label={t('signoutAction')} />
           ) : (
             <Link href="/login">
               <Button

@@ -115,3 +115,9 @@ export type ValidationError = {
 };
 
 export type SchemaSaveResult = { success: boolean; error?: string };
+
+export type LogoutState = {
+  error: string | null;
+};
+
+export type LogoutAction = (previousState: LogoutState) => Promise<LogoutState>;
