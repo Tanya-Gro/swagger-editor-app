@@ -15,14 +15,14 @@ export const MuiAccordion = {
       },
     },
     rounded: {
-      borderRadius: 'var(--border-radius-l)',
+      borderRadius: 'var(--border-radius-s)',
 
       '&:first-of-type': {
-        borderRadius: 'var(--border-radius-l)',
+        borderRadius: 'var(--border-radius-s)',
       },
 
       '&:last-of-type': {
-        borderRadius: 'var(--border-radius-l)',
+        borderRadius: 'var(--border-radius-s)',
       },
     },
   },
