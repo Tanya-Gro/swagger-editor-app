@@ -6,7 +6,11 @@ import { useLocale, useTranslations } from 'next-intl';
 import { formatBytes } from '@/utils/history/formatBytes';
 import { formatTimestamp } from '@/utils/history/formatTimestamp';
 import type { RequestHistoryItem } from '../types';
-import styles from '../History.module.css';
+
+import classNames from 'classnames/bind';
+import styles from './HistoryDetails.module.css';
+
+const cx = classNames.bind(styles);
 
 type HistoryDetailsProperties = Readonly<{
   entry: RequestHistoryItem;
@@ -21,17 +25,17 @@ export function HistoryDetails({ entry }: HistoryDetailsProperties) {
   const t = useTranslations('HISTORY');
 
   return (
-    <div className={styles.page}>
-      <div className={styles.inner}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>{t('detailTitle')}</h1>
-          <p className={styles.description}>
+    <div className={cx('page')}>
+      <div className={cx('inner')}>
+        <header className={cx('header')}>
+          <h1 className={cx('title')}>{t('detailTitle')}</h1>
+          <p className={cx('description')}>
             {entry.method} {entry.endpoint}
           </p>
         </header>
 
-        <section aria-label={t('detailTitle')} className={styles.note}>
-          <dl className={styles['detail-list']}>
+        <section aria-label={t('detailTitle')} className={cx('note')}>
+          <dl className={cx('detail-list')}>
             <div>
               <dt>{t('method')}</dt>
               <dd>{entry.method}</dd>
@@ -39,7 +43,7 @@ export function HistoryDetails({ entry }: HistoryDetailsProperties) {
             <div>
               <dt>{t('url')}</dt>
               <dd>
-                <code className={styles.code}>{entry.endpoint}</code>
+                <code className={cx('code')}>{entry.endpoint}</code>
               </dd>
             </div>
             <div>
@@ -66,11 +70,10 @@ export function HistoryDetails({ entry }: HistoryDetailsProperties) {
             </div>
             <div>
               <dt>{t('error')}</dt>
-              <dd className={entry.errorDetails ? undefined : styles.muted}>{entry.errorDetails ?? '-'}</dd>
+              <dd className={cx('detail-value', { muted: !entry.errorDetails })}>{entry.errorDetails ?? '-'}</dd>
             </div>
           </dl>
-
-          <div className={styles['empty-actions']}>
+          <div className={cx('empty-actions')}>
             <Button component={Link} href="/history" variant="outlined">
               {t('backToHistory')}
             </Button>
