@@ -94,6 +94,7 @@
     "user_already_exists": "A user with this email already exists",
     "successful_registration": "Registration successful",
     "unknown_error": "An error occurred. Please try again later",
-    "unexpected_failure": "Something went wrong. Please try reloading the page"
+    "invalid_credentials": "Incorrect email or password",
+    "unexpected_failure": "Something went wrong"
   }
 }

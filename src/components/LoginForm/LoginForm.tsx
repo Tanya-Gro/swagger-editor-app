@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { type ValidationErrorsLogin } from '@/types';
 import { validateForm } from '@/utils/forms/validate-form';
 import { createLoginSchema } from '@/utils/forms/login-schema';
+import { toast } from '@/utils/toast/toast';
 
 import { Button, TextField } from '@mui/material';
 import { PasswordField } from '@/components/PasswordField/PasswordField';
@@ -23,6 +24,7 @@ export function LoginForm() {
 
   const t = useTranslations('LOGIN_PAGE');
   const tValidation = useTranslations('FORM_VALIDATION');
+  const tDatabase = useTranslations('DATABASE');
 
   const [validationErrors, setValidationErrors] = useState<ValidationErrorsLogin>({});
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -45,24 +47,22 @@ export function LoginForm() {
     try {
       setLoading(true);
 
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email: validatedData.email,
         password: validatedData.password,
       });
 
       if (error) {
         setLoading(false);
-        console.error(error);
+        toast.error(tDatabase(error.code ?? 'unexpected_failure'));
         return;
       }
 
-      console.info(data);
-
       router.push('/');
       router.refresh();
-    } catch (error) {
+    } catch {
       setLoading(false);
-      console.error(error);
+      toast.error(tDatabase('unexpected_failure'));
     }
   }
 
