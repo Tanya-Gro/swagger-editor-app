@@ -16,7 +16,7 @@ type CardProps = {
 };
 
 export function Card({ endpoint }: CardProps) {
-  const { pathname, method, summary, parameters, requestBody, responses } = endpoint;
+  const { pathname, method, summary, parameters, requestBodyExample, responses } = endpoint;
 
   return (
     <Accordion>
@@ -29,7 +29,7 @@ export function Card({ endpoint }: CardProps) {
       </AccordionSummary>
       <Divider sx={{ margin: '16px 4px' }} />
       <AccordionDetails>
-        <Parameters parameters={parameters} body={requestBody} />
+        <Parameters parameters={parameters} body={requestBodyExample} />
         <Responses responses={responses} />
       </AccordionDetails>
     </Accordion>

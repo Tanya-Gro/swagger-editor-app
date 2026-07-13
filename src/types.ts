@@ -28,6 +28,13 @@ export type JsonPrimitive = string | number | boolean | null;
 
 export type JsonValue = JsonPrimitive | JsonValue[] | { [key: string]: JsonValue };
 
+export type SwaggerSchema = Record<string, unknown>;
+
+export type MediaTypeObject = {
+  schema?: SwaggerSchema;
+  example?: unknown;
+};
+
 export const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete'] as const;
 
 export const PARAMETER_LOCATIONS = ['path', 'query', 'header', 'cookie'] as const;
@@ -40,6 +47,10 @@ export type SwaggerDocument = {
     version: string;
   };
   paths: Record<string, PathItem>;
+  components?: {
+    schemas?: Record<string, SwaggerSchema>;
+  };
+  definitions?: Record<string, SwaggerSchema>;
 };
 
 export type PathItem = Partial<Record<HttpMethod, SwaggerOperation>>;
@@ -78,13 +89,7 @@ export type SwaggerParameter = {
 
 export type RequestBody = {
   required?: boolean;
-  content?: Record<
-    string,
-    {
-      schema?: unknown;
-      example?: unknown;
-    }
-  >;
+  content?: Record<string, MediaTypeObject>;
 };
 
 export type EndpointResponse = {
@@ -100,6 +105,7 @@ export type Endpoint = {
   tags: string[];
   parameters: SwaggerParameter[];
   requestBody: RequestBody | null;
+  requestBodyExample: JsonValue | null;
   responses: Record<string, unknown> | undefined;
 };
 
