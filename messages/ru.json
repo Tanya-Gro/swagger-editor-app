@@ -77,7 +77,7 @@
   "ENDPOINT_CARD": {
     "parameters": "Параметры",
     "executeAction": "Выполнить",
-    "response": "Ответ"
+    "response": "Ответы"
   },
   "FORM_VALIDATION": {
     "invalidEmailFormat": "Неверный формат почты",

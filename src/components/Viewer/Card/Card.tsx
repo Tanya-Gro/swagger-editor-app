@@ -32,7 +32,7 @@ export function Card({ endpoint }: CardProps) {
         <form className={cx('form')}>
           {parameters.length > 0 && (
             <>
-              <p className={cx('section-title')}>{t('parameters')}</p>
+              <h2 className={cx('section-title')}>{t('parameters')}</h2>
               {parameters.map((param) => {
                 return (
                   <TextField
@@ -59,17 +59,20 @@ export function Card({ endpoint }: CardProps) {
         </form>
         <section className={cx('responses')}>
           {responses && (
-            <ul className={cx('list')}>
-              {Object.entries(responses).map(([status, response]) => {
-                return (
-                  <li key={status} className={cx('list-item')}>
-                    <pre className={cx('response')}>
-                      <code>{JSON.stringify({ status, response }, null, 2)}</code>
-                    </pre>
-                  </li>
-                );
-              })}
-            </ul>
+            <>
+              <h2 className={cx('section-title')}>{t('response')}</h2>
+              <ul className={cx('list')}>
+                {Object.entries(responses).map(([status, response]) => {
+                  return (
+                    <li key={status} className={cx('list-item')}>
+                      <pre className={cx('response')}>
+                        <code>{JSON.stringify({ status, response }, null, 2)}</code>
+                      </pre>
+                    </li>
+                  );
+                })}
+              </ul>
+            </>
           )}
         </section>
       </AccordionDetails>
