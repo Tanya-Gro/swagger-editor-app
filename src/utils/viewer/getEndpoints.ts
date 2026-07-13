@@ -44,5 +44,13 @@ export function getEndpoints(schema: string): Endpoint[] {
     }
   }
 
-  return endpoints;
+  return endpoints.toSorted((firstEndpoint, secondEndpoint) => {
+    const pathnameComparison = firstEndpoint.pathname.localeCompare(secondEndpoint.pathname);
+
+    if (pathnameComparison !== 0) {
+      return pathnameComparison;
+    }
+
+    return HTTP_METHODS.indexOf(firstEndpoint.method) - HTTP_METHODS.indexOf(secondEndpoint.method);
+  });
 }
