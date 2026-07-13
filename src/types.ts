@@ -113,3 +113,5 @@ export type ValidationError = {
   path: string;
   message: string;
 };
+
+export type SchemaSaveResult = { success: boolean; error?: string };

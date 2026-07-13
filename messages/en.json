@@ -84,7 +84,18 @@
     "passwordHelperText": "Please enter your password",
     "actionButtonText": "Log in",
     "hintText": "Don't have an account yet?",
-    "linkText": "Register"
+    "linkText": "Register",
+    "notifications": {
+      "loginSuccessful": "Login successful:",
+      "loginFailed": "Login failed"
+    },
+    "validation": {
+      "invalidEmailFormat": "Incorrect email format",
+      "passwordMinLength": "Password must be at least 8 characters long",
+      "passwordLetter": "Password must contain at least one letter",
+      "passwordDigit": "Password must contain at least one digit",
+      "passwordSpecialChar": "Password must contain at least one special character"
+    }
   },
   "EDITOR": {
     "title": "Swagger Editor",
@@ -92,6 +103,7 @@
     "loadButton": "Load",
     "notifications": {
       "loadingSuccess": "successfully loaded",
+      "validationSuccess": "Schema successfully validated",
       "loadingError": "Error reading file",
       "fileTooLarge": "The file size must not exceed 2MB",
       "invalidFileType": "has an invalid format. Only JSON, YAML, and YML are allowed",
@@ -102,6 +114,9 @@
       "invalidObject": "Schema must be a valid JSON/YAML object",
       "unknownValidationError": "Unknown validation error",
       "invalidStructure": "Invalid structure",
+      "failToFetch": "Failed to load source schema",
+      "savedSuccess": "Schema saved successfully",
+      "failedToSave": "Failed to save changes",
       "unknownError": "Unknown error"
     },
     "errorList": {

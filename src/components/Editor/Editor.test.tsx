@@ -3,6 +3,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Editor } from './Editor';
 import { useEditorStore } from '@/store/useEditorStore';
+import { toast } from '@/utils/toast/toast';
 import type { EditorFormat, ValidationError } from '@/types';
 import messages from '@messages/en.json';
 
@@ -16,11 +17,24 @@ vi.mock('@/store/useEditorStore', () => ({
   useEditorStore: vi.fn(),
 }));
 
+vi.mock('@/utils/toast/toast', () => ({
+  toast: {
+    success: vi.fn(),
+  },
+}));
+
 describe('Editor', () => {
   const mockUpdateSchema = vi.fn();
   const mockSetFormat = vi.fn();
 
-  function setupStoreMock(format: EditorFormat = 'JSON', schema = '', errors: ValidationError[] = []) {
+  function setupStoreMock(
+    format: EditorFormat = 'JSON',
+    schema = '',
+    errors: ValidationError[] = [],
+    isValid = errors.length === 0,
+    isValidating = false,
+    validSchema = '',
+  ) {
     vi.mocked(useEditorStore).mockImplementation((selector) =>
       selector({
         format,
@@ -28,22 +42,26 @@ describe('Editor', () => {
         errors,
         setFormat: mockSetFormat,
         updateSchema: mockUpdateSchema,
-        validSchema: '',
-        isValid: errors.length === 0,
-        isValidating: false,
+        validSchema,
+        isValid,
+        isValidating,
+        isHydrated: true,
         debounceTimeoutId: null,
         validationGeneration: 0,
+        saveTimeoutId: null,
         clearErrors: vi.fn(),
+        saveStatus: 'idle',
       }),
     );
   }
 
   beforeEach(() => {
+    vi.clearAllMocks();
     setupStoreMock();
   });
 
-  function renderEditor(): void {
-    render(
+  function renderEditor() {
+    return render(
       <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
         <Editor />
       </NextIntlClientProvider>,
@@ -118,5 +136,23 @@ describe('Editor', () => {
     expect(editor).toHaveValue('!!! broken schema !!!');
     expect(screen.getByRole('button', { name: 'JSON' })).toHaveAttribute('aria-pressed', 'false');
     expect(screen.getByRole('button', { name: 'YAML' })).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('should trigger toast.success from useEffect when validation succeeds', () => {
+    setupStoreMock('JSON', '', [], false, false, 'new-valid-schema');
+
+    const { rerender } = renderEditor();
+
+    expect(toast.success).not.toHaveBeenCalled();
+
+    setupStoreMock('JSON', '', [], true, false, 'new-valid-schema');
+
+    rerender(
+      <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
+        <Editor />
+      </NextIntlClientProvider>,
+    );
+
+    expect(toast.success).toHaveBeenCalledWith(messages.EDITOR.notifications.validationSuccess);
   });
 });
