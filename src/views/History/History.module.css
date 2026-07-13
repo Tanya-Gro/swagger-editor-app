@@ -1,0 +1,18 @@
+.page {
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  padding: 48px 24px;
+}
+
+@media (width <= 640px) {
+  .page {
+    padding: 36px 16px;
+  }
+}
+
+@media (width <= 480px) {
+  .page {
+    padding: 24px 8px;
+  }
+}
