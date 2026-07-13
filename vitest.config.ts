@@ -8,6 +8,7 @@ export default defineConfig({
     alias: {
       '@': path.resolve(import.meta.dirname, './src'),
       '@messages': path.resolve(import.meta.dirname, './messages'),
+      '@tests': path.resolve(import.meta.dirname, './__tests__'),
     },
   },
   test: {

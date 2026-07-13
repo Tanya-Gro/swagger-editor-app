@@ -31,10 +31,11 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@messages/*": ["./messages/*"]
+      "@messages/*": ["./messages/*"],
+      "@tests/*": ["./__tests__/*"]
     },
     "allowJs": false
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts", "__tests__"],
   "exclude": ["node_modules"]
 }

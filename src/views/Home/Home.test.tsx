@@ -58,7 +58,11 @@ describe('Home Component Integration', () => {
       }),
     ).toBeInTheDocument();
 
-    expect(screen.getByText(/viewer placeholder/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', {
+        name: /swagger ui/i,
+      }),
+    ).toBeInTheDocument();
   });
 
   it('should render default empty layout when user is not authenticated', async () => {
@@ -76,7 +80,7 @@ describe('Home Component Integration', () => {
     );
 
     expect(screen.getByRole('heading', { name: /swagger editor/i })).toBeInTheDocument();
-    expect(screen.getByText(/viewer placeholder/i)).toBeInTheDocument();
+    expect(screen.getByText(/swagger ui/i)).toBeInTheDocument();
 
     const initializer = screen.getByTestId('store-initializer');
     expect(initializer).toHaveAttribute('data-schema', '');

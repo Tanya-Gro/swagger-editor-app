@@ -93,7 +93,7 @@ function getStatusColor(statusCode: number | null): 'success' | 'warning' | 'err
   return tone ? statusColors[tone] : undefined;
 }
 
-function MethodChip({ method }: { method: string }) {
+export function MethodChip({ method }: { method: string }) {
   return (
     <Chip
       className={getMethodClass(method)}

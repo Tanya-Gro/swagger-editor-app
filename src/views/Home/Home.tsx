@@ -1,4 +1,5 @@
 import { Editor } from '@/components/Editor/Editor';
+import { Viewer } from '@/components/Viewer/Viewer';
 import { serverClient } from '@/database/server-client';
 import { getSchema } from '@/utils/editor/schemaService/schemaService';
 
@@ -36,7 +37,7 @@ export async function Home() {
     <div className={cx('main-layout')}>
       <EditorStoreInitializer initialSchema={initialSchema} initialFormat={initialFormat} />
       <Editor fetchError={fetchError} />
-      <div className={cx('panel')}>Viewer placeholder</div>
+      <Viewer />
     </div>
   );
 }

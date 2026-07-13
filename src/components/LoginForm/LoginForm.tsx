@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { validateForm } from '@/utils/forms/validate-form';
 import { getSchema } from '@/utils/editor/schemaService/schemaService';
-import { toast } from '@/utils/toast/toast';
 import { type ValidationErrorsLogin } from '@/types';
 import { type SubmitEvent, useState } from 'react';
 import { createLoginSchema } from '@/utils/forms/login-schema';
+import { toast } from '@/utils/toast/toast';
 
 import { Button, TextField } from '@mui/material';
 import { PasswordField } from '@/components/PasswordField/PasswordField';

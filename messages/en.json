@@ -147,6 +147,17 @@
     "showPasswordButtonLabel": "Show password",
     "hidePasswordButtonLabel": "Hide password"
   },
+  "VIEWER": {
+    "parameters": "Parameters",
+    "executeAction": "Execute",
+    "response": "Responses",
+    "tryAction": "Try it out",
+    "requestBody": "Request body",
+    "cancelAction": "Cancel",
+    "emptyMessage": "Nothing to display yet, please insert and OpenApi Schema",
+    "noParametersMessage": "No parameters",
+    "noBodyMessage": "No request body"
+  },
   "FORM_VALIDATION": {
     "invalidEmailFormat": "Incorrect email format",
     "passwordMinLength": "Password must be at least 8 characters long",
@@ -159,6 +170,6 @@
     "user_already_exists": "A user with this email already exists",
     "successful_registration": "Registration successful",
     "unknown_error": "An error occurred. Please try again later",
-    "unexpected_failure": "Something went wrong. Please try reloading the page"
+    "unexpected_failure": "Something went wrong"
   }
 }
