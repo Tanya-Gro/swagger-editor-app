@@ -18,7 +18,8 @@
     "menuAriaLabel": "Open menu",
     "languageLabel": "Language",
     "english": "EN",
-    "russian": "RU"
+    "russian": "RU",
+    "languageSwitchError": "Could not switch languages"
   },
   "FOOTER": {
     "about": "About",
