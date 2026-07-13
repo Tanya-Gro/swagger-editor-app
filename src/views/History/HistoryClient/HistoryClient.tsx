@@ -1,11 +1,17 @@
 'use client';
 
-import { Box, Button, Paper, Stack, Typography } from '@mui/material';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+
+import { Box, Button, Paper, Stack, Typography } from '@mui/material';
+
 import type { RequestHistoryItem } from '../types';
-import styles from '../History.module.css';
+
+import classNames from 'classnames/bind';
+import styles from './HistoryClient.module.css';
+
+const cx = classNames.bind(styles);
 
 const HistoryTable = dynamic(() => import('../HistoryTable/HistoryTable'), {
   ssr: false,
@@ -21,25 +27,25 @@ export function HistoryClient({ entries }: HistoryClientProps) {
   const hasEntries = entries.length > 0;
 
   return (
-    <section aria-labelledby="history-title" className={styles.inner}>
-      <header className={styles.header}>
+    <section aria-labelledby="history-title" className={cx('inner')}>
+      <header className={cx('header')}>
         <Box>
-          <Typography className={styles.title} component="h1" id="history-title">
+          <Typography className={cx('title')} component="h1" id="history-title">
             {t('title')}
           </Typography>
-          <Typography className={styles.description}>{t('description')}</Typography>
+          <Typography className={cx('description')}>{t('description')}</Typography>
         </Box>
       </header>
 
       {hasEntries ? <HistoryTable entries={entries} /> : null}
 
       {hasEntries ? null : (
-        <section aria-labelledby="empty-title" className={styles.note}>
-          <Typography className={styles['note-title']} component="h2" id="empty-title">
+        <section aria-labelledby="empty-title" className={cx('note')}>
+          <Typography className={cx('note-title')} component="h2" id="empty-title">
             {t('emptyTitle')}
           </Typography>
-          <Typography className={styles['note-text']}>{t('emptyDescription')}</Typography>
-          <Stack className={styles['empty-actions']} direction="row">
+          <Typography className={cx('note-text')}>{t('emptyDescription')}</Typography>
+          <Stack className={cx('empty-actions')} direction="row">
             <Button component={Link} href="/" variant="contained">
               {t('editorAction')}
             </Button>

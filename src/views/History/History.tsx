@@ -1,4 +1,4 @@
-import { HistoryClient } from './components/HistoryClient';
+import { HistoryClient } from './HistoryClient/HistoryClient';
 import type { RequestHistoryItem } from './types';
 import styles from './History.module.css';
 
