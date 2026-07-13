@@ -154,9 +154,13 @@
     "tryAction": "Try it out",
     "requestBody": "Request body",
     "cancelAction": "Cancel",
-    "emptyMessage": "Nothing to display yet, please insert and OpenApi Schema",
+    "emptyMessage": "Nothing to display yet, please insert an OpenApi Schema",
     "noParametersMessage": "No parameters",
-    "noBodyMessage": "No request body"
+    "noBodyMessage": "No request body",
+    "executeResponseTitle": "Live Response",
+    "requestTimeLabel": "Request time",
+    "formedAtLabel": "Formed at",
+    "curlAction": "cURL"
   },
   "FORM_VALIDATION": {
     "invalidEmailFormat": "Incorrect email format",

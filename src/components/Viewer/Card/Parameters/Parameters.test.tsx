@@ -1,17 +1,22 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { NextIntlClientProvider } from 'next-intl';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, beforeEach, vi } from 'vitest';
 
 import messages from '@messages/en.json';
 import { schema } from '@tests/fixtures';
 import { getEndpoints } from '@/utils/viewer/getEndpoints';
 import { Parameters } from './Parameters';
+import { useViewerStore } from '@/store/useViewerStore';
+import type { HttpMethod, SwaggerParameter, JsonValue } from '@/types';
+
+vi.mock('@/app/actions/historyAction', () => ({
+  saveRequestToHistoryAction: vi.fn((): Promise<{ success: boolean }> => Promise.resolve({ success: true })),
+}));
 
 const endpoints = getEndpoints(schema);
 
 const postPetEndpoint = endpoints.find(({ pathname, method }) => pathname === '/pet' && method === 'post');
-
 const deletePetEndpoint = endpoints.find(({ pathname, method }) => pathname === '/pet/{petId}' && method === 'delete');
 
 if (postPetEndpoint === undefined || deletePetEndpoint === undefined) {
@@ -20,11 +25,16 @@ if (postPetEndpoint === undefined || deletePetEndpoint === undefined) {
 
 const requestBody = postPetEndpoint.requestBodyExample;
 const parameters = deletePetEndpoint.parameters;
+const testMethod: HttpMethod = 'post';
+const testPathname = '/pet/{petId}';
 
-function renderParameters(componentParameters = parameters, body = requestBody): void {
+function renderParameters(
+  componentParameters: SwaggerParameter[] = parameters,
+  body: JsonValue | null = requestBody,
+): void {
   render(
     <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
-      <Parameters parameters={componentParameters} body={body} />
+      <Parameters parameters={componentParameters} body={body} method={testMethod} pathname={testPathname} />
     </NextIntlClientProvider>,
   );
 }
@@ -40,7 +50,11 @@ function getRequestBodyInput(): HTMLTextAreaElement {
 }
 
 describe('Parameters', () => {
-  it('renders parameters and request body in read-only mode', () => {
+  beforeEach((): void => {
+    useViewerStore.setState({ openForms: {}, executeResults: {} });
+  });
+
+  it('renders parameters and request body in read-only mode', (): void => {
     renderParameters();
 
     expect(
@@ -71,7 +85,7 @@ describe('Parameters', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('enables editing after clicking Try it out', async () => {
+  it('enables editing after clicking Try it out', async (): Promise<void> => {
     const user = userEvent.setup();
 
     renderParameters();
@@ -103,12 +117,12 @@ describe('Parameters', () => {
 
     expect(
       screen.getByRole('button', {
-        name: 'cURL',
+        name: messages.VIEWER.curlAction,
       }),
     ).toBeInTheDocument();
   });
 
-  it('restores request body after cancelling', async () => {
+  it('restores request body after cancelling', async (): Promise<void> => {
     const user = userEvent.setup();
 
     renderParameters();
@@ -143,7 +157,7 @@ describe('Parameters', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('renders empty messages when parameters and body are absent', () => {
+  it('renders empty messages when parameters and body are absent', (): void => {
     renderParameters([], null);
 
     expect(screen.getByText(messages.VIEWER.noParametersMessage)).toBeInTheDocument();

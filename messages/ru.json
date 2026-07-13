@@ -133,7 +133,11 @@
     "cancelAction": "Отмена",
     "emptyMessage": "Нет данных для отображения. Пожалуйста, вставьте OpenApi схему",
     "noParametersMessage": "Параметры отсутствуют",
-    "noBodyMessage": "Тело запроса отсутствует"
+    "noBodyMessage": "Тело запроса отсутствует",
+    "executeResponseTitle": "Результат выполнения (Live Response)",
+    "requestTimeLabel": "Время запроса",
+    "formedAtLabel": "Сформирован",
+    "curlAction": "cURL"
   },
   "HISTORY": {
     "title": "История запросов",
