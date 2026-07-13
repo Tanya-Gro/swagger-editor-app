@@ -1,5 +1,5 @@
 import type { Tables } from '@/database/database.types';
-import type { RequestHistoryItem } from '../types';
+import type { RequestHistoryItem } from '../../views/History/types';
 
 type RequestLogRow = Tables<'request_logs'>;
 

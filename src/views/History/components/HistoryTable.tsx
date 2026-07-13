@@ -3,7 +3,8 @@
 import { Chip, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
-import { formatBytes, formatTimestamp } from '../utils/history-format';
+import { formatBytes } from '@/utils/history/formatBytes';
+import { formatTimestamp } from '@/utils/history/formatTimestamp';
 import type { HistoryStatusTone, RequestHistoryItem } from '../types';
 import styles from '../History.module.css';
 

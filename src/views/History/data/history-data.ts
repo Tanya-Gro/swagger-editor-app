@@ -1,6 +1,6 @@
 import { serverClient } from '@/database/server-client';
 import type { RequestHistoryItem } from '../types';
-import { mapRequestLogToHistoryItem } from '../utils/map-request-log';
+import { mapRequestLogToHistoryItem } from '@/utils/history/mapRequestLog';
 
 export async function getHistoryEntries(): Promise<RequestHistoryItem[]> {
   const supabase = await serverClient();

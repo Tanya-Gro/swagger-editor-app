@@ -3,7 +3,8 @@
 import { Button, Chip } from '@mui/material';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
-import { formatBytes, formatTimestamp } from '../utils/history-format';
+import { formatBytes } from '@/utils/history/formatBytes';
+import { formatTimestamp } from '@/utils/history/formatTimestamp';
 import type { RequestHistoryItem } from '../types';
 import styles from '../History.module.css';
 

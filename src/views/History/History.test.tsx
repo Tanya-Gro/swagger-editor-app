@@ -3,7 +3,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it } from 'vitest';
 import messages from '@messages/en.json';
 import type { Tables } from '@/database/database.types';
-import { mapRequestLogToHistoryItem } from './utils/map-request-log';
+import { mapRequestLogToHistoryItem } from '@/utils/history/mapRequestLog';
 import { History } from './History';
 import { HistoryClient } from './components/HistoryClient';
 import HistoryTable from './components/HistoryTable';
