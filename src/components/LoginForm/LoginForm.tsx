@@ -1,18 +1,22 @@
 'use client';
 
-import { type SubmitEvent, useState } from 'react';
-import styles from './LoginForm.module.css';
-import classNames from 'classnames/bind';
 import { browserClient } from '@/database/browser-client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { type ValidationErrorsLogin } from '@/types';
 import { validateForm } from '@/utils/forms/validate-form';
+import { getSchema } from '@/utils/editor/schemaService/schemaService';
+import { toast } from '@/utils/toast/toast';
+import { type ValidationErrorsLogin } from '@/types';
+import { type SubmitEvent, useState } from 'react';
 import { createLoginSchema } from '@/utils/forms/login-schema';
 
 import { Button, TextField } from '@mui/material';
 import { PasswordField } from '@/components/PasswordField/PasswordField';
+
 import { useTranslations } from 'next-intl';
+
+import styles from './LoginForm.module.css';
+import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
@@ -52,17 +56,18 @@ export function LoginForm() {
 
       if (error) {
         setLoading(false);
-        console.error(error);
+        toast.error(error.message);
         return;
       }
 
-      console.info(data);
+      toast.success(`${t('notifications.loginSuccessful')} ${data.user.email ?? ''}`);
 
       router.push('/');
       router.refresh();
+      await getSchema(supabase, data.user.id);
     } catch (error) {
       setLoading(false);
-      console.error(error);
+      toast.error(error instanceof Error ? error.message : t('notifications.loginFailed'));
     }
   }
 

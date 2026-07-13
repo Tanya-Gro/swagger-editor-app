@@ -5,6 +5,8 @@
   padding: 12px 16px;
   border-top: 1px solid #f8b4b4;
 
+  font-family: var(--font-family-mono);
+
   background-color: #fdf2f2;
 }
 

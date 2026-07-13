@@ -1,20 +1,26 @@
 import { useTranslations } from 'next-intl';
+import { useEditorStore } from '@/store/useEditorStore';
+import Loading from '@/app/loading';
 
 import classNames from 'classnames/bind';
 import styles from './ErrorList.module.css';
-import type { ValidationError } from '@/types';
 
 const cx = classNames.bind(styles);
 
-type ErrorListProps = {
-  errors: ValidationError[];
-};
-
-export const ErrorList = ({ errors }: ErrorListProps) => {
+export const ErrorList = () => {
   const t = useTranslations('EDITOR');
 
-  if (errors.length === 0) {
+  const isValidating = useEditorStore((state) => state.isValidating);
+  const isValid = useEditorStore((state) => state.isValid);
+  const isHydrated = useEditorStore((state) => state.isHydrated);
+  const errors = useEditorStore((state) => state.errors);
+
+  if (!isHydrated || isValid) {
     return null;
+  }
+
+  if (isValidating) {
+    return <Loading />;
   }
 
   return (
