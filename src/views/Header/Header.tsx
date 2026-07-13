@@ -1,28 +1,23 @@
-'use client';
-
-import { LogoutOutlined, LoginOutlined, MenuOutlined } from '@mui/icons-material';
-import { Button, IconButton } from '@mui/material';
+import { LogoutOutlined, LoginOutlined } from '@mui/icons-material';
+import { Button } from '@mui/material';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
 
-import { LanguageSwitcher } from '@/components/Header/LanguageSwitcher';
+import { LanguageSwitcher } from '@/components/Header/LanguageSwitcher/LanguageSwitcher';
+import { Burger } from '@/components/Header/Burger/Burger';
 import styles from './Header.module.css';
+import { navigationLinks } from '@/components/Header/navigationLinks';
+import { getTranslations } from 'next-intl/server';
 
 const cx = classNames.bind(styles);
-
-const navigationLinks = [
-  { href: '/about', messageKey: 'about' },
-  { href: '/', messageKey: 'editor' },
-] as const;
 
 type HeaderViewProps = {
   isAuthenticated: boolean;
   logoutAction: () => Promise<void>;
 };
 
-export function HeaderView({ isAuthenticated, logoutAction }: HeaderViewProps) {
-  const t = useTranslations('HEADER');
+export async function HeaderView({ isAuthenticated, logoutAction }: HeaderViewProps) {
+  const t = await getTranslations('HEADER');
 
   return (
     <header className={cx('header')}>
@@ -68,44 +63,7 @@ export function HeaderView({ isAuthenticated, logoutAction }: HeaderViewProps) {
               </Link>
             )}
           </div>
-
-          <details className={cx('mobile-menu-details')}>
-            <summary aria-label={t('menuAriaLabel')} className={cx('mobile-menu-button')}>
-              <IconButton aria-hidden="true" className={cx('mobile-menu-icon')} component="span" size="medium">
-                <MenuOutlined />
-              </IconButton>
-            </summary>
-            <div className={cx('mobile-menu')} id="mobile-header-menu">
-              <div className={cx('mobile-menu-section')} />
-              <div className={cx('mobile-menu-section')}>
-                <LanguageSwitcher className={cx('mobile-menu-action')} />
-
-                {isAuthenticated ? (
-                  <form action={logoutAction}>
-                    <Button
-                      className={cx('mobile-menu-action')}
-                      startIcon={<LogoutOutlined />}
-                      variant="contained"
-                      type="submit"
-                    >
-                      {t('signoutAction')}
-                    </Button>
-                  </form>
-                ) : (
-                  <Link href="/login">
-                    <Button
-                      component="span"
-                      className={cx('mobile-menu-action')}
-                      startIcon={<LoginOutlined />}
-                      variant="contained"
-                    >
-                      {t('authAction')}
-                    </Button>
-                  </Link>
-                )}
-              </div>
-            </div>
-          </details>
+          <Burger isAuthenticated={isAuthenticated} logoutAction={logoutAction} />
         </div>
       </div>
     </header>
