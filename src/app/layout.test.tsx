@@ -13,6 +13,10 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ refresh: vi.fn() }),
 }));
 
+vi.mock('@/components/Header/Header', () => ({
+  Header: () => <header data-testid="header" />,
+}));
+
 describe('RootLayout', () => {
   it('renders main content', async () => {
     const layout = await RootLayout({

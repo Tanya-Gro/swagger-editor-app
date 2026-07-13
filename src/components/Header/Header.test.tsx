@@ -1,59 +1,64 @@
-import { render, screen, within } from '@testing-library/react';
-import { NextIntlClientProvider } from 'next-intl';
-import { describe, expect, it, vi } from 'vitest';
-import messages from '@messages/ru.json';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Header } from './Header';
+import { HeaderView } from '@/views/Header/Header';
+import { logoutAction } from './logout-action';
 
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({ refresh: vi.fn() }),
+const mocks = vi.hoisted(() => ({
+  getUser: vi.fn(),
 }));
 
-function renderHeader(): void {
-  render(
-    <NextIntlClientProvider locale="ru" messages={messages} timeZone="UTC">
-      <Header />
-    </NextIntlClientProvider>,
-  );
-}
+vi.mock('@/database/server-client', () => ({
+  serverClient: vi.fn(() =>
+    Promise.resolve({
+      auth: {
+        getUser: mocks.getUser,
+      },
+    }),
+  ),
+}));
+
+vi.mock('./logout-action', () => ({
+  logoutAction: vi.fn(),
+}));
+
+beforeEach(() => {
+  vi.clearAllMocks();
+});
 
 describe('Header', () => {
-  it('renders the header', () => {
-    renderHeader();
-
-    expect(screen.getByRole('banner')).toBeInTheDocument();
-  });
-
-  it('contains the logo', () => {
-    renderHeader();
-
-    const header = screen.getByRole('banner');
-
-    expect(within(header).getByTestId('header-logo')).toBeInTheDocument();
-    expect(within(header).getByText('Swagger UI')).toBeInTheDocument();
-    expect(within(header).getByText('Документация API')).toBeInTheDocument();
-  });
-
-  it('renders unique navigation links', () => {
-    renderHeader();
-
-    const navigation = screen.getByRole('navigation', { name: 'Основная навигация' });
-
-    expect(within(navigation).getAllByRole('link')).toHaveLength(2);
-    expect(within(navigation).getByRole('link', { name: 'О проекте' })).toHaveAttribute('href', '/about');
-    expect(within(navigation).getByRole('link', { name: 'Редактор' })).toHaveAttribute('href', '/');
-  });
-
-  it('login button has link to login page', () => {
-    renderHeader();
-
-    const loginLinks = screen.getAllByRole('link', {
-      name: /войти/i,
+  it('returns HeaderView with unauthenticated state', async () => {
+    mocks.getUser.mockResolvedValue({
+      data: {
+        user: null,
+      },
+      error: null,
     });
 
-    expect(loginLinks).toHaveLength(2);
+    const result = await Header();
 
-    loginLinks.forEach((link) => {
-      expect(link).toHaveAttribute('href', '/login');
+    expect(result.type).toBe(HeaderView);
+    expect(result.props).toEqual({
+      isAuthenticated: false,
+      logoutAction,
+    });
+  });
+
+  it('returns HeaderView with authenticated state', async () => {
+    mocks.getUser.mockResolvedValue({
+      data: {
+        user: {
+          id: 'user-id',
+        },
+      },
+      error: null,
+    });
+
+    const result = await Header();
+
+    expect(result.type).toBe(HeaderView);
+    expect(result.props).toEqual({
+      isAuthenticated: true,
+      logoutAction,
     });
   });
 });

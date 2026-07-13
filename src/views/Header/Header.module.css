@@ -140,6 +140,15 @@
   color: var(--color-text-secondary);
 }
 
+.mobile-menu-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+}
+
 .mobile-menu-details {
   display: none;
 }
@@ -176,7 +185,7 @@
     right: 0;
     left: 0;
 
-    overflow: hidden;
+    overflow: hidden auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -197,7 +206,7 @@
   }
 
   .mobile-menu-details[open] .mobile-menu {
-    max-height: 180px;
+    max-height: calc(100vh - 64px);
     padding: 16px;
     border-top-color: var(--color-border-subtle);
     opacity: 1;

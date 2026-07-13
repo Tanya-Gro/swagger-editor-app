@@ -3,11 +3,12 @@
 import { browserClient } from '@/database/browser-client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { validateLoginForm } from '@/utils/login/validate-form';
 import { getSchema } from '@/utils/editor/schemaService/schemaService';
 import { toast } from '@/utils/toast/toast';
 import { type ValidationErrorsLogin } from '@/types';
 import { type SubmitEvent, useState } from 'react';
+import { validateForm } from '@/utils/forms/validate-form';
+import { createLoginSchema } from '@/utils/forms/login-schema';
 
 import { Button, TextField } from '@mui/material';
 import { PasswordField } from '@/components/PasswordField/PasswordField';
@@ -25,7 +26,7 @@ export function LoginForm() {
   const router = useRouter();
 
   const t = useTranslations('LOGIN_PAGE');
-  const tValidation = useTranslations('LOGIN_PAGE.validation');
+  const tValidation = useTranslations('FORM_VALIDATION');
 
   const [validationErrors, setValidationErrors] = useState<ValidationErrorsLogin>({});
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -33,7 +34,10 @@ export function LoginForm() {
   async function handleLogin(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const { data: validatedData, errors } = validateLoginForm(new FormData(event.currentTarget), tValidation);
+    const { data: validatedData, errors } = validateForm(
+      new FormData(event.currentTarget),
+      createLoginSchema(tValidation),
+    );
 
     if (!validatedData) {
       setValidationErrors(errors ?? {});
@@ -88,6 +92,7 @@ export function LoginForm() {
           name="password"
           helperText={t('passwordHelperText')}
           error={validationErrors.password}
+          autocomplete="current-password"
         />
 
         <Button variant="contained" fullWidth type="submit" className={cx('button')} loading={isLoading}>
