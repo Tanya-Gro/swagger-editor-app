@@ -1,0 +1,177 @@
+{
+  "METADATA": {
+    "title": "Приложение Swagger Editor",
+    "description": "Учебный редактор Swagger на Next.js, React и TypeScript."
+  },
+  "HEADER": {
+    "brandName": "Swagger UI",
+    "brandSubtitle": "Документация API",
+    "homeAriaLabel": "Главная Swagger UI",
+    "navigationAriaLabel": "Основная навигация",
+    "desktopNavigationAriaLabel": "Навигация для десктопа",
+    "mobileNavigationAriaLabel": "Навигация для мобильного меню",
+    "about": "О проекте",
+    "editor": "Редактор",
+    "history": "История",
+    "authAction": "Войти",
+    "signoutAction": "Выйти",
+    "menuAriaLabel": "Открыть меню",
+    "languageLabel": "Язык",
+    "english": "EN",
+    "russian": "RU"
+  },
+  "FOOTER": {
+    "about": "О проекте",
+    "madeBy": "Сделано с ♥ командой ATOM"
+  },
+  "MAIN_PAGE": {
+    "title": "Главная страница"
+  },
+  "ABOUT_PAGE": {
+    "title": "Наша команда",
+    "subtitle": "Четыре роли, которые держат проект в равновесии.",
+    "photoAlt": "Команда рабочих сидит на балке над городом",
+    "captionTitle": "Одна балка, четыре роли.",
+    "captionText": "Фотография задает метафору страницы: команда держит баланс между кодом, дизайном, документацией и ревью.",
+    "schoolAriaLabel": "Перейти на страницу курса React в RS School",
+    "schoolLogoAlt": "Эмблема RS School",
+    "schoolCourseTitle": "RS School React Course",
+    "schoolCourseText": "Бесплатный онлайн-курс на английском языке для студентов с сильной базой JavaScript, TypeScript и Frontend.",
+    "appInfoTitle": "О приложении и технологиях",
+    "appInfoText": "Swagger Editor App помогает загружать, редактировать и просматривать API-схемы в JSON и YAML. Проект собран на современном React-стеке с типизацией, интернационализацией, Material UI-компонентами и тестами.",
+    "techStackAriaLabel": "Стек технологий проекта",
+    "rolesAriaLabel": "Роли команды",
+    "roles": {
+      "alexey": {
+        "name": "Anna Zhuravleva",
+        "alt": "Портрет Anna Zhuravleva",
+        "description": "Аня - наш ментор. Очень строгий и суровый, но добрый в душе."
+      },
+      "daria": {
+        "name": "Tatyana Grosul",
+        "alt": "Портрет Tatyana Grosul",
+        "description": "Тимлид и двигатель команды, просто пушка."
+      },
+      "bogdan": {
+        "name": "Maria Fiodorova",
+        "alt": "Портрет Maria Fiodorova",
+        "description": "Днём разработчик, вечером скалолаз."
+      },
+      "viktor": {
+        "name": "Andrei Tseniuta",
+        "alt": "Портрет Andrei Tseniuta",
+        "description": "Разработчик с большой душой и улыбкой."
+      }
+    }
+  },
+  "REGISTRATION_PAGE": {
+    "title": "Регистрация",
+    "emailLabel": "Почта",
+    "emailHelperText": "Почта в формате name@example.com",
+    "passwordLabel": "Придумайте пароль",
+    "passwordHelperText": "Пароль должен быть длиннее 8 символов",
+    "repeatPasswordLabel": "Повторите пароль",
+    "repeatPasswordHelperText": "Повторно введите пароль для подтверждения",
+    "actionButtonText": "Зарегистрироваться",
+    "infoText": "Уже есть аккаунт?",
+    "actionLinkText": "Войти"
+  },
+  "LOGIN_PAGE": {
+    "title": "Вход",
+    "emailLabel": "Почта",
+    "emailHelperText": "Почта в формате name@example.com",
+    "passwordLabel": "Пароль",
+    "passwordHelperText": "Ваш пароль",
+    "actionButtonText": "Войти",
+    "hintText": "Нет аккаунта?",
+    "linkText": "Регистрация",
+    "notifications": {
+      "loginSuccessful": "Вход выполнен успешно:",
+      "loginFailed": "Ошибка входа"
+    },
+    "validation": {
+      "invalidEmailFormat": "Неверный формат почты",
+      "passwordMinLength": "Минимальная длина пароля 8 символов",
+      "passwordLetter": "Пароль должен содержать английские буквы",
+      "passwordDigit": "Пароль должен содержать хотя бы одну цифру",
+      "passwordSpecialChar": "Пароль должен содержать хотя бы один специальный символ"
+    }
+  },
+  "EDITOR": {
+    "title": "Сваггер Редактор",
+    "clearButton": "Очистить",
+    "loadButton": "Загрузить",
+    "notifications": {
+      "loadingSuccess": "успешно загружен",
+      "validationSuccess": "Схема успешно валидирована",
+      "loadingError": "Ошибка при чтении файла",
+      "fileTooLarge": "Размер файла не должен превышать 2MB",
+      "invalidFileType": "имеет недопустимый формат. Разрешены только JSON, YAML и YML",
+      "conversionError": "Неподдерживаемый формат схемы. Конвертация невозможна",
+      "jsonToYaml": "Не удалось сконвертировать JSON в YAML: проверьте синтаксис исходного кода",
+      "yamlToJson": "Не удалось сконвертировать YAML в JSON: проверьте синтаксис исходного кода",
+      "invalidYaml": "Недопустимая структура YAML",
+      "invalidObject": "Схема должна представлять собой допустимый объект JSON/YAML",
+      "unknownValidationError": "Неизвестная ошибка валидации",
+      "invalidStructure": "Неверная структура",
+      "failToFetch": "Не удалось загрузить исходную схему",
+      "savedSuccess": "Схема успешно сохранена",
+      "failedToSave": "Не удалось сохранить изменения",
+      "unknownError": "Неизвестная ошибка"
+    },
+    "errorList": {
+      "title": "Ошибки спецификации"
+    }
+  },
+  "VIEWER": {
+    "title": "Просмотр",
+    "parameters": "Параметры",
+    "requestBody": "Тело запроса",
+    "executeAction": "Выполнить",
+    "response": "Ответы",
+    "tryAction": "Попробовать",
+    "cancelAction": "Отмена",
+    "emptyMessage": "Нет данных для отображения. Пожалуйста, вставьте OpenApi схему",
+    "noParametersMessage": "Параметры отсутствуют",
+    "noBodyMessage": "Тело запроса отсутствует"
+  },
+  "HISTORY": {
+    "title": "История запросов",
+    "description": "Просматривайте выполненные API-запросы, статусы ответов и основные метрики производительности.",
+    "tableAriaLabel": "Список истории запросов",
+    "method": "Метод",
+    "url": "URL",
+    "status": "Статус",
+    "time": "Время",
+    "request": "Запрос",
+    "response": "Ответ",
+    "timestamp": "Дата и время",
+    "error": "Ошибка",
+    "analytics": "Аналитика",
+    "details": "Детали",
+    "detailTitle": "Детали запроса",
+    "backToHistory": "Назад к истории",
+    "emptyTitle": "Пустая история",
+    "emptyDescription": "Вы ещё не выполняли запросы. Начните с редактора.",
+    "editorAction": "Редактор"
+  },
+  "PASSWORD": {
+    "showPasswordButtonLabel": "Показать пароль",
+    "hidePasswordButtonLabel": "Скрыть пароль"
+  },
+  "FORM_VALIDATION": {
+    "invalidEmailFormat": "Неверный формат почты",
+    "invalidPassword": "Необходимо ввести пароль",
+    "passwordMinLength": "Минимальная длина пароля 8 символов",
+    "passwordLetter": "Пароль должен содержать английские буквы",
+    "passwordDigit": "Пароль должен содержать хотя бы одну цифру",
+    "passwordSpecialChar": "Пароль должен содержать хотя бы один специальный символ",
+    "repeatPassword": "Пароли должны совпадать"
+  },
+  "DATABASE": {
+    "user_already_exists": "Пользователь с такой почтой уже существует",
+    "successful_registration": "Вы успешно зарегистрировались",
+    "unknown_error": "Произошла ошибка. Пожалуйста, попробуйте позже",
+    "unexpected_failure": "Что-то пошло не так"
+  }
+}

@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  padding-bottom: 8px;
+}
+
+.title {
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-secondary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+
+  padding-bottom: 16px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.label {
+  font-size: var(--font-size-s);
+}
+
+.empty-message {
+  font-size: var(--font-size-s);
+  color: var(--color-text-disabled);
+}
+
+.input {
+  width: 100%;
+}

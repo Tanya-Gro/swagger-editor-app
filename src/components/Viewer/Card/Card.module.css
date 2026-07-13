@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.path {
+  font-size: var(--font-size-s);
+  color: var(--color-text-primary);
+}
+
+.summary {
+  font-size: var(--font-size-s);
+  color: var(--color-text-secondary);
+  text-transform: capitalize;
+}

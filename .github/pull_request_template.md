@@ -1,21 +1,32 @@
-## 📝 Task Description
+## What type of PR is this? (select all that apply)
 
-<!-- Briefly describe whatwas implemented and why. -->
+- [x] 🚀 Feature
+- [ ] 🐛 Bug Fix
+- [ ] 🚧 Breaking Change
+- [ ] 🧑‍💻 Code Refactor
+- [ ] 📝 Documentation Update
 
-## ✅ Defenition of done
+## Description
 
-<!-- List of implemented features -->
+<!-- Briefly describe what changes made in this PR -->
 
-####  🛠 Notes
+## Screenshots, Recordings
+
+<!-- Any relevant images for UI changes._ -->
+
+#### 🛠 Notes
 
 <!-- Steps for review. -->
+
+## Added/updated tests?
+
+- [ ] 👌 Yes
+- [x] 🙅‍♂️ No, because they aren't needed
+- [ ] 🙋‍♂️ No, because I need help
 
 **🔍 Checklist**
 
 - [x] Self-reviewed the code
-- [x] No @ts-ignore
-- [x] No console errors and warnings
-- [x] No execution results console.log
 - [x] No commented code sections
 - [x] Internationalization is supported
 - [ ] New dependencies

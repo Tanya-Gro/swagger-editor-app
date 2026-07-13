@@ -1,0 +1,139 @@
+.header {
+  position: sticky;
+  z-index: 50;
+  top: 0;
+
+  width: 100%;
+  border-bottom: 1px solid var(--color-border-subtle);
+
+  background: color-mix(in srgb, var(--color-surface) var(--opacity-80), transparent);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-text-primary) var(--opacity-8), transparent);
+
+  transition:
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+@supports (animation-timeline: scroll()) {
+  .header {
+    animation: header-shadow linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 80px;
+  }
+}
+
+@keyframes header-shadow {
+  from {
+    box-shadow: 0 1px 2px color-mix(in srgb, var(--color-text-primary) var(--opacity-8), transparent);
+  }
+
+  to {
+    box-shadow: 0 4px 6px -1px color-mix(in srgb, var(--color-shadow) var(--opacity-10), transparent);
+  }
+}
+
+.inner {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 12px 16px;
+}
+
+.logo {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 12px;
+  align-items: center;
+
+  min-width: 0;
+}
+
+.logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  filter: drop-shadow(0 4px 6px var(--shadow-color));
+}
+
+.logo-image {
+  display: block;
+
+  width: 40px;
+  height: 40px;
+
+  background-image: url('/assets/app-logo.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.logo-title {
+  font-size: var(--font-size-l);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: transparent;
+
+  background: var(--gradient-text-brand);
+  background-clip: text;
+}
+
+.logo-subtitle {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-muted);
+}
+
+.nav,
+.actions,
+.desktop-actions {
+  display: flex;
+  align-items: center;
+}
+
+.nav {
+  gap: 24px;
+}
+
+.actions,
+.desktop-actions {
+  gap: 8px;
+}
+
+.nav-link {
+  padding: 6px 8px;
+  border-radius: var(--border-radius-s);
+
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-border);
+  }
+}
+
+@media (width <= 1024px) {
+  .nav,
+  .desktop-actions {
+    display: none;
+  }
+}

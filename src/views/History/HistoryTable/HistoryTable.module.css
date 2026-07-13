@@ -1,0 +1,154 @@
+.table-card,
+.note {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-m);
+
+  background: color-mix(in srgb, var(--color-surface) 78%, transparent);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--color-text-primary) var(--opacity-10), transparent);
+}
+
+.table-card {
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  min-width: 1040px;
+}
+
+.mobile-list {
+  display: none;
+}
+
+.table-cell {
+  min-width: 0;
+}
+
+.code {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-primary);
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+.analytics-link {
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+}
+
+.analytics-link:hover {
+  color: var(--color-text-primary);
+}
+
+@media (width <= 1078px) {
+  .table-card {
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .table-wrap {
+    display: none;
+  }
+
+  .mobile-list {
+    display: grid;
+    gap: 14px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  .mobile-card {
+    overflow: hidden;
+
+    padding: 16px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-m);
+
+    background: color-mix(in srgb, var(--color-surface) 78%, transparent);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 28px color-mix(in srgb, var(--color-text-primary) var(--opacity-10), transparent);
+  }
+
+  .mobile-card-header,
+  .mobile-card-title,
+  .mobile-card-row {
+    display: flex;
+  }
+
+  .mobile-card-header {
+    gap: 16px;
+    justify-content: space-between;
+  }
+
+  .mobile-card-title {
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .mobile-card-details {
+    display: grid;
+    margin: 14px 0 12px;
+  }
+
+  .mobile-card-row {
+    gap: 16px;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .mobile-card-row dt {
+    flex: 0 0 auto;
+
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+  }
+
+  .mobile-card-row dd {
+    min-width: 0;
+    margin: 0;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+
+  .code {
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (width <= 480px) {
+  .mobile-list {
+    gap: 10px;
+  }
+
+  .mobile-card {
+    padding: 12px;
+    border-radius: var(--border-radius-s);
+  }
+
+  .mobile-card-header,
+  .mobile-card-row {
+    gap: 10px;
+  }
+}
