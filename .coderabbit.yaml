@@ -1,0 +1,35 @@
+language: 'ru-RU'
+tone_instructions: |
+  Informative React/TS student review: Lines X-Y: [describe issue]. Use [specific HTML/TS/React fix]. Reference line numbers. Actionable suggestions with semantic tags/hooks. Brief explanation why it matters.
+early_access: true
+reviews:
+  profile: assertive
+  finishing_touches:
+    docstrings:
+      enabled: false
+    unit_tests:
+      enabled: false
+    simplify:
+      enabled: false
+  request_changes_workflow: false
+  high_level_summary: false
+  high_level_summary_in_walkthrough: false
+  enable_prompt_for_ai_agents: false
+  changed_files_summary: true
+  poem: false
+  review_status: false
+  collapse_walkthrough: true
+  auto_review:
+    enabled: false
+    drafts: false
+    ignore_title_keywords: ['coderabbit-ignore']
+  path_instructions:
+    - path: '**/*.{ts,tsx}'
+      instructions: |
+        Student React/TS review:
+          - Describe accessibility issues without ARIA code
+          - Explain TypeScript errors without type definitions
+          - Hook issues: explain deps/memoization need
+          - NEVER write FULL code fixes inline
+chat:
+  auto_reply: true

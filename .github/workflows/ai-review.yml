@@ -35,6 +35,16 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+    env:
+      LLM__HTTP_CLIENT__API_URL: ${{ vars.GROQ_API_URL }}
+      LLM__HTTP_CLIENT__API_TOKEN: ${{ secrets.GROQ_API_KEY }}
+
+      VCS__PROVIDER: GITHUB
+      VCS__PIPELINE__OWNER: ${{ github.repository_owner }}
+      VCS__PIPELINE__REPO: ${{ github.event.repository.name }}
+      VCS__PIPELINE__PULL_NUMBER: ${{ inputs.pull-request-number || github.event.pull_request.number }}
+      VCS__HTTP_CLIENT__API_URL: https://api.github.com
+      VCS__HTTP_CLIENT__API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -57,16 +67,6 @@ jobs:
         run: |
           ai-review show-config
           ai-review ${{ inputs.review-command }}
-        env:
-          LLM__HTTP_CLIENT__API_URL: ${{ vars.GROQ_API_URL }}
-          LLM__HTTP_CLIENT__API_TOKEN: ${{ secrets.GROQ_API_KEY }}
-
-          VCS__PROVIDER: GITHUB
-          VCS__PIPELINE__OWNER: ${{ github.repository_owner }}
-          VCS__PIPELINE__REPO: ${{ github.event.repository.name }}
-          VCS__PIPELINE__PULL_NUMBER: ${{ inputs.pull-request-number || github.event.pull_request.number }}
-          VCS__HTTP_CLIENT__API_URL: https://api.github.com
-          VCS__HTTP_CLIENT__API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run AI Context Review
         if: ${{ github.event_name != 'workflow_dispatch' }}
@@ -75,9 +75,6 @@ jobs:
         run: |
           ai-review show-config
           ai-review run-context
-        env:
-          LLM__HTTP_CLIENT__API_URL: ${{ vars.GROQ_API_URL }}
-          LLM__HTTP_CLIENT__API_TOKEN: ${{ secrets.GROQ_API_KEY }}
 
           VCS__PROVIDER: GITHUB
           VCS__PIPELINE__OWNER: ${{ github.repository_owner }}

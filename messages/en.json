@@ -8,17 +8,73 @@
     "brandSubtitle": "API Documentation",
     "homeAriaLabel": "Swagger UI home",
     "navigationAriaLabel": "Main navigation",
+    "desktopNavigationAriaLabel": "Desktop navigation",
+    "mobileNavigationAriaLabel": "Mobile navigation",
     "about": "About",
     "editor": "Editor",
     "history": "History",
     "authAction": "Sign in",
+    "signoutAction": "Sign out",
     "menuAriaLabel": "Open menu",
     "languageLabel": "Language",
     "english": "EN",
     "russian": "RU"
   },
+  "FOOTER": {
+    "about": "About",
+    "madeBy": "Made with ♥ by ATOM Team"
+  },
   "MAIN_PAGE": {
     "title": "Main page"
+  },
+  "ABOUT_PAGE": {
+    "title": "Our Team",
+    "subtitle": "Four roles that keep the project in balance.",
+    "photoAlt": "A team of workers sitting on a beam above the city",
+    "captionTitle": "One beam, four roles.",
+    "captionText": "The photo sets the page metaphor: the team balances code, design, documentation, and review.",
+    "schoolAriaLabel": "Go to the RS School React course page",
+    "schoolLogoAlt": "RS School emblem",
+    "schoolCourseTitle": "RS School React Course",
+    "schoolCourseText": "A free online English-language course for students with strong JavaScript, TypeScript, and Frontend fundamentals.",
+    "appInfoTitle": "About the app and technologies",
+    "appInfoText": "Swagger Editor App helps load, edit, and review API schemas in JSON and YAML. The project is built with a modern React stack, typing, internationalization, Material UI components, and tests.",
+    "techStackAriaLabel": "Project technology stack",
+    "rolesAriaLabel": "Team roles",
+    "roles": {
+      "alexey": {
+        "name": "Anna Zhuravleva",
+        "alt": "Portrait of Anna Zhuravleva",
+        "description": "Anna is our mentor. Very strict and tough, but kind at heart."
+      },
+      "daria": {
+        "name": "Tatyana Grosul",
+        "alt": "Portrait of Tatyana Grosul",
+        "description": "Team lead and the driving force of the team. Simply awesome."
+      },
+      "bogdan": {
+        "name": "Maria Fiodorova",
+        "alt": "Portrait of Maria Fiodorova",
+        "description": "Developer by day, rock climber by night."
+      },
+      "viktor": {
+        "name": "Andrei Tseniuta",
+        "alt": "Portrait of Andrei Tseniuta",
+        "description": "Developer with a big heart and a smile."
+      }
+    }
+  },
+  "REGISTRATION_PAGE": {
+    "title": "Registration",
+    "emailLabel": "Email",
+    "emailHelperText": "The email must be in the format name@example.com",
+    "passwordLabel": "Create a password",
+    "passwordHelperText": "The password must be longer than 8 characters",
+    "repeatPasswordLabel": "Repeat your password",
+    "repeatPasswordHelperText": "Re-enter your password to confirm",
+    "actionButtonText": "Register",
+    "infoText": "Already have an account?",
+    "actionLinkText": "Log in"
   },
   "LOGIN_PAGE": {
     "title": "Login",
@@ -28,19 +84,29 @@
     "passwordHelperText": "Please enter your password",
     "actionButtonText": "Log in",
     "hintText": "Don't have an account yet?",
-    "linkText": "Register",
-    "validation": {
-      "invalidEmailFormat": "Incorrect email format",
-      "passwordMinLength": "Password must be at least 8 characters long",
-      "passwordLetter": "Password must contain at least one letter",
-      "passwordDigit": "Password must contain at least one digit",
-      "passwordSpecialChar": "Password must contain at least one special character"
-    }
+    "linkText": "Register"
   },
   "EDITOR": {
     "title": "Swagger Editor",
     "clearButton": "Clear",
-    "loadButton": "Load"
+    "loadButton": "Load",
+    "notifications": {
+      "loadingSuccess": "successfully loaded",
+      "loadingError": "Error reading file",
+      "fileTooLarge": "The file size must not exceed 2MB",
+      "invalidFileType": "has an invalid format. Only JSON, YAML, and YML are allowed",
+      "conversionError": "Unsupported schema format. Conversion not possible",
+      "jsonToYaml": "Failed to convert JSON to YAML: Check the source code syntax",
+      "yamlToJson": "Failed to convert YAML to JSON: Check the source code syntax",
+      "invalidYaml": "Invalid YAML structure",
+      "invalidObject": "Schema must be a valid JSON/YAML object",
+      "unknownValidationError": "Unknown validation error",
+      "invalidStructure": "Invalid structure",
+      "unknownError": "Unknown error"
+    },
+    "errorList": {
+      "title": "Specification errors"
+    }
   },
   "HISTORY": {
     "title": "Request history",
@@ -63,5 +129,19 @@
   "PASSWORD": {
     "showPasswordButtonLabel": "Show password",
     "hidePasswordButtonLabel": "Hide password"
+  },
+  "FORM_VALIDATION": {
+    "invalidEmailFormat": "Incorrect email format",
+    "passwordMinLength": "Password must be at least 8 characters long",
+    "passwordLetter": "Password must contain at least one letter",
+    "passwordDigit": "Password must contain at least one digit",
+    "passwordSpecialChar": "Password must contain at least one special character",
+    "repeatPassword": "Passwords must match"
+  },
+  "DATABASE": {
+    "user_already_exists": "A user with this email already exists",
+    "successful_registration": "Registration successful",
+    "unknown_error": "An error occurred. Please try again later",
+    "unexpected_failure": "Something went wrong. Please try reloading the page"
   }
 }
