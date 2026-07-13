@@ -36,11 +36,20 @@ describe('Header', () => {
   it('renders unique navigation links', () => {
     renderHeader();
 
-    const navigation = screen.getByRole('navigation', { name: 'Основная навигация' });
+    const navigation = screen.getByRole('navigation', { name: 'Навигация для десктопа' });
 
     expect(within(navigation).getAllByRole('link')).toHaveLength(2);
     expect(within(navigation).getByRole('link', { name: 'О проекте' })).toHaveAttribute('href', '/about');
     expect(within(navigation).getByRole('link', { name: 'Редактор' })).toHaveAttribute('href', '/');
+  });
+
+  it('renders navigation links in the mobile menu', () => {
+    renderHeader();
+
+    const mobileNavigation = screen.getByRole('navigation', { name: 'Навигация для мобильного меню' });
+
+    expect(within(mobileNavigation).getByRole('link', { name: 'О проекте' })).toHaveAttribute('href', '/about');
+    expect(within(mobileNavigation).getByRole('link', { name: 'Редактор' })).toHaveAttribute('href', '/');
   });
 
   it('login button has link to login page', () => {

@@ -8,6 +8,8 @@
     "brandSubtitle": "API Documentation",
     "homeAriaLabel": "Swagger UI home",
     "navigationAriaLabel": "Main navigation",
+    "desktopNavigationAriaLabel": "Desktop navigation",
+    "mobileNavigationAriaLabel": "Mobile navigation",
     "about": "About",
     "editor": "Editor",
     "authAction": "Sign in",
@@ -22,6 +24,43 @@
   },
   "MAIN_PAGE": {
     "title": "Main page"
+  },
+  "ABOUT_PAGE": {
+    "title": "Our Team",
+    "subtitle": "Four roles that keep the project in balance.",
+    "photoAlt": "A team of workers sitting on a beam above the city",
+    "captionTitle": "One beam, four roles.",
+    "captionText": "The photo sets the page metaphor: the team balances code, design, documentation, and review.",
+    "schoolAriaLabel": "Go to the RS School React course page",
+    "schoolLogoAlt": "RS School emblem",
+    "schoolCourseTitle": "RS School React Course",
+    "schoolCourseText": "A free online English-language course for students with strong JavaScript, TypeScript, and Frontend fundamentals.",
+    "appInfoTitle": "About the app and technologies",
+    "appInfoText": "Swagger Editor App helps load, edit, and review API schemas in JSON and YAML. The project is built with a modern React stack, typing, internationalization, Material UI components, and tests.",
+    "techStackAriaLabel": "Project technology stack",
+    "rolesAriaLabel": "Team roles",
+    "roles": {
+      "alexey": {
+        "name": "Anna Zhuravleva",
+        "alt": "Portrait of Anna Zhuravleva",
+        "description": "Anna is our mentor. Very strict and tough, but kind at heart."
+      },
+      "daria": {
+        "name": "Tatyana Grosul",
+        "alt": "Portrait of Tatyana Grosul",
+        "description": "Team lead and the driving force of the team. Simply awesome."
+      },
+      "bogdan": {
+        "name": "Maria Fiodorova",
+        "alt": "Portrait of Maria Fiodorova",
+        "description": "Developer by day, rock climber by night."
+      },
+      "viktor": {
+        "name": "Andrei Tseniuta",
+        "alt": "Portrait of Andrei Tseniuta",
+        "description": "Developer with a big heart and a smile."
+      }
+    }
   },
   "REGISTRATION_PAGE": {
     "title": "Registration",
