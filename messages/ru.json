@@ -68,18 +68,17 @@
     }
   },
   "VIEWER": {
-    "title": "Просмотр"
-  },
-  "PASSWORD": {
-    "showPasswordButtonLabel": "Показать пароль",
-    "hidePasswordButtonLabel": "Скрыть пароль"
-  },
-  "ENDPOINT_CARD": {
+    "title": "Просмотр",
     "parameters": "Параметры",
     "executeAction": "Выполнить",
     "response": "Ответы",
     "tryAction": "Заполнить",
-    "cancelAction": "Отмена"
+    "cancelAction": "Отмена",
+    "emptyMessage": "Нет данных для отображения. Пожалуйста, вставьте OpenApi схему"
+  },
+  "PASSWORD": {
+    "showPasswordButtonLabel": "Показать пароль",
+    "hidePasswordButtonLabel": "Скрыть пароль"
   },
   "FORM_VALIDATION": {
     "invalidEmailFormat": "Неверный формат почты",

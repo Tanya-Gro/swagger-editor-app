@@ -17,7 +17,7 @@ type CardProps = {
 
 export function Card({ endpoint }: CardProps) {
   const { pathname, method, summary, parameters, responses } = endpoint;
-  const t = useTranslations('ENDPOINT_CARD');
+  const t = useTranslations('VIEWER');
 
   const [isFormOpen, setOpen] = useState<boolean>(false);
 
