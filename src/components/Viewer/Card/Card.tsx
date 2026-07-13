@@ -1,6 +1,6 @@
 'use client';
 
-import { Accordion, AccordionDetails, AccordionSummary, Chip, Divider } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Divider } from '@mui/material';
 import { KeyboardArrowDown } from '@mui/icons-material';
 
 import styles from './Card.module.css';
@@ -8,6 +8,7 @@ import classNames from 'classnames/bind';
 import { type Endpoint } from '@/types';
 import { Responses } from './Responses/Responses';
 import { Parameters } from './Parameters/Parameters';
+import { MethodChip } from '@/views/History/HistoryTable/HistoryTable';
 
 const cx = classNames.bind(styles);
 
@@ -22,7 +23,7 @@ export function Card({ endpoint }: CardProps) {
     <Accordion>
       <AccordionSummary expandIcon={<KeyboardArrowDown />}>
         <div className={cx('header')}>
-          <Chip label={method} />
+          <MethodChip method={method.toUpperCase()} />
           <code className={cx('path')}>{pathname}</code>
         </div>
         <p className={cx('summary')}>{summary ?? ''}</p>
