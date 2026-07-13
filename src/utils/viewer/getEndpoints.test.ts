@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { getEndpoints } from './getEndpoints';
 
-const petStoreSchema = `
+const schema = `
 openapi: 3.0.4
 info:
   title: Swagger Petstore - OpenAPI 3.0
@@ -165,7 +165,7 @@ components:
             - sold
 `;
 
-const endpoints = getEndpoints(petStoreSchema);
+const endpoints = getEndpoints(schema);
 
 describe('getEndpoints', () => {
   it('parses a Petstore endpoint', () => {
