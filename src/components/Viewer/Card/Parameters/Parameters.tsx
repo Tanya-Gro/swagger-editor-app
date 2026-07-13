@@ -16,8 +16,20 @@ type ParametersProps = {
   body: RequestBody | null;
 };
 
+function parseRequestBody(body: RequestBody | null): string {
+  if (body === null) {
+    return '';
+  }
+
+  return JSON.stringify(body, null, 2);
+}
+
 export function Parameters({ parameters, body }: ParametersProps) {
   const [isFormOpen, setOpen] = useState<boolean>(false);
+
+  const initialBodyValue = parseRequestBody(body);
+  const [bodyValue, setBodyValue] = useState<string>(initialBodyValue);
+
   const t = useTranslations('VIEWER');
 
   return (
@@ -69,8 +81,28 @@ export function Parameters({ parameters, body }: ParametersProps) {
           <p className={cx('empty-message')}>{t('noParametersMessage')}</p>
         )}
         <h2 className={cx('title')}>{t('requestBody')}</h2>
-        {body ? (
-          <TextField fullWidth multiline minRows={3} disabled={!isFormOpen} />
+        {initialBodyValue ? (
+          <TextField
+            name="requestBody"
+            value={bodyValue}
+            onChange={(event) => setBodyValue(event.target.value)}
+            fullWidth
+            multiline
+            minRows={3}
+            slotProps={{
+              htmlInput: {
+                readOnly: !isFormOpen,
+                spellCheck: false,
+              },
+            }}
+            sx={{
+              '& textarea': {
+                fontFamily: 'monospace',
+                whiteSpace: 'pre',
+                tabSize: 2,
+              },
+            }}
+          />
         ) : (
           <p className={cx('empty-message')}>{t('noBodyMessage')}</p>
         )}
