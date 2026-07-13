@@ -4,7 +4,7 @@ export const MuiOutlinedInput = {
       '& .MuiOutlinedInput-notchedOutline': {
         borderColor: 'var(--color-border)',
       },
-      '&:hover .MuiOutlinedInput-notchedOutline': {
+      '&:not(.Mui-disabled):hover .MuiOutlinedInput-notchedOutline': {
         borderColor: 'var(--color-primary-hover)',
       },
       '&.Mui-focused .MuiOutlinedInput-notchedOutline': {

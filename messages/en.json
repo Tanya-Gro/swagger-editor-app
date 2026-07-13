@@ -74,7 +74,9 @@
   "ENDPOINT_CARD": {
     "parameters": "Parameters",
     "executeAction": "Execute",
-    "response": "Responses"
+    "response": "Responses",
+    "tryAction": "Try it out",
+    "cancelAction": "Cancel"
   },
   "FORM_VALIDATION": {
     "invalidEmailFormat": "Incorrect email format",

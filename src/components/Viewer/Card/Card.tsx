@@ -7,6 +7,7 @@ import styles from './Card.module.css';
 import classNames from 'classnames/bind';
 import { useTranslations } from 'next-intl';
 import { type Endpoint } from '@/types';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -17,6 +18,8 @@ type CardProps = {
 export function Card({ endpoint }: CardProps) {
   const { pathname, method, summary, parameters, responses } = endpoint;
   const t = useTranslations('ENDPOINT_CARD');
+
+  const [isFormOpen, setOpen] = useState<boolean>(false);
 
   return (
     <Accordion>
@@ -29,34 +32,52 @@ export function Card({ endpoint }: CardProps) {
       </AccordionSummary>
       <Divider sx={{ margin: '16px 4px' }} />
       <AccordionDetails>
-        <form className={cx('form')}>
-          {parameters.length > 0 && (
-            <>
-              <h2 className={cx('section-title')}>{t('parameters')}</h2>
-              {parameters.map((param) => {
-                return (
-                  <TextField
-                    key={`${param.in}-${param.name}`}
-                    fullWidth
-                    name={param.name}
-                    label={param.name}
-                    helperText={param.description ?? ''}
-                    required={param.required}
-                    type="string"
-                  />
-                );
-              })}
-            </>
-          )}
-          <div className={cx('actions')}>
-            <Button type="submit" variant="contained" startIcon={<PlayArrowOutlined />}>
-              {t('executeAction')}
-            </Button>
-            <Button type="button" variant="outlined" startIcon={<ContentCopyOutlined />}>
-              cURL
-            </Button>
+        <section>
+          <div className={cx('request')}>
+            <h2 className={cx('section-title')}>{t('parameters')}</h2>
+            {isFormOpen ? (
+              <Button variant="outlined" size="small" onClick={() => setOpen(false)}>
+                {t('cancelAction')}
+              </Button>
+            ) : (
+              <Button variant="contained" size="small" onClick={() => setOpen(true)}>
+                {t('tryAction')}
+              </Button>
+            )}
           </div>
-        </form>
+          <form className={cx('form')}>
+            {parameters.length > 0 && (
+              <>
+                {parameters.map((param) => {
+                  return (
+                    <TextField
+                      key={`${param.in}-${param.name}`}
+                      fullWidth
+                      name={param.name}
+                      label={param.name}
+                      helperText={param.description ?? ''}
+                      required={param.required}
+                      type="string"
+                      multiline={param.name === 'body'}
+                      minRows={3}
+                      disabled={!isFormOpen}
+                    />
+                  );
+                })}
+              </>
+            )}
+            {isFormOpen && (
+              <div className={cx('actions')}>
+                <Button type="submit" variant="contained" startIcon={<PlayArrowOutlined />} disabled={!isFormOpen}>
+                  {t('executeAction')}
+                </Button>
+                <Button type="button" variant="outlined" startIcon={<ContentCopyOutlined />} disabled={!isFormOpen}>
+                  cURL
+                </Button>
+              </div>
+            )}
+          </form>
+        </section>
         <section className={cx('responses')}>
           {responses && (
             <>
